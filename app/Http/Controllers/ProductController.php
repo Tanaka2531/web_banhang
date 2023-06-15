@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Supplier;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -13,54 +16,72 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::get()->sortBy('id');
+        return view('admin.products.index_product', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function loadAddProducts()
     {
-        //
+        $categorys = Category::get()->sortBy('id');
+        $suppliers = Supplier::get()->sortBy('id');
+        $update = NULL;
+        return view('admin.products.add_product', compact('categorys','suppliers','update'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProductRequest $request)
+    public function handleaddproducts(Request $data)
     {
-        //
+        $add = new Product;
+        $add->name = $data->name_product;
+        $add->desc = $data->desc_product;
+        $add->content = $data->content_product;
+        $add->code = $data->code_product;
+        $add->price_regular = $data->price_regular_product;
+        $add->price_sale = $data->price_sale_product;
+        $add->status = 'hienthi';
+        $add->id_cate = $data->cate_products;
+        $add->id_supplier = $data->sup_products;
+        $add->photo = $data->photo_product;
+        $add->save();
+        return redirect()->route('products');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        //
+    public function loadUpdateProducts($id) {
+        $categorys = Category::get()->sortBy('id');
+        $suppliers = Supplier::get()->sortBy('id');
+        $update = Product::find($id);
+        
+        if ($update == null) {
+            return view('products');
+        } else {
+            return view('admin.products.add_product', compact('update','categorys','suppliers'));
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
+    public function handleupdateproducts(Request $data, $id)
     {
-        //
+        $add = Product::find($id);
+        $add->name = $data->name_product;
+        $add->desc = $data->desc_product;
+        $add->content = $data->content_product;
+        $add->code = $data->code_product;
+        $add->price_regular = $data->price_regular_product;
+        $add->price_sale = $data->price_sale_product;
+        $add->status = 'hienthi';
+        $add->id_cate = $data->cate_products;
+        $add->id_supplier = $data->sup_products;
+        $add->photo = 'abc.png';
+        $add->save();
+        return redirect()->route('products');
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProductRequest $request, Product $product)
+   
+    public function deleteProducts($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        $dlt = Product::find($id);
+        if ($dlt == null || $dlt->deleted_at != NULL) {
+            return view('products');
+        } else {
+            $dlt->delete();
+            return redirect()->route('products');
+        }
     }
 }
