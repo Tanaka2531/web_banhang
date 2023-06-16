@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <div class="box_input">
                             <label for="title">Tên dung lượng</label>
-                            <input type="text" class="form-control" name="name_size" id="name_size" placeholder="Tên dung lượng">
+                            <input type="text" class="form-control" name="name_size" id="name_size" placeholder="Tên dung lượng" value="{{ ($update != NULL) ? $update['name'] : '' }}">
                         </div>
                         <div class="item_check_status">
                             <label for="status">Hiển thị:</label>

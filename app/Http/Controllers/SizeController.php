@@ -32,6 +32,23 @@ class SizeController extends Controller
         return redirect()->route('sizes');
     }
 
+    public function loadUpdateSizes($id) {
+        $update = Size::find($id);
+        if ($update == null) {
+            return view('sizes');
+        } else {
+            return view('admin.sizes.add_size', compact('update'));
+        }
+    }
+
+    public function handleUpdateSizes(Request $data, $id)
+    {
+        $add = Size::find($id);
+        $add->name = $data->name_size;
+        $add->save();
+        return redirect()->route('sizes');
+    }
+
     public function deleteSizes($id)
     {
         $dlt = Size::find($id);

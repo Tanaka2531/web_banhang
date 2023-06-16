@@ -5,62 +5,59 @@ namespace App\Http\Controllers;
 use App\Models\Color;
 use App\Http\Requests\StoreColorRequest;
 use App\Http\Requests\UpdateColorRequest;
+use Illuminate\Http\Request;
 
 class ColorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $colors = Color::get()->sortBy('id');
+        return view('admin.colors.index_color', compact('colors'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function loadAddColors()
     {
-        //
+        $update = NULL;
+        return view('admin.colors.add_color', compact('update'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreColorRequest $request)
+    public function handleAddColors(Request $data)
     {
-        //
+        $add = new Color;
+        $add->name = $data->name_color;
+        $add->code_color = $data->name_code;
+        // $add->status = $data->name_size;
+        $add->save();
+        return redirect()->route('colors');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Color $color)
+    public function loadUpdateColors($id)
     {
-        //
+        $update = Color::find($id);
+        if ($update == null) {
+            return view('colors');
+        } else {
+            return view('admin.colors.add_color', compact('update'));
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Color $color)
+    public function handleUpdateColors(Request $data,$id)
     {
-        //
+        $add = Color::find($id);
+        $add->name = $data->name_color;
+        $add->code_color = $data->name_code;
+        // $add->status = $data->name_size;
+        $add->save();
+        return redirect()->route('colors');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateColorRequest $request, Color $color)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Color $color)
-    {
-        //
+    public function deletecolors($id) {
+        $dlt = Color::find($id);
+        if($dlt == NULL && $dlt->deleted_at != NULL) {
+            return view('colors');
+        } else {
+            $dlt->delete();
+            return redirect()->route('colors');
+        }
     }
 }
