@@ -81,9 +81,9 @@
                                         <label for="supplier">Hãng sản xuất</label>
                                         <select class="form-select" name="sup_products" aria-label="Default select example">
                                             <option selected>Chọn Hãng</option>
-                                            @foreach ($suppliers as $k1 => $v1)
+                                            @foreach ($brands as $k1 => $v1)
                                                 @if ($update != NULL)
-                                                    @if ($v1['id'] == $update['id_supplier']) 
+                                                    @if ($v1['id'] == $update['id_brand']) 
                                                         <option selected value="{{ $v1['id'] }}">{{ $v1['name'] }}</option>
                                                     @endif 
                                                 @else
