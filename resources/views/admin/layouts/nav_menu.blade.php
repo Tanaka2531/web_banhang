@@ -21,7 +21,7 @@
                     <a href="../main_cate/index_cate.html">Quản lý loại sản phẩm</a>
                 </li>
                 <li>
-                    <a href="../main_data/index_data.html">Quản lý dung lượng</a>
+                    <a href="{{ route('sizes') }}">Quản lý dung lượng</a>
                 </li>
                 <li>
                     <a href="../main_color/index_color.html">Quản lý màu sắc</a>
