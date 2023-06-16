@@ -24,7 +24,7 @@
                     <a href="{{ route('sizes') }}">Quản lý dung lượng</a>
                 </li>
                 <li>
-                    <a href="../main_color/index_color.html">Quản lý màu sắc</a>
+                    <a href="{{ route('colors') }}">Quản lý màu sắc</a>
                 </li>
                 <li>
                     <a href="../main_supplier/index_supplier.html">Quản lý nhà cung cấp</a>
