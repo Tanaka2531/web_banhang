@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Supplier;
-use App\Http\Requests\StoreSupplierRequest;
-use App\Http\Requests\UpdateSupplierRequest;
+use App\Models\Brand;
+use App\Http\Requests\StoreBrandRequest;
+use App\Http\Requests\UpdateBrandRequest;
 
-class SupplierController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.

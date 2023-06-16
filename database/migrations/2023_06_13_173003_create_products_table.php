@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('code')->nullable();
             $table->string('photo')->nullable();
             $table->foreignId('id_cate')->constrained('categories')->nullable();
-            $table->foreignId('id_supplier')->constrained('suppliers')->nullable();
+            $table->foreignId('id_brand')->constrained('brands')->nullable();
             $table->longText('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
