@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Size;
 use App\Http\Requests\StoreSizeRequest;
 use App\Http\Requests\UpdateSizeRequest;
+use Illuminate\Http\Request;
 
 class SizeController extends Controller
 {
@@ -13,54 +14,33 @@ class SizeController extends Controller
      */
     public function index()
     {
-        //
+        $sizes = Size::get()->sortBy('id');
+        return view('admin.sizes.index_size', compact('sizes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function loadAddSizes()
     {
-        //
+        $update = NULL;
+        return view('admin.sizes.add_size', compact('update'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSizeRequest $request)
+    public function handleAddSizes(Request $data)
     {
-        //
+        $add = new Size;
+        $add->name = $data->name_size;
+        $add->save();
+        return redirect()->route('sizes');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Size $size)
+    public function deleteSizes($id)
     {
-        //
+        $dlt = Size::find($id);
+        if ($dlt == null || $dlt->deleted_at != NULL) {
+            return view('sizes');
+        } else {
+            $dlt->delete();
+            return redirect()->route('sizes');
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Size $size)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSizeRequest $request, Size $size)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Size $size)
-    {
-        //
-    }
 }

@@ -28,7 +28,7 @@ class ProductController extends Controller
         return view('admin.products.add_product', compact('categorys','brands','update'));
     }
 
-    public function handleaddproducts(Request $data)
+    public function handleAddProducts(Request $data)
     {
         $add = new Product;
         $add->name = $data->name_product;
@@ -57,7 +57,7 @@ class ProductController extends Controller
         }
     }
 
-    public function handleupdateproducts(Request $data, $id)
+    public function handleUpdateProducts(Request $data, $id)
     {
         $add = Product::find($id);
         $add->name = $data->name_product;
