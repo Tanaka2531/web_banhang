@@ -69,11 +69,13 @@
                                             @foreach ($categorys as $k => $v)
                                                 @if ($update != NULL)
                                                     @if ($v['id'] == $update['id_cate']) 
-                                                        <option selected value="{{ $v['id'] }}">{{ $v['name'] }}</option>
+                                                        <option selected value="{{ $v['id'] }}">{{ $v['name'] }}</option>  
+                                                    @else    
+                                                        <option value="{{ $v['id'] }}">{{ $v['name'] }}</option> 
                                                     @endif
-                                                @else    
+                                                @else
                                                     <option value="{{ $v['id'] }}">{{ $v['name'] }}</option> 
-                                                @endif  
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>
@@ -85,10 +87,12 @@
                                                 @if ($update != NULL)
                                                     @if ($v1['id'] == $update['id_brand']) 
                                                         <option selected value="{{ $v1['id'] }}">{{ $v1['name'] }}</option>
-                                                    @endif 
-                                                @else
-                                                    <option value="{{ $v1['id'] }}">{{ $v1['name'] }}</option>     
-                                                @endif               
+                                                    @else
+                                                        <option value="{{ $v1['id'] }}">{{ $v1['name'] }}</option>    
+                                                    @endif        
+                                                @else       
+                                                    <option value="{{ $v1['id'] }}">{{ $v1['name'] }}</option>    
+                                                @endif      
                                             @endforeach
                                         </select>
                                     </div>
