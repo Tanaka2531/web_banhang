@@ -31,6 +31,15 @@ class ProductController extends Controller
     public function handleAddProducts(Request $data)
     {
         $add = new Product;
+        if($data->photo_product != NULL) {
+            $data->validate([
+                'photo_product' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $images = $data->photo_product;      
+            $imageName = time().'.'.$images->extension();  
+            $images->move(public_path('upload'), $imageName);
+            $add->photo = $imageName;
+        }
         $add->name = $data->name_product;
         $add->desc = $data->desc_product;
         $add->content = $data->content_product;
@@ -40,7 +49,6 @@ class ProductController extends Controller
         $add->status = 'hienthi';
         $add->id_cate = $data->cate_products;
         $add->id_brand = $data->sup_products;
-        $add->photo = $data->photo_product;
         $add->save();
         return redirect()->route('products');
     }
@@ -60,6 +68,15 @@ class ProductController extends Controller
     public function handleUpdateProducts(Request $data, $id)
     {
         $add = Product::find($id);
+        if($data->photo_product != NULL) {
+            $data->validate([
+                'photo_product' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $images = $data->photo_product;      
+            $imageName = time().'.'.$images->extension();  
+            $images->move(public_path('upload'), $imageName);
+            $add->photo = $imageName;
+        }
         $add->name = $data->name_product;
         $add->desc = $data->desc_product;
         $add->content = $data->content_product;
@@ -69,7 +86,6 @@ class ProductController extends Controller
         $add->status = 'hienthi';
         $add->id_cate = $data->cate_products;
         $add->id_brand = $data->sup_products;
-        $add->photo = 'abc.png';
         $add->save();
         return redirect()->route('products');
     }
