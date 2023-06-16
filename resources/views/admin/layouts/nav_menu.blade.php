@@ -10,7 +10,7 @@
     <ul class="list_nav_menu">
         <li>
             <p>
-                <a href=""><ion-icon name="construct-outline"></ion-icon><span>Quản lý Sản Phẩm</span></a>
+                <a href="{{ route('products') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Sản Phẩm</span></a>
                 <ion-icon name="chevron-down-circle-outline"></ion-icon>
             </p>
             <ul class="ul_child">
