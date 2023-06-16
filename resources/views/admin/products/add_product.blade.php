@@ -102,6 +102,15 @@
                         <div class="card">
                             <div class="card-header">Hình ảnh sản phẩm</div>
                             <div class="card-body">
+                                <div class="box_img">         
+                                    @if($update != NULL)
+                                        @if($update['photo'] != NULL)
+                                            <img src="{{ asset('upload/'.$update['photo']) }}" alt="">
+                                        @else
+                                            <img src="{{ asset('admin/images/noimg.jpg') }}" alt="" />
+                                        @endif
+                                    @endif
+                                </div>
                                 <input type="file" class="form-control" name="photo_product" id="photo_product">
                             </div>
                         </div>

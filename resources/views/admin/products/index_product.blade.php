@@ -29,7 +29,7 @@
                             <input class="sty_checkbox form-check-input" type="checkbox">
                         </td>
                         <td class="text-center">{{ ($k + 1) }}</td>
-                        <td><img src="{{ asset('admin/images/img1.jpg') }}" width="100" height="100" alt=""></td>
+                        <td><img src="{{ asset('upload/'.$v['photo']) }}" width="100" height="100" alt=""></td>
                         <td>{{ $v['name'] }}</td>
                         <td class="text-center"><input class="sty_checkbox form-check-input" type="checkbox"></td>
                         <td class="text-center">

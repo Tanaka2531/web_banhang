@@ -89,7 +89,8 @@ label {font-weight: 600;margin-bottom: 5px;}
 .container_main {min-height: 500px;}
 .table_list_product th, .table_list_product tr, .table_list_product thead {border-style: unset !important;}
 .table_list_product {background: #f0f0f0;}
-
+.box_img {padding: 10px;border: 1px solid #e0e0e0;margin-bottom: 15px;border-radius: 5px;}
+.box_img img {width: 100%;border-radius: 5px;}
 
 
 
