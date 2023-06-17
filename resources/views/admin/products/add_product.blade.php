@@ -39,11 +39,28 @@
                             <div class="box_check_status">
                                 <div class="item_check_status">
                                     <label for="status">Trạng thái:</label>
-                                    <select class="form-select" aria-label="Default select example" name="status_product">
-                                        <option selected>Chọn trạng thái</option>
-                                        <option value="1">Hiển thị</option>
-                                        <option value="2">Không hiển thị</option>
+                                    <select class="form-select" aria-label="Default select example" name="status_product">            
+                                        @if($update != NULL) 
+                                            @if($update['status'] == 1)
+                                                <option value="0">Chọn trạng thái</option>
+                                                <option selected value="1">Hiển thị</option>
+                                                <option value="2">Không hiển thị</option>
+                                            @elseif($update['status'] == 2)
+                                                <option value="0">Chọn trạng thái</option>
+                                                <option value="1">Hiển thị</option>
+                                                <option selected value="2">Không hiển thị</option>
+                                            @else
+                                                <option selected value="0">Chọn trạng thái</option>
+                                                <option value="1">Hiển thị</option>
+                                                <option value="2">Không hiển thị</option>
+                                            @endif
+                                        @else
+                                            <option selected value="0">Chọn trạng thái</option>
+                                            <option value="1">Hiển thị</option>
+                                            <option value="2">Không hiển thị</option>                                    
+                                        @endif
                                     </select>
+                                   
                                 </div>
                             </div>
                             <div class="flex_price">
@@ -105,16 +122,56 @@
                                     </div>
                                     <div class="item_box_list">
                                         <label for="supplier">Danh mục màu sắc</label>
-                                        <div class="acb">
-                                            
-                                        </div>
                                         <ul class="select_multi">
-                                            @foreach ($colors as $k2 => $v2)
-                                                <li>
-                                                    <input class="sty_checkbox form-check-input" name="arr_color[]" id="arr_color" type="checkbox" value="{{ $v2['id'] }}">
-                                                    <label>{{ $v2['name'] }}</label>
-                                                </li>
-                                            @endforeach
+                                            @if($color_product != NULL)
+                                                @foreach ($colors as $k2 => $v2)
+                                                    @if(in_array($v2['id'], $color_product))
+                                                        <li>
+                                                            <input class="sty_checkbox form-check-input" name="arr_color[]" id="arr_color" type="checkbox" value="{{ $v2['id'] }}" checked>
+                                                            <label>{{ $v2['name'] }}</label>
+                                                        </li>
+                                                    @else 
+                                                        <li>
+                                                            <input class="sty_checkbox form-check-input" name="arr_color[]" id="arr_color" type="checkbox" value="{{ $v2['id'] }}">
+                                                            <label>{{ $v2['name'] }}</label>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                @foreach ($colors as $k2 => $v2)
+                                                    <li>
+                                                        <input class="sty_checkbox form-check-input" name="arr_color[]" id="arr_color" type="checkbox" value="{{ $v2['id'] }}">
+                                                        <label>{{ $v2['name'] }}</label>
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        </ul>
+                                    </div>
+                                    <div class="item_box_list">
+                                        <label for="supplier">Danh mục dung lượng</label>
+                                        <ul class="select_multi">
+                                            @if($size_product != NULL)
+                                                @foreach ($sizes as $k3 => $v3)
+                                                    @if(in_array($v3['id'], $size_product))
+                                                        <li>
+                                                            <input class="sty_checkbox form-check-input" name="arr_size[]" id="arr_size" type="checkbox" value="{{ $v3['id'] }}" checked>
+                                                            <label>{{ $v3['name'] }}</label>
+                                                        </li>
+                                                    @else 
+                                                        <li>
+                                                            <input class="sty_checkbox form-check-input" name="arr_size[]" id="arr_size" type="checkbox" value="{{ $v3['id'] }}">
+                                                            <label>{{ $v3['name'] }}</label>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                @foreach ($sizes as $k3 => $v3)
+                                                    <li>
+                                                        <input class="sty_checkbox form-check-input" name="arr_size[]" id="arr_size" type="checkbox" value="{{ $v3['id'] }}">
+                                                        <label>{{ $v3['name'] }}</label>
+                                                    </li>
+                                                @endforeach
+                                            @endif
                                         </ul>
                                     </div>
                                 </div>
@@ -134,7 +191,7 @@
                                         <img src="{{ asset('admin/images/noimg.jpg') }}" alt="" />
                                     @endif
                                 </div>
-                                <input type="file" class="form-control" name="photo_product" id="photo_product">
+                                <input type="file" class="form-control" name="photo_product" id="photo_product" value="{{ ($update != NULL) ? $update['photo']: ''}}">
                                 @error('photo_product')
                                     <span class="message_red">{{ $message }}</span>
                                 @enderror

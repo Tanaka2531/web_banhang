@@ -9,11 +9,9 @@
                 <div class="input_search">
                     <input type="text" name="name_search" id="name_search" placeholder="Nhập sản phẩm cần tìm" class="form-control">
                     <button type="submit" class=""><ion-icon name="search-outline"></ion-icon></button>
-                </div>
-                @error('name_search')
-                    <span class="message_red">{{ $message }}</span>
-                @enderror
+                </div>          
             </form>
+            <a href="{{ route('products') }}" class="btn_redirect"><ion-icon name="arrow-back-circle-outline"></ion-icon></a>
         </div>
     </div>
     <div class="box_table_list_product">
@@ -29,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($products as $k => $v) 
+                @foreach($search as $k => $v) 
                     <tr>
                         <td class="text-center">
                             <input class="sty_checkbox form-check-input" type="checkbox">
