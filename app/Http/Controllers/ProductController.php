@@ -47,8 +47,8 @@ class ProductController extends Controller
         $add->price_regular = $data->price_regular_product;
         $add->price_sale = $data->price_sale_product;
         $add->status = 'hienthi';
-        $add->id_cate = $data->cate_products;
-        $add->id_brand = $data->sup_products;
+        $add->id_cate = $data->cate_product;
+        $add->id_brand = $data->sup_product;
         $add->save();
         return redirect()->route('products');
     }
@@ -84,8 +84,8 @@ class ProductController extends Controller
         $add->price_regular = $data->price_regular_product;
         $add->price_sale = $data->price_sale_product;
         $add->status = 'hienthi';
-        $add->id_cate = $data->cate_products;
-        $add->id_brand = $data->sup_products;
+        $add->id_cate = $data->cate_product;
+        $add->id_brand = $data->sup_product;
         $add->save();
         return redirect()->route('products');
     }

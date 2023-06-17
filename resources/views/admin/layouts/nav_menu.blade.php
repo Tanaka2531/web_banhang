@@ -9,11 +9,14 @@
     </div>
     <ul class="list_nav_menu">
         <li>
-            <p>
+            <a href=""><ion-icon name="construct-outline"></ion-icon><span>Bảng điều khiển</span></a>
+        </li> 
+        <li>
+            <p data-vitri="1">
                 <a href="{{ route('products') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Sản Phẩm</span></a>
                 <ion-icon name="chevron-down-circle-outline"></ion-icon>
             </p>
-            <ul class="ul_child">
+            <ul class="ul_child ul_child_1">
                 <li>
                     <a href="{{ route('products') }}">Sản phẩm</a>
                 </li>
@@ -30,19 +33,26 @@
                     <a href="../main_supplier/index_supplier.html">Quản lý nhà cung cấp</a>
                 </li>
             </ul>
-            
         </li>   
         <li>
             <a href=""><ion-icon name="construct-outline"></ion-icon><span>Quản lý Đơn hàng</span></a>
-        </li>      
-        <li>
-            <a href=""><ion-icon name="construct-outline"></ion-icon><span>Quản lý Tài khoản</span></a>
         </li> 
         <li>
-            <a href=""><ion-icon name="construct-outline"></ion-icon><span>Quản lý Mã ưu đãi</span></a>
-        </li>
+            <p data-vitri="2">
+                <a href=""><ion-icon name="construct-outline"></ion-icon><span>Quản lý Tài khoản</span></a>
+                <ion-icon name="chevron-down-circle-outline"></ion-icon>
+            </p>
+            <ul class="ul_child ul_child_2">
+                <li>
+                    <a href="">Tài khoản Quản trị</a>
+                </li>
+                <li>
+                    <a href="">Tài khoản Thành viên</a>
+                </li>
+            </ul>
+        </li>      
         <li>
-            <a href=""><ion-icon name="construct-outline"></ion-icon><span>Quản lý Tin tức</span></a>
+            <a href="{{ route('blogs') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Tin tức</span></a>
         </li>
         
         <li>

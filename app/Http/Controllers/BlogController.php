@@ -5,62 +5,79 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
+use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $blogs = Blog::get()->sortBy('id');
+        return view('admin.blogs.index_blog', compact('blogs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function loadAddBlogs()
     {
-        //
+        $update = NULL;
+        return view('admin.blogs.add_blog', compact('update'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreBlogRequest $request)
+    public function handleAddBlogs(Request $data)
     {
-        //
+        $add = new Blog;
+        if($data->photo_blog != NULL) {
+            $data->validate([
+                'photo_blog' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $images = $data->photo_blog;      
+            $imageName = time().'.'.$images->extension();  
+            $images->move(public_path('upload/blogs'), $imageName);
+            $add->photo = $imageName;
+        }
+        $add->name = $data->name_blog;
+        $add->desc = $data->desc_blog;
+        $add->content = $data->content_blog;
+        $add->status = 'hienthi';
+        $add->save();
+        return redirect()->route('blogs');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Blog $blog)
-    {
-        //
+    public function loadUpdateBlogs($id) {
+        $update = Blog::find($id);
+        if ($update == null) {
+            return view('blogs');
+        } else {
+            return view('admin.blogs.add_blog', compact('update'));
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Blog $blog)
+    public function handleUpdateBlogs(Request $data, $id)
     {
-        //
+        $add = Blog::find($id);
+        if($data->photo_blog != NULL) {
+            $data->validate([
+                'photo_blog' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $images = $data->photo_blog;      
+            $imageName = time().'.'.$images->extension();  
+            $images->move(public_path('upload/blogs'), $imageName);
+            $add->photo = $imageName;
+        }
+        $add->name = $data->name_blog;
+        $add->desc = $data->desc_blog;
+        $add->content = $data->content_blog;
+        $add->status = 'hienthi';
+        $add->save();
+        return redirect()->route('blogs');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateBlogRequest $request, Blog $blog)
+    public function deleteBlogs($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Blog $blog)
-    {
-        //
+        $dlt = Blog::find($id);
+        if ($dlt == null || $dlt->deleted_at != NULL) {
+            return view('blogs');
+        } else {
+            $dlt->delete();
+            return redirect()->route('blogs');
+        }
     }
 }
