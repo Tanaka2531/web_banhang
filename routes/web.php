@@ -16,6 +16,7 @@ Route::post('/products/add', [ProductController::class, 'handleAddProducts'])->n
 Route::get('/products/update/{id}', [ProductController::class, 'loadUpdateProducts'])->name('loadupdateproducts');
 Route::post('/products/update/{id}', [ProductController::class, 'handleUpdateProducts'])->name('handleupdateproducts');
 Route::get('/products/delete/{id}', [ProductController::class, 'deleteProducts'])->name('deleteproducts');
+Route::get('/products/search', [ProductController::class, 'searchProducts'])->name('searchproducts');
 
 Route::get('/sizes', [SizeController::class, 'index'])->name('sizes');
 Route::get('/sizes/add', [SizeController::class, 'loadAddSizes'])->name('loadaddsizes');

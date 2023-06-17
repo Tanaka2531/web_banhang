@@ -22,17 +22,16 @@ class Product_Request extends FormRequest
     public function rules(): array
     {
         return [
-            'photo_product' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photo_product' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name_product' => 'required',
         ];
     }
 
     public function messages() {
         return [
-            'photo_product.required' => 'Ảnh không được trống',
             'photo_product.mimes' => 'Ảnh phải là những định dạng jpeg, png, jpg, gif, svg',
             'photo_product.max' => 'Ảnh chỉ nhập ảnh có kích thước bé hơn 2MB',
-            'name_product.required' => 'Tên sản phẩm không được trống'
+            'name_product.required' => 'Tên sản phẩm không được trống',
         ];
     }
 }
