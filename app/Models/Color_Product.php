@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class Size_Color_Photo extends Model
+class Color_Product extends Model
 {
     use softDeletes;
     use HasFactory;
-    protected $table = 'size_color_photos';
+    protected $table = 'color_products';
 }

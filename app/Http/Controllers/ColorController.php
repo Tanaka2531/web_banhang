@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Color;
-use App\Http\Requests\StoreColorRequest;
-use App\Http\Requests\UpdateColorRequest;
+use App\Http\Requests\Color_Request;
 use Illuminate\Http\Request;
 
 class ColorController extends Controller
@@ -21,12 +20,11 @@ class ColorController extends Controller
         return view('admin.colors.add_color', compact('update'));
     }
 
-    public function handleAddColors(Request $data)
+    public function handleAddColors(Color_Request $data)
     {
         $add = new Color;
         $add->name = $data->name_color;
         $add->code_color = $data->name_code;
-        // $add->status = $data->name_size;
         $add->save();
         return redirect()->route('colors');
     }
@@ -41,7 +39,7 @@ class ColorController extends Controller
         }
     }
 
-    public function handleUpdateColors(Request $data,$id)
+    public function handleUpdateColors(Color_Request $data,$id)
     {
         $add = Color::find($id);
         $add->name = $data->name_color;

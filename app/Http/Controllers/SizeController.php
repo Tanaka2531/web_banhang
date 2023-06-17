@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Size;
-use App\Http\Requests\StoreSizeRequest;
-use App\Http\Requests\UpdateSizeRequest;
+use App\Http\Requests\Size_Request;
 use Illuminate\Http\Request;
 
 class SizeController extends Controller
@@ -24,7 +23,7 @@ class SizeController extends Controller
         return view('admin.sizes.add_size', compact('update'));
     }
 
-    public function handleAddSizes(Request $data)
+    public function handleAddSizes(Size_Request $data)
     {
         $add = new Size;
         $add->name = $data->name_size;
@@ -41,7 +40,7 @@ class SizeController extends Controller
         }
     }
 
-    public function handleUpdateSizes(Request $data, $id)
+    public function handleUpdateSizes(Size_Request $data, $id)
     {
         $add = Size::find($id);
         $add->name = $data->name_size;

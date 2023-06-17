@@ -29,9 +29,15 @@
                             <input class="sty_checkbox form-check-input" type="checkbox">
                         </td>
                         <td class="text-center">{{ ($k + 1) }}</td>
-                        <td><img src="{{ asset('upload/'.$v['photo']) }}" width="100" height="100" alt=""></td>
+                        <td><img src="{{ asset('upload/products/'.$v['photo']) }}" width="100" height="100" alt=""></td>
                         <td>{{ $v['name'] }}</td>
-                        <td class="text-center"><input class="sty_checkbox form-check-input" type="checkbox"></td>
+                        <td class="text-center">
+                            @if($v['status'] == 1)
+                                <span class="green_status">Hiển thị</span>
+                            @else
+                                <span class="red_status">Không hiển thị</span>
+                            @endif
+                        </td>
                         <td class="text-center">
                             <div class="flex_options">
                                 <a href="{{ route('loadupdateproducts',['id' => $v['id']]) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
@@ -39,7 +45,7 @@
                                 <a href=""><span><ion-icon name="eye-outline"></ion-icon></span></a>
                             </div>
                         </td>
-                    <tr>    
+                    </tr>    
                 @endforeach
             </tbody>
         </table>

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Models\Color;
+use App\Models\Color_Product;
+// use App\Models\Size;
+use App\Http\Requests\Product_Request;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -24,57 +26,78 @@ class ProductController extends Controller
     {
         $categorys = Category::get()->sortBy('id');
         $brands = Brand::get()->sortBy('id');
+        $colors = Color::get()->sortBy('id');
         $update = NULL;
-        return view('admin.products.add_product', compact('categorys','brands','update'));
+        return view('admin.products.add_product', compact('categorys','brands','update','colors'));
     }
 
-    public function handleAddProducts(Request $data)
+    public function handleAddProducts(Product_Request $data)
     {
         $add = new Product;
+        
         if($data->photo_product != NULL) {
-            $data->validate([
-                'photo_product' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
             $images = $data->photo_product;      
             $imageName = time().'.'.$images->extension();  
-            $images->move(public_path('upload'), $imageName);
+            $images->move(public_path('upload/products'), $imageName);
             $add->photo = $imageName;
-        }
+        }    
         $add->name = $data->name_product;
         $add->desc = $data->desc_product;
         $add->content = $data->content_product;
         $add->code = $data->code_product;
         $add->price_regular = $data->price_regular_product;
         $add->price_sale = $data->price_sale_product;
-        $add->status = 'hienthi';
-        $add->id_cate = $data->cate_product;
-        $add->id_brand = $data->sup_product;
+        if($add->status != NULL) {
+            $add->status = $data->status_product;
+        } else {
+            $add->status = 1;
+        }  
+        if($data->cate_product != 0) {
+            $add->id_cate = $data->cate_product;
+        } else {
+            $add->id_cate = null;
+        }
+        if($data->sup_product != 0) {
+            $add->id_brand = $data->sup_product;
+        } else {
+            $add->id_brand = null;
+        }
         $add->save();
+        if($data->arr_color != NULL) {
+            $arr = $data->arr_color;
+            $abc = count($data->arr_color);
+            for($i = 0;$i < $abc;$i++) {
+                $add_SCP = new Color_Product;
+                $add_SCP->id_product = $add->id;
+                $add_SCP->id_color = $arr[$i];
+                $add_SCP->save();
+            }      
+        }  
         return redirect()->route('products');
     }
 
     public function loadUpdateProducts($id) {
         $categorys = Category::get()->sortBy('id');
         $brands = Brand::get()->sortBy('id');
+        $colors = Color::get()->sortBy('id');
+        // $color_product = Color_Product::where('id_product',$id);
+        // dd($color_product);
         $update = Product::find($id);
         
         if ($update == null) {
             return view('products');
         } else {
-            return view('admin.products.add_product', compact('update','categorys','brands'));
+            return view('admin.products.add_product', compact('update','categorys','brands', 'colors','color_product'));
         }
     }
 
-    public function handleUpdateProducts(Request $data, $id)
+    public function handleUpdateProducts(Product_Request $data, $id)
     {
         $add = Product::find($id);
         if($data->photo_product != NULL) {
-            $data->validate([
-                'photo_product' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
             $images = $data->photo_product;      
             $imageName = time().'.'.$images->extension();  
-            $images->move(public_path('upload'), $imageName);
+            $images->move(public_path('upload/products'), $imageName);
             $add->photo = $imageName;
         }
         $add->name = $data->name_product;
@@ -83,7 +106,11 @@ class ProductController extends Controller
         $add->code = $data->code_product;
         $add->price_regular = $data->price_regular_product;
         $add->price_sale = $data->price_sale_product;
-        $add->status = 'hienthi';
+        if($add->status != NULL) {
+            $add->status = $data->status_product;
+        } else {
+            $add->status = 1;
+        } 
         $add->id_cate = $data->cate_product;
         $add->id_brand = $data->sup_product;
         $add->save();
