@@ -1,5 +1,5 @@
 <div class="header_main">
-    <div class="title_main">Quản lý sản phẩm</div>
+    <div class="title_main">{{ $pageName }}</div>
     <div class="box_noti_avt">
         <div class="contianer_noti">
             <div class="flex_noti">

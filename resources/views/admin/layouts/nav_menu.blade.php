@@ -21,7 +21,7 @@
                     <a href="{{ route('products') }}">Sản phẩm</a>
                 </li>
                 <li>
-                    <a href="../main_cate/index_cate.html">Quản lý loại sản phẩm</a>
+                    <a href="{{ route('listCategories') }}">Quản lý danh mục</a>
                 </li>
                 <li>
                     <a href="{{ route('sizes') }}">Quản lý dung lượng</a>
@@ -30,7 +30,7 @@
                     <a href="{{ route('colors') }}">Quản lý màu sắc</a>
                 </li>
                 <li>
-                    <a href="../main_supplier/index_supplier.html">Quản lý nhà cung cấp</a>
+                    <a href="{{ route('listBrands') }}">Quản lý hãng</a>
                 </li>
             </ul>
         </li>   
