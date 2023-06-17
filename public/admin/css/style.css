@@ -21,7 +21,7 @@ body {padding: 0;margin: 0;position: relative;}
 .list_nav_menu li .ul_child {opacity: 0;height: 0px;list-style: none;padding: 0;margin: 0;width: 0%;}
 .list_nav_menu li .ul_child.act {opacity: 1;height: auto;width: 100%;}
 .list_nav_menu li p {margin: 0;display: flex;align-items: center;justify-content: space-between;}
-.ul_child.act li {margin-bottom: 0 !important;border-radius: 0 !important;transition: 0s !important;}
+.ul_child.act li {margin-bottom: 0 !important;border-radius: 0 !important;transition: 0s !important;border-bottom: 1px solid #d2d2d2;}
 .ul_child.act li:last-child {border-bottom: none !important;padding-bottom: 0 !important;}
 .header_main {display: flex;justify-content: space-between;padding: 15px 20px;align-items: center;border-bottom: 1px solid #d2d2d2;background: #f0f0f0;position: sticky;top: 0;z-index: 2;}
 .flex_noti {width: 70px;height: 35px;font-size: 23px;display: flex;justify-content: center;align-items: center;border: 1px solid #ccc;border-radius: 10px;position: relative;overflow: auto;}
@@ -88,19 +88,25 @@ label {font-weight: 600;margin-bottom: 5px;}
 .table_list_product img {width: 75px;height: 75px;}
 .container_main {min-height: 500px;}
 .table_list_product th, .table_list_product tr, .table_list_product thead {border-style: unset !important;}
-.table_list_product {background: #f0f0f0;}
+.table_list_product {background: #f0f0f0;border-radius: 5px !important;overflow: hidden;}
 .box_img {padding: 10px;border: 1px solid #e0e0e0;margin-bottom: 15px;border-radius: 5px;}
 .box_img img {width: 100%;border-radius: 5px;}
 .left_nav_menu .list_nav_menu li a span {z-index: 1;font-size: 16px;visibility: unset;opacity: 1;display: block;white-space: nowrap;}
 .left_nav_menu.act .list_nav_menu li {margin: 5px 10px;transition: 0.5s;}
 .left_nav_menu .list_nav_menu li {margin: 0 auto;transition: 0.5s;margin-bottom: 5px;}
-
-
-
-
-
-
-
+.left_nav_menu.act .list_nav_menu li p ion-icon {display: none;}
+.left_nav_menu.act .list_nav_menu li p a ion-icon {display: block;}
+.left_nav_menu.act .list_nav_menu p, .left_nav_menu.act .list_nav_menu a {justify-content: center;}
+.ul_child li {padding-left: 23px;margin-bottom: 0 !important;display: block;}
+.green_status {color: #00be00;}
+.red_status {color: #f00;}
+.message_red, .box_input span {padding: 5px;display: flex;margin-top: 0px;font-size: 13px;color: #f00;}
+.table_list_product tr:last-child {border: none !IMPORTANT;border-color: #f0f0f0 !important;}
+.select_multi {padding: 10px;padding-top: 3px;padding-bottom: 3px;margin: 0;list-style: none;border: 1px solid #d2d2d2;border-radius: 5px;}
+.select_multi li {padding: 3px 0 7px 0;border-bottom: 1px solid #d2d2d2;}
+.select_multi li input {margin-top: 0px;vertical-align: middle;}
+.select_multi li label {margin-bottom: 0px;}
+.select_multi li:last-child {border-bottom: none;}
 
 
 

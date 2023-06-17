@@ -18,10 +18,16 @@
                     <div class="box_input">
                         <label for="title">Mã màu tương ứng</label>
                         <input type="color" class="form-control sty_code_color" name="name_code" id="name_code" value="{{ ($update != NULL) ? $update['code_color'] : '' }}">
+                        @error('name_code')
+                            <span>{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="box_input">
                         <label for="title">Tên màu sắc</label>
                         <input type="text" class="form-control" name="name_color" id="name_color" placeholder="Tên màu sắc" value="{{ ($update != NULL) ? $update['name'] : '' }}">
+                        @error('name_color')
+                            <span>{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="item_check_status">
                         <label for="status">Hiển thị:</label>

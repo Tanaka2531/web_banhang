@@ -19,6 +19,9 @@
                             <div class="box_input">
                                 <label for="title">Tên sản phẩm</label>
                                 <input type="text" class="form-control" name="name_product" id="name_product" placeholder="Tên sản phẩm" value="{{ ($update != NULL) ? $update['name']: ''}}">
+                                @error('name_product')
+                                    <span>{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="box_input">
                                 <label for="title">Mô tả</label>
@@ -36,7 +39,11 @@
                             <div class="box_check_status">
                                 <div class="item_check_status">
                                     <label for="status">Trạng thái:</label>
-                                    <input class="sty_checkbox form-check-input" type="checkbox">
+                                    <select class="form-select" aria-label="Default select example" name="status_product">
+                                        <option selected>Chọn trạng thái</option>
+                                        <option value="1">Hiển thị</option>
+                                        <option value="2">Không hiển thị</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="flex_price">
@@ -65,7 +72,7 @@
                                     <div class="item_box_list">
                                         <label for="supplier">Loại sản phẩm</label>
                                         <select class="form-select" name="cate_product" aria-label="Default select example">
-                                            <option selected>Chọn loại sản phẩm</option>
+                                            <option selected value="0">Chọn loại sản phẩm</option>
                                             @foreach ($categorys as $k => $v)
                                                 @if ($update != NULL)
                                                     @if ($v['id'] == $update['id_cate']) 
@@ -82,7 +89,7 @@
                                     <div class="item_box_list">
                                         <label for="supplier">Hãng sản xuất</label>
                                         <select class="form-select" name="sup_product" aria-label="Default select example">
-                                            <option selected>Chọn Hãng</option>
+                                            <option selected value="0" >Chọn Hãng</option>
                                             @foreach ($brands as $k1 => $v1)
                                                 @if ($update != NULL)
                                                     @if ($v1['id'] == $update['id_brand']) 
@@ -96,6 +103,20 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <div class="item_box_list">
+                                        <label for="supplier">Danh mục màu sắc</label>
+                                        <div class="acb">
+                                            
+                                        </div>
+                                        <ul class="select_multi">
+                                            @foreach ($colors as $k2 => $v2)
+                                                <li>
+                                                    <input class="sty_checkbox form-check-input" name="arr_color[]" id="arr_color" type="checkbox" value="{{ $v2['id'] }}">
+                                                    <label>{{ $v2['name'] }}</label>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +126,7 @@
                                 <div class="box_img">         
                                     @if($update != NULL)
                                         @if($update['photo'] != NULL)
-                                            <img src="{{ asset('upload/'.$update['photo']) }}" alt="">
+                                            <img src="{{ asset('upload/products/'.$update['photo']) }}" alt="">
                                         @else
                                             <img src="{{ asset('admin/images/noimg.jpg') }}" alt="" />
                                         @endif
@@ -114,6 +135,9 @@
                                     @endif
                                 </div>
                                 <input type="file" class="form-control" name="photo_product" id="photo_product">
+                                @error('photo_product')
+                                    <span class="message_red">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
