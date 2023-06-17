@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\BlogController;
 
 Route::get('/', function () {
     return view('admin.index');
@@ -29,3 +30,10 @@ Route::post('/colors/add', [ColorController::class, 'handleAddColors'])->name('h
 Route::get('/colors/update/{id}', [ColorController::class, 'loadUpdateColors'])->name('loadupdatecolors');
 Route::post('/colors/update/{id}', [ColorController::class, 'handleUpdateColors'])->name('handleupdatecolors');
 Route::get('/colors/delete/{id}', [ColorController::class, 'deleteColors'])->name('deletecolors');
+
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
+Route::get('/blogs/add', [BlogController::class, 'loadAddBlogs'])->name('loadaddblogs');
+Route::post('/blogs/add', [BlogController::class, 'handleAddBlogs'])->name('handleaddblogs');
+Route::get('/blogs/update/{id}', [BlogController::class, 'loadUpdateBlogs'])->name('loadupdateblogs');
+Route::post('/blogs/update/{id}', [BlogController::class, 'handleUpdateBlogs'])->name('handleupdateblogs');
+Route::get('/blogs/delete/{id}', [BlogController::class, 'deleteBlogs'])->name('deleteblogs');

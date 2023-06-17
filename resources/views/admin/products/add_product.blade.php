@@ -64,7 +64,7 @@
                                 <div class="box_list">
                                     <div class="item_box_list">
                                         <label for="supplier">Loại sản phẩm</label>
-                                        <select class="form-select" name="cate_products" aria-label="Default select example">
+                                        <select class="form-select" name="cate_product" aria-label="Default select example">
                                             <option selected>Chọn loại sản phẩm</option>
                                             @foreach ($categorys as $k => $v)
                                                 @if ($update != NULL)
@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="item_box_list">
                                         <label for="supplier">Hãng sản xuất</label>
-                                        <select class="form-select" name="sup_products" aria-label="Default select example">
+                                        <select class="form-select" name="sup_product" aria-label="Default select example">
                                             <option selected>Chọn Hãng</option>
                                             @foreach ($brands as $k1 => $v1)
                                                 @if ($update != NULL)
@@ -109,6 +109,8 @@
                                         @else
                                             <img src="{{ asset('admin/images/noimg.jpg') }}" alt="" />
                                         @endif
+                                    @else
+                                        <img src="{{ asset('admin/images/noimg.jpg') }}" alt="" />
                                     @endif
                                 </div>
                                 <input type="file" class="form-control" name="photo_product" id="photo_product">

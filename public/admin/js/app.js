@@ -11,11 +11,13 @@ $('.tab_zoom').click(function() {
 });
 
 $('.list_nav_menu li p').click(function() {
+    var vitri = $(this).data('vitri');
     if($(this).hasClass('act')) {
         $('.ul_child').removeClass('act');       
         $(this).removeClass('act');
     } else {
-        $('.ul_child').addClass('act');
+        $('.ul_child').removeClass('act');
+        $('.ul_child_'+vitri).addClass('act');
         $(this).addClass('act');
     }
 });
