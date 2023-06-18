@@ -38,8 +38,10 @@
                                     @if($update['photo'])
                                         <img src="{{ asset('upload/category/'.$update['photo']) }}" alt="">
                                     @else
-                                        <img src="{{ asset('admin/images/noimg.jpg') }}" alt="" />
+                                        <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
                                     @endif
+                                @else
+                                    <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />    
                                 @endif
                             </div>
                             <input type="file" class="form-control" name="photo" id="photo">

@@ -26,7 +26,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        Schema::rename('suppliers', 'brands');
+        // Schema::rename('suppliers', 'brands');
     }
 
     /**

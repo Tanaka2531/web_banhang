@@ -43,7 +43,7 @@ class BrandController extends Controller
             ]);
             $images = $data->photo;
             $imageName = time() . '.' . $images->extension();
-            $images->move(storage_path('upload/brand'), $imageName);
+            $images->move(public_path('upload/brand'), $imageName);
             $add->photo = $imageName;
         }
         $add->name = $data->name;
@@ -83,7 +83,7 @@ class BrandController extends Controller
             ]);
             $images = $data->photo;
             $imageName = time() . '.' . $images->extension();
-            $images->move(storage_path('upload/brand'), $imageName);
+            $images->move(public_path('upload/brand'), $imageName);
             $update->photo = $imageName;
         }
         $update->name = $data->name;

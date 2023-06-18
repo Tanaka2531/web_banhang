@@ -5,62 +5,140 @@ namespace App\Http\Controllers;
 use App\Models\Member;
 use App\Http\Requests\StoreMemberRequest;
 use App\Http\Requests\UpdateMemberRequest;
+use App\Http\Requests\Member_Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function index() {
+       $member_admins = Member::where('role',1)->get();  
+       $pageName = 'Quản lý tài khoản admin';
+       return view('admin.member_admins.index_member', compact('member_admins','pageName'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function loadAddMember_admins()
     {
-        //
+        $pageName = 'Thêm tài khoản admin';
+        $update = NULL;
+        return view('admin.member_admins.add_member', compact('update','pageName'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreMemberRequest $request)
+    public function handleAddMember_admins(Member_Request $data)
     {
-        //
+        $add = new Member;
+        $data->validate(
+            [
+                'username' => 'required|unique:members,username',
+                'password' => 'required',
+            ],
+            [
+                'username.required' => 'Tên đăng nhập không được trống',
+                'username.unique' => 'Tên đăng nhập bị trùng',
+                'password.required' => 'Mật khẩu không được trống',
+            ]
+        );
+        $add->fullname = $data->name_member;
+        $add->username = $data->username;
+        $add->password = Hash::make($data->password);
+        $add->address = $data->address;
+        $add->phone = $data->phone;
+        $add->email = $data->email;
+        $add->birthday = $data->birthday;
+        if($data->photo_member != NULL) {
+            $images = $data->photo_member;      
+            $imageName = time().'.'.$images->extension();  
+            $images->move(public_path('upload/member_admins'), $imageName);
+            $add->photo = $imageName;
+        }    
+        $add->status = $data->status_member;
+        $add->role = 1;
+        $add->save();
+        return redirect()->route('member_admins');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Member $member)
+    public function loadUpdateMember_admins($id)
     {
-        //
+        $pageName = 'Chỉnh sửa tài khoản admin';
+        $update = Member::find($id);
+        
+        if ($update == null) {
+            return view('member_admins');
+        } else {
+            return view('admin.member_admins.add_member', compact('pageName','update'));
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Member $member)
-    {
-        //
+    public function handleUpdateMember_admins(Member_Request $data, $id) {
+
+        $add = Member::find($id);
+        if($add->username == $data->username) {
+            $data->validate(
+                [
+                    'username' => 'required',
+                ],
+                [
+                    'username.required' => 'Tên đăng nhập không được trống',
+                ]
+            );
+            $add->fullname = $data->name_member;
+            $add->username = $data->username;
+            $add->password = Hash::make($data->password);
+            $add->address = $data->address;
+            $add->phone = $data->phone;
+            $add->email = $data->email;
+            $add->birthday = $data->birthday;
+            if($data->photo_member != NULL) {
+                $images = $data->photo_member;      
+                $imageName = time().'.'.$images->extension();  
+                $images->move(public_path('upload/member_admins'), $imageName);
+                $add->photo = $imageName;
+            }    
+            $add->status = $data->status_member;
+            $add->role = 1;
+        } else {
+            $data->validate(
+                [
+                    'username' => 'required|unique:members,username',
+                ],
+                [
+                    'username.required' => 'Tên đăng nhập không được trống',
+                    'username.unique' => 'Tên đăng nhập bị trùng',
+                ]
+            );
+            $add->fullname = $data->name_member;
+            $add->username = $data->username;
+            if($data->password != NULL) {
+                $add->password = Hash::make($data->password);
+            }
+            $add->address = $data->address;
+            $add->phone = $data->phone;
+            $add->email = $data->email;
+            $add->birthday = $data->birthday;
+            if($data->photo_member != NULL) {
+                $images = $data->photo_member;      
+                $imageName = time().'.'.$images->extension();  
+                $images->move(public_path('upload/member_admins'), $imageName);
+                $add->photo = $imageName;
+            }    
+            $add->status = $data->status_member;
+            $add->role = 1;
+        } 
+        $add->save();
+        return redirect()->route('member_admins');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateMemberRequest $request, Member $member)
+    public function deleteMember_admins($id)
     {
-        //
+        $dlt = Member::find($id);
+        if ($dlt == null || $dlt->deleted_at != NULL) {
+            return view('member_admins');
+        } else {
+            $dlt->delete();
+            $dlt_tras = Member::withTrashed()->where('id', $id);
+            $dlt_tras->forceDelete();
+            return redirect()->route('member_admins');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Member $member)
-    {
-        //
-    }
 }

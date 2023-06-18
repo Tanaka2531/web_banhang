@@ -13,14 +13,16 @@ class SizeController extends Controller
      */
     public function index()
     {
+        $pageName = 'Quản lý dung lượng';
         $sizes = Size::get()->sortBy('id');
-        return view('admin.sizes.index_size', compact('sizes'));
+        return view('admin.sizes.index_size', compact('sizes','pageName'));
     }
 
     public function loadAddSizes()
     {
+        $pageName = 'Thêm dung lượng';
         $update = NULL;
-        return view('admin.sizes.add_size', compact('update'));
+        return view('admin.sizes.add_size', compact('update','pageName'));
     }
 
     public function handleAddSizes(Size_Request $data)
@@ -32,11 +34,12 @@ class SizeController extends Controller
     }
 
     public function loadUpdateSizes($id) {
+        $pageName = 'Chỉnh sửa dung lượng';
         $update = Size::find($id);
         if ($update == null) {
             return view('sizes');
         } else {
-            return view('admin.sizes.add_size', compact('update'));
+            return view('admin.sizes.add_size', compact('update','pageName'));
         }
     }
 

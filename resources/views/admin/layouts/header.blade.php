@@ -18,7 +18,7 @@
         </div>
         <div class="container_avt">
             <div class="flex_avt">
-                <img src="{{ asset('admin/images/avt.jpg') }}" width="35" height="35" alt="">
+                <img src="{{ asset('adminate/images/avt.jpg') }}" width="35" height="35" alt="">
             </div>
             <ul class="ul_avt">
                 <li><a href="">Quản lí thông tin</a></li>

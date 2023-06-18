@@ -6,9 +6,7 @@
             <div class="btn_delete_all">Xóa tất cả</div>
             <div class="input_search">
                 <input type="text" name="" id="" placeholder="Nhập hãng cần tìm" class="form-control">
-                <span>
-                    <ion-icon name="search-outline"></ion-icon>
-                </span>
+                <button type="submit" class=""><ion-icon name="search-outline"></ion-icon></button>
             </div>
         </div>
     </div>
@@ -33,8 +31,11 @@
                         <td class="text-center">{{ $k + 1 }}</td>
                         <td>
                             <a href="{{ route('loadUpdateBrand', ['id' => $v['id']]) }}">
-                                <img src="{{ asset('upload/brand/' . $v['photo']) }}" width="100" height="100"
-                                    alt="">
+                                @if($v['photo'] != NULL) 
+                                    <img class="img_main" src="{{ asset('upload/brand/'.$v['photo']) }}" width="100" height="100" alt="">
+                                @else
+                                    <img class="img_main" src="{{ asset('adminate/images/noimg.jpg') }}" width="100" height="100" alt="">
+                                @endif 
                             </a>
                         </td>
                         <td>{{ $v['name'] }}</td>
