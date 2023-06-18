@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Size;
-use App\Http\Requests\StoreSizeRequest;
-use App\Http\Requests\UpdateSizeRequest;
+use App\Http\Requests\Size_Request;
+use Illuminate\Http\Request;
 
 class SizeController extends Controller
 {
@@ -13,54 +13,53 @@ class SizeController extends Controller
      */
     public function index()
     {
-        //
+        $pageName = 'Quản lý dung lượng';
+        $sizes = Size::get()->sortBy('id');
+        return view('admin.sizes.index_size', compact('sizes','pageName'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function loadAddSizes()
     {
-        //
+        $pageName = 'Thêm dung lượng';
+        $update = NULL;
+        return view('admin.sizes.add_size', compact('update','pageName'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSizeRequest $request)
+    public function handleAddSizes(Size_Request $data)
     {
-        //
+        $add = new Size;
+        $add->name = $data->name_size;
+        $add->save();
+        return redirect()->route('sizes');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Size $size)
-    {
-        //
+    public function loadUpdateSizes($id) {
+        $pageName = 'Chỉnh sửa dung lượng';
+        $update = Size::find($id);
+        if ($update == null) {
+            return view('sizes');
+        } else {
+            return view('admin.sizes.add_size', compact('update','pageName'));
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Size $size)
+    public function handleUpdateSizes(Size_Request $data, $id)
     {
-        //
+        $add = Size::find($id);
+        $add->name = $data->name_size;
+        $add->save();
+        return redirect()->route('sizes');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSizeRequest $request, Size $size)
+    public function deleteSizes($id)
     {
-        //
+        $dlt = Size::find($id);
+        if ($dlt == null || $dlt->deleted_at != NULL) {
+            return view('sizes');
+        } else {
+            $dlt->delete();
+            return redirect()->route('sizes');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Size $size)
-    {
-        //
-    }
 }

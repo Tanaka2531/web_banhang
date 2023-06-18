@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('birthday')->nullable();
             $table->string('photo')->nullable();
             $table->string('status');
+            $table->integer('role');
             $table->timestamps();
             $table->softDeletes();
         });
