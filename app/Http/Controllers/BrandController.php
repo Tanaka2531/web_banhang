@@ -47,7 +47,9 @@ class BrandController extends Controller
             $add->photo = $imageName;
         }
         $add->name = $data->name;
+        $add->status = $data->status;
         $add->save();
+
         return redirect()->route('listBrands');
     }
 
@@ -78,16 +80,15 @@ class BrandController extends Controller
         $update = Brand::find($id);
 
         if ($data->photo != NULL) {
-            $data->validate([
-                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
             $images = $data->photo;
             $imageName = time() . '.' . $images->extension();
             $images->move(public_path('upload/brand'), $imageName);
             $update->photo = $imageName;
         }
         $update->name = $data->name;
+        $update->status = $data->status;
         $update->save();
+
         return redirect()->route('listBrands');
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use GuzzleHttp\Psr7\Request;
 
 class CategoryController extends Controller
 {
@@ -39,17 +40,16 @@ class CategoryController extends Controller
         $add = new Category();
 
         if ($data->photo != NULL) {
-            $data->validate([
-                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
             $images = $data->photo;
             $imageName = time() . '.' . $images->extension();
             $images->move(public_path('upload/category'), $imageName);
             $add->photo = $imageName;
         }
         $add->name = $data->name;
+        $add->status = $data->input('status');
         $add->save();
-        return redirect()->route('listCategories', 'validated');
+
+        return redirect()->route('listCategories');
     }
 
     /**
@@ -80,7 +80,9 @@ class CategoryController extends Controller
             $update->photo = $imageName;
         }
         $update->name = $data->name;
+        $update->status = $data->status;
         $update->save();
+
         return redirect()->route('listCategories');
     }
 
@@ -90,6 +92,19 @@ class CategoryController extends Controller
     public function deleteCategory($id)
     {
         $delete = Category::find($id);
+
+        $delete->delete();
+        return redirect()->route('listCategories')->with('success', 'Xóa dữ liệu thành công');
+    }
+
+    public function deleteAllCategory(UpdateCategoryRequest $data)
+    {
+
+        return $data;
+
+        foreach ($data as $id) {
+            $delete = Category::find($id);
+        }
 
         $delete->delete();
         return redirect()->route('listCategories')->with('success', 'Xóa dữ liệu thành công');

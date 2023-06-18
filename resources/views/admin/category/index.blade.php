@@ -18,7 +18,7 @@
                     <th class="text-center">STT</th>
                     <th>Hình Ảnh</th>
                     <th>Tên danh mục</th>
-                    <th class="text-center">Hiển thị</th>
+                    <th class="text-center">Trạng thái</th>
                     <th class="text-center">Thao tác</th>
                 </tr>
             </thead>
@@ -26,7 +26,7 @@
                 @foreach ($categories as $k => $v)
                     <tr>
                         <td class="text-center">
-                            <input class="sty_checkbox form-check-input" type="checkbox">
+                            <input class="sty_checkbox form-check-input get_id" type="checkbox">
                         </td>
                         <td class="text-center">{{ $k + 1 }}</td>
                         <td class="text-center">
@@ -39,7 +39,7 @@
                             </a>
                         </td>
                         <td>{{ $v['name'] }}</td>
-                        <td class="text-center"><input class="sty_checkbox form-check-input" type="checkbox"></td>
+                        <td class="text-center">{{ $v['status'] }}</td>
                         <td class="text-center">
                             <div class="flex_options">
                                 <a href="{{ route('loadUpdateCategory', ['id' => $v['id']]) }}">

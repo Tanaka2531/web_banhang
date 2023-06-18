@@ -1,8 +1,7 @@
 @extends('admin.index')
 @section('body')
     <div class="box_form">
-        <form
-            action="{{ ($update) ? route('handleUpdateCategory', ['id' => $update['id']]) : route('handleAddCategory') }}"
+        <form action="{{ $update ? route('handleUpdateCategory', ['id' => $update['id']]) : route('handleAddCategory') }}"
             method="POST" enctype="multipart/form-data">
             <div class="box_btn_main">
                 @if ($update)
@@ -11,6 +10,7 @@
                     <input type="submit" class="btn btn-primary gradient-buttons" value="Lưu">
                 @endif
                 <input type="reset" class="btn btn-secondary gradient-buttons" value="Nhập lại">
+                <a class="btn btn-danger gradient-buttons" href="{{ route('listCategories') }}">Thoát</a>
                 @csrf
                 @if ($update)
                     @method('PATCH')
@@ -25,6 +25,38 @@
                                 <label for="title">Tên danh mục</label>
                                 <input type="text" class="form-control" name="name" id="name"
                                     placeholder="Tên danh mục" value="{{ $update ? $update['name'] : '' }}">
+                                @if ($errors->get('name'))
+                                    <div class="alert-validate">
+                                        <ul>
+                                            @foreach ($errors->get('name') as $key => $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="box_input">
+                                <label for="title">Trạng thái</label>
+                                <select class="form-select" aria-label="Default select example" name="status">
+                                    @if ($update)
+                                        <option value="Hiển thị" {{ $update['status'] == 'Hiển thị' }}>Hiển thị</option>
+                                        <option value="Không hiển thị" {{ $update['status'] == 'Không hiển thị' }}>
+                                            Không hiển thị
+                                        </option>
+                                    @else
+                                        <option value="Hiển thị">Hiển thị</option>
+                                        <option value="Không hiển thị">Không hiển thị</option>
+                                    @endif
+                                </select>
+                                @if ($errors->get('status'))
+                                    <div class="alert-validate">
+                                        <ul>
+                                            @foreach ($errors->get('status') as $key => $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -33,18 +65,26 @@
                     <div class="card">
                         <div class="card-header">Hình ảnh danh mục</div>
                         <div class="card-body">
-                            <div class="box_img">         
-                                @if($update)
-                                    @if($update['photo'])
-                                        <img src="{{ asset('upload/category/'.$update['photo']) }}" alt="">
+                            <div class="box_img">
+                                @if ($update)
+                                    @if ($update['photo'])
+                                        <img src="{{ asset('upload/category/' . $update['photo']) }}" alt="">
                                     @else
                                         <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
+                                        <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
                                     @endif
-                                @else
-                                    <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />    
                                 @endif
                             </div>
                             <input type="file" class="form-control" name="photo" id="photo">
+                            @if ($errors->get('photo'))
+                                <div class="alert-validate">
+                                    <ul>
+                                        @foreach ($errors->get('photo') as $key => $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
