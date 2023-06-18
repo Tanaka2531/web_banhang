@@ -89,7 +89,7 @@
                                     <div class="item_box_list">
                                         <label for="supplier">Loại sản phẩm</label>
                                         <select class="form-select" name="cate_product" aria-label="Default select example">
-                                            <option selected value="0">Chọn loại sản phẩm</option>
+                                            <option selected value="">Chọn loại sản phẩm</option>
                                             @foreach ($categorys as $k => $v)
                                                 @if ($update != NULL)
                                                     @if ($v['id'] == $update['id_cate']) 
@@ -102,11 +102,14 @@
                                                 @endif
                                             @endforeach
                                         </select>
+                                        @error('cate_product')
+                                            <span class="message_red">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="item_box_list">
                                         <label for="supplier">Hãng sản xuất</label>
                                         <select class="form-select" name="sup_product" aria-label="Default select example">
-                                            <option selected value="0" >Chọn Hãng</option>
+                                            <option selected value="" >Chọn Hãng</option>
                                             @foreach ($brands as $k1 => $v1)
                                                 @if ($update != NULL)
                                                     @if ($v1['id'] == $update['id_brand']) 
@@ -119,6 +122,9 @@
                                                 @endif      
                                             @endforeach
                                         </select>
+                                        @error('sup_product')
+                                            <span class="message_red">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="item_box_list">
                                         <label for="supplier">Danh mục màu sắc</label>
@@ -185,10 +191,10 @@
                                         @if($update['photo'] != NULL)
                                             <img src="{{ asset('upload/products/'.$update['photo']) }}" alt="">
                                         @else
-                                            <img src="{{ asset('admin/images/noimg.jpg') }}" alt="" />
+                                            <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
                                         @endif
                                     @else
-                                        <img src="{{ asset('admin/images/noimg.jpg') }}" alt="" />
+                                        <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
                                     @endif
                                 </div>
                                 <input type="file" class="form-control" name="photo_product" id="photo_product" value="{{ ($update != NULL) ? $update['photo']: ''}}">

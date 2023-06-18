@@ -1,5 +1,5 @@
 <div class="header_main">
-    <div class="title_main">Quản lý sản phẩm</div>
+    <div class="title_main">{{ $pageName }}</div>
     <div class="box_noti_avt">
         <div class="contianer_noti">
             <div class="flex_noti">
@@ -18,7 +18,7 @@
         </div>
         <div class="container_avt">
             <div class="flex_avt">
-                <img src="{{ asset('admin/images/avt.jpg') }}" width="35" height="35" alt="">
+                <img src="{{ asset('adminate/images/avt.jpg') }}" width="35" height="35" alt="">
             </div>
             <ul class="ul_avt">
                 <li><a href="">Quản lí thông tin</a></li>

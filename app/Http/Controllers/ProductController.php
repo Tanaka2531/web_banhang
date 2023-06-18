@@ -19,12 +19,14 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $pageName = 'Quản lý Sản Phẩm';
         $products = Product::get()->sortBy('id');
-        return view('admin.products.index_product', compact('products'));
+        return view('admin.products.index_product', compact('products','pageName'));
     }
 
     public function loadAddProducts()
     {
+        $pageName = 'Thêm sản phẩm';
         $categorys = Category::get()->sortBy('id');
         $brands = Brand::get()->sortBy('id');
         $colors = Color::get()->sortBy('id');
@@ -32,7 +34,7 @@ class ProductController extends Controller
         $update = NULL;
         $color_product = NULL;
         $size_product = NULL;
-        return view('admin.products.add_product', compact('categorys','brands','update','colors','sizes','color_product','size_product'));
+        return view('admin.products.add_product', compact('pageName','categorys','brands','update','colors','sizes','color_product','size_product'));
     }
 
     public function handleAddProducts(Product_Request $data)
@@ -50,23 +52,14 @@ class ProductController extends Controller
         $add->code = $data->code_product;
         $add->price_regular = $data->price_regular_product;
         $add->price_sale = $data->price_sale_product;
-
         if($data->status_product != 0) {
             $add->status = $data->status_product;
         } else {
             $add->status = 0;
-        }  
-        if($data->cate_product != 0) {
-            $add->id_cate = $data->cate_product;
-        } else {
-            $add->id_cate = null;
         }
-        if($data->sup_product != 0) {
-            $add->id_brand = $data->sup_product;
-        } else {
-            $add->id_brand = null;
-        }
-        
+        $add->id_cate = $data->cate_product;
+        $add->id_brand = $data->sup_product;
+     
         $add->save();
         if($data->arr_color != NULL) {
             $arr_color = $data->arr_color;
@@ -92,6 +85,7 @@ class ProductController extends Controller
     }
 
     public function loadUpdateProducts($id) {
+        $pageName = 'Chỉnh sửa sản phẩm';
         $categorys = Category::get()->sortBy('id');
         $brands = Brand::get()->sortBy('id');
         $colors = Color::get()->sortBy('id');
@@ -103,7 +97,7 @@ class ProductController extends Controller
         if ($update == null) {
             return view('products');
         } else {
-            return view('admin.products.add_product', compact('update','categorys','brands', 'colors', 'sizes', 'color_product','size_product'));
+            return view('admin.products.add_product', compact('pageName','update','categorys','brands', 'colors', 'sizes', 'color_product','size_product'));
         }
     }
 
@@ -116,11 +110,10 @@ class ProductController extends Controller
             $images->move(public_path('upload/products'), $imageName);
             $add->photo = $imageName;
         }
-
         $dlt_cp = Color_Product::where('id_product', $id);
         $dlt_cp->delete();
-        $user= Color_Product::withTrashed()->where('id_product', $id);
-        $dlt_cp->forceDelete();
+        $dlt_tras = Color_Product::withTrashed()->where('id_product', $id);
+        $dlt_tras->forceDelete();
         if($data->arr_color != NULL) {
             $arr_color = $data->arr_color;
             $count_color = count($data->arr_color);
@@ -131,11 +124,10 @@ class ProductController extends Controller
                 $add_CP->save();
             }      
         }  
-
         $dlt_sp = Size_Product::where('id_product', $id);
         $dlt_sp->delete();
-        $user= Size_Product::withTrashed()->where('id_product', $id);
-        $dlt_sp->forceDelete();
+        $dlt_tras = Size_Product::withTrashed()->where('id_product', $id);
+        $dlt_tras->forceDelete();
         if($data->arr_size != NULL) {
             $arr_size = $data->arr_size;
             $count_size = count($data->arr_size);
@@ -152,23 +144,13 @@ class ProductController extends Controller
         $add->code = $data->code_product;
         $add->price_regular = $data->price_regular_product;
         $add->price_sale = $data->price_sale_product;
-        
         if($data->status_product != 0) {
             $add->status = $data->status_product;
         } else {
             $add->status = 0;
         } 
-
-        if($data->cate_product != 0) {
-            $add->id_cate = $data->cate_product;
-        } else {
-            $add->id_cate = null;
-        }
-        if($data->sup_product != 0) {
-            $add->id_brand = $data->sup_product;
-        } else {
-            $add->id_brand = null;
-        }
+        $add->id_cate = $data->cate_product;
+        $add->id_brand = $data->sup_product;
         $add->save();
         return redirect()->route('products');
     }

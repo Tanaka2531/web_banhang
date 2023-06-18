@@ -10,14 +10,16 @@ class ColorController extends Controller
 {
     public function index()
     {
+        $pageName = 'Quản lý màu sắc';
         $colors = Color::get()->sortBy('id');
-        return view('admin.colors.index_color', compact('colors'));
+        return view('admin.colors.index_color', compact('colors','pageName'));
     }
 
     public function loadAddColors()
     {
+        $pageName = 'Thêm màu sắc';
         $update = NULL;
-        return view('admin.colors.add_color', compact('update'));
+        return view('admin.colors.add_color', compact('update','pageName'));
     }
 
     public function handleAddColors(Color_Request $data)
@@ -31,11 +33,12 @@ class ColorController extends Controller
 
     public function loadUpdateColors($id)
     {
+        $pageName = 'Chỉnh sửa tin tức';
         $update = Color::find($id);
         if ($update == null) {
             return view('colors');
         } else {
-            return view('admin.colors.add_color', compact('update'));
+            return view('admin.colors.add_color', compact('update','pageName'));
         }
     }
 

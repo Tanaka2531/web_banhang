@@ -11,23 +11,33 @@ class BlogController extends Controller
 {
     public function index()
     {
+        $pageName = 'Quản lý tin tức';
         $blogs = Blog::get()->sortBy('id');
-        return view('admin.blogs.index_blog', compact('blogs'));
+        return view('admin.blogs.index_blog', compact('blogs','pageName'));
     }
 
     public function loadAddBlogs()
     {
+        $pageName = 'Thêm tin tức';
         $update = NULL;
-        return view('admin.blogs.add_blog', compact('update'));
+        return view('admin.blogs.add_blog', compact('update','pageName'));
     }
 
     public function handleAddBlogs(Request $data)
     {
         $add = new Blog;
+        $data->validate(
+            [
+                'name_blog' => 'required',
+                'photo_blog' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ],
+            [
+                'name_blog.required' => 'Tên bài viết không được trống',
+                'photo_blog.mimes' => 'Ảnh phải là những định dạng jpeg, png, jpg, gif, svg',
+                'photo_blog.max' => 'Ảnh chỉ nhập ảnh có kích thước bé hơn 2MB',
+            ]
+        );
         if($data->photo_blog != NULL) {
-            $data->validate([
-                'photo_blog' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
             $images = $data->photo_blog;      
             $imageName = time().'.'.$images->extension();  
             $images->move(public_path('upload/blogs'), $imageName);
@@ -36,27 +46,36 @@ class BlogController extends Controller
         $add->name = $data->name_blog;
         $add->desc = $data->desc_blog;
         $add->content = $data->content_blog;
-        $add->status = 'hienthi';
+        $add->status = $data->status_blogs;
         $add->save();
         return redirect()->route('blogs');
     }
 
     public function loadUpdateBlogs($id) {
+        $pageName = 'Chỉnh sửa tin tức';
         $update = Blog::find($id);
         if ($update == null) {
             return view('blogs');
         } else {
-            return view('admin.blogs.add_blog', compact('update'));
+            return view('admin.blogs.add_blog', compact('update','pageName'));
         }
     }
 
     public function handleUpdateBlogs(Request $data, $id)
     {
         $add = Blog::find($id);
+        $data->validate(
+            [
+                'name_blog' => 'required',
+                'photo_blog' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ],
+            [
+                'name_blog.required' => 'Tên bài viết không được trống',
+                'photo_blog.mimes' => 'Ảnh phải là những định dạng jpeg, png, jpg, gif, svg',
+                'photo_blog.max' => 'Ảnh chỉ nhập ảnh có kích thước bé hơn 2MB',
+            ]
+        );
         if($data->photo_blog != NULL) {
-            $data->validate([
-                'photo_blog' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
             $images = $data->photo_blog;      
             $imageName = time().'.'.$images->extension();  
             $images->move(public_path('upload/blogs'), $imageName);
@@ -65,7 +84,7 @@ class BlogController extends Controller
         $add->name = $data->name_blog;
         $add->desc = $data->desc_blog;
         $add->content = $data->content_blog;
-        $add->status = 'hienthi';
+        $add->status = $data->status_blogs;
         $add->save();
         return redirect()->route('blogs');
     }

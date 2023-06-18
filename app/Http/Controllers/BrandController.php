@@ -13,29 +13,48 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        $brands = Brand::get()->sortBy('id');
+        $pageName = 'Quản lý hãng';
+
+        return view('admin.brand.index', compact('brands', 'pageName'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function addBrand()
     {
-        //
+        $pageName = 'Thêm hãng';
+        $update = NULL;
+
+        return view('admin.brand.add', compact('pageName', 'update'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSupplierRequest $request)
+    public function handleAddBrand(StoreBrandRequest $data)
     {
-        //
+        $add = new Brand();
+
+        if ($data->photo != NULL) {
+            $data->validate([
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $images = $data->photo;
+            $imageName = time() . '.' . $images->extension();
+            $images->move(public_path('upload/brand'), $imageName);
+            $add->photo = $imageName;
+        }
+        $add->name = $data->name;
+        $add->save();
+        return redirect()->route('listBrands');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Supplier $supplier)
+    public function show(Brand $brand)
     {
         //
     }
@@ -43,24 +62,43 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Supplier $supplier)
+    public function updateBrand($id)
     {
-        //
+        $update = Brand::find($id);
+        $pageName = 'Chỉnh sửa hãng';
+
+        return view('admin.brand.add', compact('update', 'pageName'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSupplierRequest $request, Supplier $supplier)
+    public function handleUpdateBrand(UpdateBrandRequest $data, $id)
     {
-        //
+        $update = Brand::find($id);
+
+        if ($data->photo != NULL) {
+            $data->validate([
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            $images = $data->photo;
+            $imageName = time() . '.' . $images->extension();
+            $images->move(public_path('upload/brand'), $imageName);
+            $update->photo = $imageName;
+        }
+        $update->name = $data->name;
+        $update->save();
+        return redirect()->route('listBrands');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Supplier $supplier)
+    public function deleteBrand($id)
     {
-        //
+        $delete = Brand::find($id);
+
+        $delete->delete();
+        return redirect()->route('listBrands')->with('success', 'Xóa dữ liệu thành công');
     }
 }

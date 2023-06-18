@@ -1,7 +1,7 @@
 <div class="fixed_menu_bar">
     <div class="logo_main">
         <a href="#">
-            <img src="{{ asset('admin/images/img1.jpg') }}" width="50" height="50" alt="">
+            <img src="{{ asset('adminate/images/img1.jpg') }}" width="50" height="50" alt="">
         </a>
         <div class="tab_zoom">
             <ion-icon name="reorder-four-outline"></ion-icon>
@@ -13,7 +13,7 @@
         </li> 
         <li>
             <p data-vitri="1">
-                <a href="{{ route('products') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Sản Phẩm</span></a>
+                <a class="a_menu"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Sản Phẩm</span></a>
                 <ion-icon name="chevron-down-circle-outline"></ion-icon>
             </p>
             <ul class="ul_child ul_child_1">
@@ -21,16 +21,16 @@
                     <a href="{{ route('products') }}">Sản phẩm</a>
                 </li>
                 <li>
-                    <a href="../main_cate/index_cate.html">Quản lý loại sản phẩm</a>
+                    <a href="{{ route('listCategories') }}">Quản lý danh mục</a>
+                </li>
+                <li>
+                    <a href="{{ route('listBrands') }}">Quản lý hãng</a>
                 </li>
                 <li>
                     <a href="{{ route('sizes') }}">Quản lý dung lượng</a>
                 </li>
                 <li>
                     <a href="{{ route('colors') }}">Quản lý màu sắc</a>
-                </li>
-                <li>
-                    <a href="../main_supplier/index_supplier.html">Quản lý nhà cung cấp</a>
                 </li>
             </ul>
         </li>   
@@ -39,12 +39,12 @@
         </li> 
         <li>
             <p data-vitri="2">
-                <a href=""><ion-icon name="construct-outline"></ion-icon><span>Quản lý Tài khoản</span></a>
+                <a class="a_menu"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Tài khoản</span></a>
                 <ion-icon name="chevron-down-circle-outline"></ion-icon>
             </p>
             <ul class="ul_child ul_child_2">
                 <li>
-                    <a href="">Tài khoản Quản trị</a>
+                    <a href="{{ route('member_admins') }}">Tài khoản Quản trị</a>
                 </li>
                 <li>
                     <a href="">Tài khoản Thành viên</a>
