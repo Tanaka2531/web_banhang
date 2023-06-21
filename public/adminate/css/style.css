@@ -110,14 +110,6 @@ label {font-weight: 600;margin-bottom: 5px;}
 .img_main {border-radius: 5px;}
 .btn_redirect {display: flex;width: 36px;height: 36px;align-items: center;justify-content: center;background: #d2d2d2;margin-left: 10px;border-radius: 5px;color: #000;font-size: 23px;}
 .txt_green {color: #00be00;}
-.wap_500 {
-    max-width: 500px;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    height: 100vh;
-}
-.box_form_login {
-    width: 100%;
-}
+.wap_500 {max-width: 500px;width: 100%;margin: 0 auto;display: flex;align-items: center;height: 100vh;}
+.box_form_login {width: 100%;}
+.flex_avt span {margin-right: 10px;}

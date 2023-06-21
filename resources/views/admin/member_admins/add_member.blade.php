@@ -37,6 +37,12 @@
                                     <span>{{ $message }}</span>
                                 @enderror
                             </div>
+                            <div class="item_box_list d-none">
+                                <label for="supplier">Loại tài khoản</label>
+                                <select class="form-select" name="cate_member" aria-label="Default select example">
+                                    <option selected value="1">Chọn loại sản phẩm</option>
+                                </select>
+                            </div>
                             <div class="box_input">
                                 <label for="title">Địa chỉ</label>
                                 <input type="text" class="form-control" name="address" id="address" placeholder="Địa chỉ" value="{{ ($update != NULL) ? $update['address']: ''}}">

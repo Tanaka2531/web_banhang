@@ -18,11 +18,12 @@
         </div>
         <div class="container_avt">
             <div class="flex_avt">
+                <span>Hi, {{ Auth::guard('user')->user()->fullname }}</span>
                 <img src="{{ asset('adminate/images/avt.jpg') }}" width="35" height="35" alt="">
             </div>
             <ul class="ul_avt">
                 <li><a href="">Quản lí thông tin</a></li>
-                <li><a href="">Đăng xuất</a></li>
+                <li><a href="{{ route('handlelogout') }}">Đăng xuất</a></li>
                 <li><a href="">...</a></li>
             </ul>
         </div>
