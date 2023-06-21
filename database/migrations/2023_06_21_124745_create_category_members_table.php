@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('category_members', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_member')->constrained('members')->nullable();
-            $table->foreignId('id_product')->constrained('products')->nullable();
-            $table->string('content')->nullable();
+            $table->string('name_role');
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('category_members');
     }
 };

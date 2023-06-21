@@ -27,6 +27,11 @@ Route::prefix('/admin')->group(function () {
     Route::get('/', function () {
         return view('admin.index')->with(['pageName' => 'Trang quản trị']);
     });
+    Route::get('/login', function () {
+        return view('admin.login');
+    });
+    // Route::get('/login', 'handleLogin')->name('handlelogin');
+
 
     Route::controller(ProductController::class)->group(function () {
         Route::prefix('/products')->group(function () {

@@ -11,18 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('categories_level_twos', function (Blueprint $table) {
             $table->id();
-            $table->string('fullname');
-            $table->string('username');
-            $table->string('password');
-            $table->string('address')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();
-            $table->string('birthday')->nullable();
+            $table->foreignId('id_cate_one')->constrained('categories')->nullable();
+            $table->string('name');
             $table->string('photo')->nullable();
-            $table->string('status');
-            $table->integer('role');
+            $table->longText('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('categories_level_twos');
     }
 };
