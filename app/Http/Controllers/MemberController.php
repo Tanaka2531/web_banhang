@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\category_member;
 use App\Http\Requests\StoreMemberRequest;
 use App\Http\Requests\UpdateMemberRequest;
 use App\Http\Requests\Member_Request;
@@ -20,8 +21,9 @@ class MemberController extends Controller
     public function loadAddMember_admins()
     {
         $pageName = 'Thêm tài khoản admin';
+        $cate_mem = category_member::where('status', '0')->get();
         $update = NULL;
-        return view('admin.member_admins.add_member', compact('update','pageName'));
+        return view('admin.member_admins.add_member', compact('update','pageName','cate_mem'));
     }
 
     public function handleAddMember_admins(Member_Request $data)
@@ -39,6 +41,7 @@ class MemberController extends Controller
             ]
         );
         $add->fullname = $data->name_member;
+        $add->id_cate_member = $data->cate_member;
         $add->username = $data->username;
         $add->password = Hash::make($data->password);
         $add->address = $data->address;
@@ -60,12 +63,13 @@ class MemberController extends Controller
     public function loadUpdateMember_admins($id)
     {
         $pageName = 'Chỉnh sửa tài khoản admin';
+        $cate_mem = category_member::where('status', '0')->get();
         $update = Member::find($id);
         
         if ($update == null) {
             return view('member_admins');
         } else {
-            return view('admin.member_admins.add_member', compact('pageName','update'));
+            return view('admin.member_admins.add_member', compact('pageName','update','cate_mem'));
         }
     }
 
@@ -82,6 +86,7 @@ class MemberController extends Controller
                 ]
             );
             $add->fullname = $data->name_member;
+            $add->id_cate_member = $data->cate_member;
             $add->username = $data->username;
             $add->password = Hash::make($data->password);
             $add->address = $data->address;
@@ -107,6 +112,7 @@ class MemberController extends Controller
                 ]
             );
             $add->fullname = $data->name_member;
+            $add->id_cate_member = $data->cate_member;
             $add->username = $data->username;
             if($data->password != NULL) {
                 $add->password = Hash::make($data->password);
