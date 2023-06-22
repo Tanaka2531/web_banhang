@@ -10,10 +10,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LoginController;
-
-// Route::get('/', function () {
-//     return view('admin.index')->with(['pageName' => 'Trang quản trị']);
-// });
+use App\Http\Controllers\CategoriesLevelTwoController;
 
 Route::prefix('/')->group(function () {
     Route::get('/', function () {
@@ -93,9 +90,6 @@ Route::prefix('/admin')->group(function () {
             });
         });
       
-
-
-        // Category
         Route::controller(CategoryController::class)->group(function () {
             Route::prefix('/categories')->group(function () {
                 Route::get('/', [CategoryController::class, 'index'])->name('listCategories');
@@ -107,7 +101,17 @@ Route::prefix('/admin')->group(function () {
             });
         });
 
-        // Brand
+        Route::controller(CategoriesLevelTwoController::class)->group(function () {
+            Route::prefix('/category_two')->group(function () {
+                Route::get('/', 'index')->name('category_two');
+                Route::get('add', 'loadAddCategory')->name('loadaddcategory_two');
+                Route::post('add', 'handleAddCategory')->name('handleaddcategory_two');
+                Route::get('update/{id}', 'loadUpdateCategory')->name('loadupdatecategory_two');
+                Route::post('update/{id}', 'handleUpdateCategory')->name('handleupdatecategory_two');
+                Route::get('delete/{id}', 'deleteCategory')->name('deletecategory_two');
+            });
+        });
+
         Route::controller(BrandController::class)->group(function () {
             Route::prefix('/brand')->group(function () {
                 Route::get('/', 'index')->name('listBrands');
