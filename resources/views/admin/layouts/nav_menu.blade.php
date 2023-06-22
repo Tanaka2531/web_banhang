@@ -21,7 +21,10 @@
                     <a href="{{ route('products') }}">Sản phẩm</a>
                 </li>
                 <li>
-                    <a href="{{ route('listCategories') }}">Quản lý danh mục</a>
+                    <a href="{{ route('listCategories') }}">Quản lý danh mục cấp 1</a>
+                </li>
+                <li>
+                    <a href="{{ route('category_two') }}">Quản lý danh mục cấp 2</a>
                 </li>
                 <li>
                     <a href="{{ route('listBrands') }}">Quản lý hãng</a>
