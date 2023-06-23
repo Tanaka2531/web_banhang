@@ -22,7 +22,7 @@
                                 <option selected value="" >Chọn danh mục cấp 1</option>
                                 @foreach ($cate_one as $k1 => $v1)
                                     @if ($update != NULL)
-                                        @if ($v1['id'] == $update['id_brand']) 
+                                        @if ($v1['id'] == $update['id_cate_one']) 
                                             <option selected value="{{ $v1['id'] }}">{{ $v1['name'] }}</option>
                                         @else
                                             <option value="{{ $v1['id'] }}">{{ $v1['name'] }}</option>    

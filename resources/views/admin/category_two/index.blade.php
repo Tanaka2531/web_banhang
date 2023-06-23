@@ -29,8 +29,8 @@
                             <input class="sty_checkbox form-check-input get_id" type="checkbox">
                         </td>
                         <td class="text-center">{{ $k + 1 }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('loadUpdateCategory', ['id' => $v['id']]) }}">
+                        <td>
+                            <a href="{{ route('loadupdatecategory_two', ['id' => $v['id']]) }}">
                                 @if($v['photo'] != NULL) 
                                     <img class="img_main" src="{{ asset('upload/category/'.$v['photo']) }}" width="100" height="100" alt="">
                                 @else
@@ -39,7 +39,13 @@
                             </a>
                         </td>
                         <td>{{ $v['name'] }}</td>
-                        <td class="text-center">{{ $v['status'] }}</td>
+                        <td class="text-center">
+                            @if($v['status'] == 1)
+                                <span class="green_status"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
+                            @else
+                                <span class="red_status"><ion-icon name="close-circle-outline"></ion-icon></span>
+                            @endif
+                        </td>
                         <td class="text-center">
                             <div class="flex_options">
                                 <a href="{{ route('loadupdatecategory_two', ['id' => $v['id']]) }}">
@@ -59,7 +65,7 @@
                                 </a>
                             </div>
                         </td>
-                    <tr>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

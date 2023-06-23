@@ -26,4 +26,86 @@ class CategoriesLevelTwoController extends Controller
 
         return view('admin.category_two.add', compact('pageName', 'update','cate_one'));
     }
+
+    public function handleAddCategory(CategoryTwoRequest $data) {
+
+        $add = new Categories_level_two;
+        $data->validate(
+            [
+                'name_cate_two' => 'unique:categories_level_twos,name',
+            ],
+            [
+                'name_cate_two.unique' => 'Tên danh mục bị trùng',
+            ]
+        );
+        if($data->photo_cate_two != NULL) {
+            $images = $data->photo_cate_two;      
+            $imageName = time().'.'.$images->extension();  
+            $images->move(public_path('upload/category'), $imageName);
+            $add->photo = $imageName;
+        }    
+        $add->name = $data->name_cate_two;
+        $add->status = $data->status_cate_two;
+        $add->id_cate_one = $data->cate_product_one;
+        $add->save();
+        return redirect()->route('category_two');
+    }
+
+    public function loadUpdateCategory($id) {
+        $update = Categories_level_two::find($id);
+        $cate_one = Category::get()->sortBy('id');
+        $pageName = 'Chỉnh sửa danh mục cấp 2';
+
+        if ($update == null) {
+            return view('products');
+        } else {
+            return view('admin.category_two.add', compact('pageName','update','cate_one'));
+        }
+    }
+
+    public function handleUpdateCategory(CategoryTwoRequest $data, $id) {
+
+        $add = Categories_level_two::find($id);
+        if($add->name == $data->name_cate_two) {
+            if($data->photo_cate_two != NULL) {
+                $images = $data->photo_cate_two;      
+                $imageName = time().'.'.$images->extension();  
+                $images->move(public_path('upload/category'), $imageName);
+                $add->photo = $imageName;
+            }    
+            $add->name = $data->name_cate_two;
+            $add->status = $data->status_cate_two;
+            $add->id_cate_one = $data->cate_product_one;
+        } else {
+            $data->validate(
+                [
+                    'name_cate_two' => 'unique:categories_level_twos,name',
+                ],
+                [
+                    'name_cate_two.unique' => 'Tên danh mục bị trùng',
+                ]
+            );
+            if($data->photo_cate_two != NULL) {
+                $images = $data->photo_cate_two;      
+                $imageName = time().'.'.$images->extension();  
+                $images->move(public_path('upload/category'), $imageName);
+                $add->photo = $imageName;
+            }    
+            $add->name = $data->name_cate_two;
+            $add->status = $data->status_cate_two;
+            $add->id_cate_one = $data->cate_product_one;
+        }
+        $add->save();
+        return redirect()->route('category_two');
+    }
+
+    public function deleteCategory($id) {
+        $dlt = Categories_level_two::find($id);
+        if ($dlt == null || $dlt->deleted_at != NULL) {
+            return view('category_two');
+        } else {
+            $dlt->delete();
+            return redirect()->route('category_two');
+        }
+    }
 }

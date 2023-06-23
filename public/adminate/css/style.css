@@ -20,7 +20,7 @@ body {padding: 0;margin: 0;position: relative;}
 .list_nav_menu li a span {font-size: 16px;}
 .list_nav_menu li .ul_child {opacity: 0;height: 0px;list-style: none;padding: 0;margin: 0;width: 0%;visibility: hidden;}
 .list_nav_menu li .ul_child.act {opacity: 1;height: auto;width: 100%;visibility: unset;}
-.list_nav_menu li p {margin: 0;display: flex;align-items: center;justify-content: space-between;}
+.list_nav_menu li p {margin: 0;display: flex;align-items: center;justify-content: space-between;cursor: pointer;}
 .ul_child.act li {margin-bottom: 0 !important;border-radius: 0 !important;transition: 0s !important;border-bottom: 1px solid #d2d2d2;}
 .ul_child.act li:last-child {border-bottom: none !important;padding-bottom: 0 !important;}
 .header_main {display: flex;justify-content: space-between;padding: 15px 20px;align-items: center;border-bottom: 1px solid #bababa;background: #f0f0f0;position: sticky;top: 0;z-index: 2;}
@@ -29,7 +29,7 @@ body {padding: 0;margin: 0;position: relative;}
 .icon_noti {width: 60%;}
 .flex_noti span {display: flex;text-align: center;align-items: center;justify-content: center;height: 100%;}
 .flex_noti::before {position: absolute;content: '';width: 1px;height: 100%;background: #ccc;left: 60%;}
-.click_act:hover {background: #000;color: #fff;cursor: pointer;}
+.click_act:hover {background: #bababa;color: #fff;cursor: pointer;}
 .box_noti_avt {display: flex;justify-content: space-between;align-items: center;}
 .container_avt, .contianer_noti {position: relative;}
 .ul_avt, .ul_noti {list-style: none;padding: 0;margin: 0;border: 1px solid #ccc !important;position: absolute;right: 0;top: 25px;width: 200px;background: #fff;border-radius: 10px;overflow: hidden;opacity: 0;z-index: -1;transition: 0.5s;}
@@ -85,7 +85,7 @@ label {font-weight: 600;margin-bottom: 5px;}
 .footer {padding: 20px 0;background: #efefef;border-top: 1px solid #d2d2d2;margin-top: 60px;}
 .title_thank, .tltle_copyright2, .title_copyright {color: #000;text-align: center;}
 .img_footer {margin-bottom: 10px;}
-.table_list_product img {width: 75px;height: 75px;}
+.table_list_product img {width: 75px;height: 75px;object-fit: cover;}
 .container_main {min-height: 500px;}
 .table_list_product th, .table_list_product tr, .table_list_product thead {border-style: unset !important;}
 .table_list_product {background: #f0f0f0;border-radius: 5px !important;overflow: hidden;}
