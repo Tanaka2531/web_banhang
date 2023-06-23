@@ -29,7 +29,7 @@
                             <input class="sty_checkbox form-check-input get_id" type="checkbox">
                         </td>
                         <td class="text-center">{{ $k + 1 }}</td>
-                        <td class="text-center">
+                        <td>
                             <a href="{{ route('loadUpdateCategory', ['id' => $v['id']]) }}">
                                 @if($v['photo'] != NULL) 
                                     <img class="img_main" src="{{ asset('upload/category/'.$v['photo']) }}" width="100" height="100" alt="">
