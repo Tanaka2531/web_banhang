@@ -9,6 +9,7 @@ use App\Models\Color;
 use App\Models\Color_Product;
 use App\Models\Size_Product;
 use App\Models\Size;
+use App\Models\Categories_level_two;
 use App\Http\Requests\Product_Request;
 use Illuminate\Http\Request;
 
@@ -28,16 +29,18 @@ class ProductController extends Controller
     {
         $pageName = 'Thêm sản phẩm';
         $categorys = Category::get()->sortBy('id');
+        // $categorys_two = Categories_level_two::get()->sortBy('id');
         $brands = Brand::get()->sortBy('id');
         $colors = Color::get()->sortBy('id');
         $sizes = Size::get()->sortBy('id');
         $update = NULL;
         $color_product = NULL;
         $size_product = NULL;
+        // 'categorys_two',
         return view('admin.products.add_product', compact('pageName','categorys','brands','update','colors','sizes','color_product','size_product'));
     }
 
-    public function handleAddProducts(Product_Request $data)
+    public function handleAddProducts(Request $data)
     {
         $add = new Product;
         if($data->photo_product != NULL) {
@@ -58,6 +61,7 @@ class ProductController extends Controller
             $add->status = 0;
         }
         $add->id_cate = $data->cate_product;
+        $add->id_cate_two = $data->cate_two_product;
         $add->id_brand = $data->sup_product;
      
         $add->save();
@@ -87,21 +91,24 @@ class ProductController extends Controller
     public function loadUpdateProducts($id) {
         $pageName = 'Chỉnh sửa sản phẩm';
         $categorys = Category::get()->sortBy('id');
+        $categorys_two = Categories_level_two::get()->sortBy('id_cate');
         $brands = Brand::get()->sortBy('id');
         $colors = Color::get()->sortBy('id');
         $sizes = Size::get()->sortBy('id');
         $color_product = Color_Product::where('id_product', $id)->pluck('color_products.id_color')->toArray();
         $size_product = Size_Product::where('id_product', $id)->pluck('size_products.id_size')->toArray();
         $update = Product::find($id);
-        
+        $categorys_1 = Category::where('id', $update['id_cate'])->get()->toArray();
+        $categorys_2 = Categories_level_two::where('id_cate_one', $categorys_1[0]['id'])->get();
+      
         if ($update == null) {
             return view('products');
         } else {
-            return view('admin.products.add_product', compact('pageName','update','categorys','brands', 'colors', 'sizes', 'color_product','size_product'));
+            return view('admin.products.add_product', compact('pageName','update','categorys_2','categorys_two','categorys','brands', 'colors', 'sizes', 'color_product','size_product'));
         }
     }
 
-    public function handleUpdateProducts(Product_Request $data, $id)
+    public function handleUpdateProducts(Request $data, $id)
     {
         $add = Product::find($id);
         if($data->photo_product != NULL) {
@@ -150,6 +157,7 @@ class ProductController extends Controller
             $add->status = 0;
         } 
         $add->id_cate = $data->cate_product;
+        $add->id_cate_two = $data->cate_two_product;
         $add->id_brand = $data->sup_product;
         $add->save();
         return redirect()->route('products');
@@ -171,4 +179,6 @@ class ProductController extends Controller
         $search = Product::where('name', 'LIKE', '%'.$data->name_search.'%')->get();
         return view('admin.products.search_product', compact('search'));
     }
+
+    
 }

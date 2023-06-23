@@ -10,6 +10,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CategoriesLevelTwoController;
 
 Route::prefix('/')->group(function () {
@@ -33,7 +34,9 @@ Route::prefix('/admin')->group(function () {
             return view('admin.index')->with(['pageName' => 'Trang quản trị']);
         })->name('loadadminindex');
         Route::get('/admin/logout', [LoginController::class, 'handleLoout'])->name('handlelogout');
-   
+
+        Route::get('ajax_loadcate', [AjaxController::class, 'ajax_loadCate'])->name('ajax_loadcate');
+
         Route::controller(ProductController::class)->group(function () {
             Route::prefix('/products')->group(function () {
                 Route::get('/', 'index')->name('products');
@@ -42,7 +45,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('update/{id}', 'loadUpdateProducts')->name('loadupdateproducts');
                 Route::post('update/{id}', 'handleUpdateProducts')->name('handleupdateproducts');
                 Route::get('delete/{id}', 'deleteProducts')->name('deleteproducts');
-                Route::get('search', 'searchProducts')->name('searchproducts');
+                Route::get('search', 'searchProducts')->name('searchproducts');              
             });
         });
 

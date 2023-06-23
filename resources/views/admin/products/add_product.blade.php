@@ -87,8 +87,8 @@
                             <div class="card-body">
                                 <div class="box_list">
                                     <div class="item_box_list">
-                                        <label for="supplier">Loại sản phẩm</label>
-                                        <select class="form-select" name="cate_product" aria-label="Default select example">
+                                        <label for="supplier">Danh mục cấp 1</label>
+                                        <select class="form-select" name="cate_product" id="{{ ($update != NULL)? 'cate_product_up': 'cate_product_add'}}" aria-label="Default select example">
                                             <option selected value="">Chọn loại sản phẩm</option>
                                             @foreach ($categorys as $k => $v)
                                                 @if ($update != NULL)
@@ -101,6 +101,28 @@
                                                     <option value="{{ $v['id'] }}">{{ $v['name'] }}</option> 
                                                 @endif
                                             @endforeach
+                                        </select>
+                                        @error('cate_product')
+                                            <span class="message_red">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="item_box_list">
+                                        <label for="supplier">Danh mục cấp 2</label>
+                                        <select class="form-select" name="cate_two_product" id="cate_two_product" aria-label="Default select example">
+                                            <option selected value="">Chọn loại sản phẩm</option>
+                                            @if($update != NULL)
+                                                @foreach ($categorys_2 as $k => $v)
+                                                    @if ($update != NULL)
+                                                        @if ($v['id'] == $update['id_cate_two']) 
+                                                            <option selected value="{{ $v['id'] }}">{{ $v['name'] }}</option>  
+                                                        @else    
+                                                            <option value="{{ $v['id'] }}">{{ $v['name'] }}</option> 
+                                                        @endif
+                                                    @else
+                                                        <option value="{{ $v['id'] }}">{{ $v['name'] }}</option> 
+                                                    @endif
+                                                @endforeach
+                                            @endif
                                         </select>
                                         @error('cate_product')
                                             <span class="message_red">{{ $message }}</span>
