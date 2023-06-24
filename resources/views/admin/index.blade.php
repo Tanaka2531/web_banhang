@@ -9,7 +9,6 @@
             </div>
             <div class="right_nav_menu">
                 @include('admin.layouts.header')
-                @include('admin.layouts.breadcumb')
                 <div class="container_main">
                     @yield('body')
                 </div>

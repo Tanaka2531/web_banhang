@@ -22,7 +22,9 @@ class ProductController extends Controller
     {
         $pageName = 'Quản lý Sản Phẩm';
         $products = Product::get()->sortBy('id');
-        return view('admin.products.index_product', compact('products','pageName'));
+        $categorys = Category::get()->sortBy('id');
+        $brands = Brand::get()->sortBy('id');
+        return view('admin.products.index_product', compact('products','pageName','categorys','brands'));
     }
 
     public function loadAddProducts()
@@ -176,8 +178,9 @@ class ProductController extends Controller
 
     public function searchProducts(Request $data)
     {
+        $pageName = 'Tìm kiếm Sản Phẩm';
         $search = Product::where('name', 'LIKE', '%'.$data->name_search.'%')->get();
-        return view('admin.products.search_product', compact('search'));
+        return view('admin.products.search_product', compact('search','pageName'));
     }
 
     
