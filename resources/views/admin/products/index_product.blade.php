@@ -14,6 +14,23 @@
                     <span class="message_red">{{ $message }}</span>
                 @enderror
             </form>
+            <div class="search_cate_one">
+                <select class="form-select" id="search_cate">
+                    <option selected value="0">Chọn danh mục cấp 1</option>
+                    @foreach($categorys as $k => $v)
+                        <option value="{{ $v['id'] }}">{{ $v['name'] }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="search_cate_one">
+                <select class="form-select" id="search_brand">
+                    <option selected value="0">Chọn Hãng</option>
+                    @foreach($brands as $k => $v)
+                        <option value="{{ $v['id'] }}">{{ $v['name'] }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <a class="reload_search" href="{{ route('products') }}"><ion-icon name="reload-circle-outline"></ion-icon></a>
         </div>
     </div>
     <div class="box_table_list_product">
@@ -28,7 +45,7 @@
                     <th class="text-center">Thao tác</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="load_search">
                 @foreach($products as $k => $v) 
                     <tr>
                         <td class="text-center">

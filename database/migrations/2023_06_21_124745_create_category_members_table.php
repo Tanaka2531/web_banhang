@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('category_members', function (Blueprint $table) {
             $table->id();
             $table->string('name_role');
+            $table->string('status_role');
             $table->string('status');
             $table->timestamps();
             $table->softDeletes();

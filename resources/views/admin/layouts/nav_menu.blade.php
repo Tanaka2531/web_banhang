@@ -9,7 +9,7 @@
     </div>
     <ul class="list_nav_menu">
         <li>
-            <a href=""><ion-icon name="construct-outline"></ion-icon><span>Bảng điều khiển</span></a>
+            <a href="{{ route('loadadminindex') }}"><ion-icon name="construct-outline"></ion-icon><span>Bảng điều khiển</span></a>
         </li> 
         <li>
             <p data-vitri="1">
@@ -50,8 +50,34 @@
                     <a href="{{ route('member_admins') }}">Tài khoản Quản trị</a>
                 </li>
                 <li>
-                    <a href="">Tài khoản Thành viên</a>
+                    <a href="{{ route('cate_members') }}">Danh mục Tài Khoản</a>
                 </li>
+                <li>
+                    <a href="">Tài khoản Thành viên</a>
+                </li>   
+            </ul>
+        </li>   
+        <li>
+            <p data-vitri="3">
+                <a class="a_menu"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Hình ảnh</span></a>
+                <ion-icon name="chevron-down-circle-outline"></ion-icon>
+            </p>
+            <ul class="ul_child ul_child_3">
+                <li>
+                    <a href="">Hình Logo</a>
+                </li>
+                <li>
+                    <a href="">Hình Banner</a>
+                </li>
+                <li>
+                    <a href="">Hình Slider</a>
+                </li>  
+                <li>
+                    <a href="">Hình Mạng xã hội</a>
+                </li> 
+                <li>
+                    <a href="">Hình Quảng Cáo</a>
+                </li> 
             </ul>
         </li>      
         <li>

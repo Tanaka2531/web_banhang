@@ -11,6 +11,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\CategoryMemberController;
 use App\Http\Controllers\CategoriesLevelTwoController;
 
 Route::prefix('/')->group(function () {
@@ -36,6 +37,8 @@ Route::prefix('/admin')->group(function () {
         Route::get('/admin/logout', [LoginController::class, 'handleLoout'])->name('handlelogout');
 
         Route::get('ajax_loadcate', [AjaxController::class, 'ajax_loadCate'])->name('ajax_loadcate');
+        Route::get('ajax_loadproduct', [AjaxController::class, 'ajax_loadProduct'])->name('ajax_loadproduct');
+        Route::get('ajax_loadproduct_brand', [AjaxController::class, 'ajax_loadProduct_Brand'])->name('ajax_loadproduct_brand'); 
 
         Route::controller(ProductController::class)->group(function () {
             Route::prefix('/products')->group(function () {
@@ -90,6 +93,17 @@ Route::prefix('/admin')->group(function () {
                 Route::get('update/{id}', 'loadUpdateMember_admins')->name('loadupdatemember_admins');
                 Route::post('update/{id}', 'handleUpdateMember_admins')->name('handleupdatemember_admins');
                 Route::get('delete/{id}', 'deleteMember_admins')->name('deletemember_admins');
+            });
+        });
+
+        Route::controller(CategoryMemberController::class)->group(function () {
+            Route::prefix('/cate_members')->group(function () {
+                Route::get('/', 'index')->name('cate_members');
+                Route::get('add', 'loadAddCate_Member')->name('loadaddcate_member');
+                Route::post('add', 'handleAddCate_Member')->name('handleaddcate_member');
+                Route::get('update/{id}', 'loadUpdateCate_Member')->name('loadupdatecate_member');
+                Route::post('update/{id}', 'handleUpdateCate_Member')->name('handleupdatecate_member');
+                Route::get('delete/{id}', 'deleteCate_Member')->name('deletecate_member');
             });
         });
       
