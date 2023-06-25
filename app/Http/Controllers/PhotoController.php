@@ -8,59 +8,23 @@ use App\Http\Requests\UpdatePhotoRequest;
 
 class PhotoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function index($type,$cate) {
+        $pageName = 'Quản lý HÌnh Ảnh';
+        if($cate == 'man') {
+            $photo = Photo::where('type',$type)->get();
+            return view('admin.photo.index', compact('photo','pageName'));
+        } else {
+            $photo = Photo::find($type);
+            return view('admin.photo_static.add', compact('photo','pageName'));
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePhotoRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Photo $photo)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Photo $photo)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePhotoRequest $request, Photo $photo)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Photo $photo)
-    {
-        //
+    public function loadAddPhoto($type,$cate) {
+        $pageName = 'Thêm HÌnh Ảnh';
+        $update = null;
+        if($cate == 'man') {
+            return view('admin.photo.add', compact('pageName','update'));
+        }
     }
 }

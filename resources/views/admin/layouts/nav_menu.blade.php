@@ -64,19 +64,19 @@
             </p>
             <ul class="ul_child ul_child_3">
                 <li>
-                    <a href="">Hình Logo</a>
+                    <a href="{{ route('photo',['type' => 'logo','cate' => 'static']) }}">Hình Logo</a>
                 </li>
                 <li>
-                    <a href="">Hình Banner</a>
+                    <a href="{{ route('photo',['type' => 'banner','cate' => 'static']) }}">Hình Banner</a>
                 </li>
                 <li>
-                    <a href="">Hình Slider</a>
+                    <a href="{{ route('photo',['type' => 'slider','cate' => 'man']) }}">Hình Slider</a>
                 </li>  
                 <li>
-                    <a href="">Hình Mạng xã hội</a>
+                    <a href="{{ route('photo',['type' => 'social','cate' => 'man']) }}">Hình Mạng xã hội</a>
                 </li> 
                 <li>
-                    <a href="">Hình Quảng Cáo</a>
+                    <a href="{{ route('photo',['type' => 'advertisement','cate' => 'man']) }}">Hình Quảng Cáo</a>
                 </li> 
             </ul>
         </li>      

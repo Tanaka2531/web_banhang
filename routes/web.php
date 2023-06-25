@@ -13,6 +13,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CategoryMemberController;
 use App\Http\Controllers\CategoriesLevelTwoController;
+use App\Http\Controllers\PhotoController;
+
 
 Route::prefix('/')->group(function () {
     Route::get('/', function () {
@@ -137,6 +139,17 @@ Route::prefix('/admin')->group(function () {
                 Route::get('update/{id}', 'updateBrand')->name('loadUpdateBrand');
                 Route::patch('update/{id}', 'handleUpdateBrand')->name('handleUpdateBrand');
                 Route::get('delete/{id}', 'deleteBrand')->name('deleteBrand');
+            });
+        });
+
+        Route::controller(PhotoController::class)->group(function () {
+            Route::prefix('/photo')->group(function () {
+                Route::get('/{type}/{cate}', 'index')->name('photo');
+                Route::get('add/{type}/{cate}', 'loadAddPhoto')->name('loadaddphoto');
+                Route::post('add/{type}/{cate}', 'handleaddbrand')->name('handleAddBrand');
+                Route::get('update/{id}/{type}/{cate}', 'loadUpdateBrand')->name('loadupdatebrand');
+                Route::post('update/{id}/{type}/{cate}', 'handleUpdateBrand')->name('handleupdatebrand');
+                Route::get('delete/{id}/{type}/{cate}', 'deleteBrand')->name('deletebrand');
             });
         });
     });
