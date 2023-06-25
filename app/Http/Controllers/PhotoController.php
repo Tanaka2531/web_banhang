@@ -19,7 +19,6 @@ class PhotoController extends Controller
         }
     }
 
-    {
     public function loadAddPhoto($type,$cate) {
         $pageName = 'Thêm HÌnh Ảnh';
         $update = null;
