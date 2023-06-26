@@ -2,7 +2,7 @@
 @section('body')
     <div class="box_btn_search">
         <div class="flex_btn_search">
-            <div class="btn_add"><a href="{{ route('loadaddphoto') }}">Thêm mới</a></div>
+            <div class="btn_add"><a href="{{ route('loadaddphoto',['type' => $type_man, 'cate' => 'man']) }}">Thêm mới</a></div>
             <div class="btn_delete_all">Xóa tất cả</div>
             <div class="input_search">
                 <input type="text" name="name_search" id="name_search" placeholder="Nhập sản phẩm cần tìm" class="form-control">
@@ -21,14 +21,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($member_admins as $k => $v) 
+                @foreach($photo as $k => $v) 
                     <tr>
                         <td class="text-center">
                             <input class="sty_checkbox form-check-input" type="checkbox">
                         </td>
                         <td class="text-center">{{ ($k + 1) }}</td>
                         <td class="text-center">
-                            <a href="{{ route('loadupdatebrand',['id' => $v['id']]) }}">
+                            <a href="{{ route('loadupdatphoto',['id' => $v['id'],'type' => $type_man, 'cate' => 'man']) }}">
                                 @if($v['photo'] != NULL) 
                                     <img class="img_main" src="{{ asset('upload/photo/'.$v['photo']) }}" width="100" height="100" alt="">
                                 @else
@@ -38,8 +38,8 @@
                         </td>
                         <td class="text-center">
                             <div class="flex_options">
-                                <a href="{{ route('loadupdatebrand',['id' => $v['id']]) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
-                                <a href="{{ route('deletebrand',['id' => $v['id']]) }}"><span><ion-icon name="trash-outline"></ion-icon></span></a>
+                                <a href="{{ route('loadupdatphoto',['id' => $v['id'],'type' => $type_man, 'cate' => 'man']) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
+                                <a href="{{ route('deletphoto',['id' => $v['id'],'type' => $type_man, 'cate' => 'man']) }}"><span><ion-icon name="trash-outline"></ion-icon></span></a>
                                 <a href=""><span><ion-icon name="eye-outline"></ion-icon></span></a>
                             </div>
                         </td>
