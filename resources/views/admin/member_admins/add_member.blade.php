@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <div class="box_input">
                                 <label for="title">Tên thành viên</label>
-                                <input type="text" class="form-control" name="name_member" id="name_member" placeholder="Tên sản phẩm" value="{{ ($update != NULL) ? $update['fullname']: ''}}">
+                                <input type="text" class="form-control" name="name_member" id="name_member" placeholder="Tên thành viên" value="{{ ($update != NULL) ? $update['fullname']: ''}}">
                                 @error('name_member')
                                     <span>{{ $message }}</span>
                                 @enderror

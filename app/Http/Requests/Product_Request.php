@@ -23,6 +23,7 @@ class Product_Request extends FormRequest
     {
         return [
             'photo_product' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photo_gallery' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name_product' => 'required',
             'cate_product' => 'required',
             'sup_product' => 'required',
@@ -33,6 +34,8 @@ class Product_Request extends FormRequest
         return [
             'photo_product.mimes' => 'Ảnh phải là những định dạng jpeg, png, jpg, gif, svg',
             'photo_product.max' => 'Ảnh chỉ nhập ảnh có kích thước bé hơn 2MB',
+            'photo_gallery.mimes' => 'Ảnh phải là những định dạng jpeg, png, jpg, gif, svg',
+            'photo_gallery.max' => 'Ảnh chỉ nhập ảnh có kích thước bé hơn 2MB',
             'name_product.required' => 'Tên sản phẩm không được trống',
             'cate_product.required' => 'Bạn chưa chọn loại sản phẩm',
             'sup_product.required' => 'Bạn chưa chọn hãng sản xuất',

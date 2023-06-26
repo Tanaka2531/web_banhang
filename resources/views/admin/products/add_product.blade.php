@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-header">Thuộc tính - Giá sản phẩm</div>
                         <div class="card-body">
                             <div class="box_check_status">
@@ -79,6 +79,25 @@
                             </div>
                         </div>
                     </div>         
+                    <div class="card">
+                        <div class="card-header">Thư viện ảnh sản phẩm</div>
+                        <div class="card-body">
+                            <div class="box_photo_gallery">
+                                @if($update != NULL)
+                                    @if($photo_gallery != NULL)
+                                        @foreach($photo_gallery as $k => $v) 
+                                            <p>
+                                                <img src="{{ asset('upload/products/gallery/'.$v['photo']) }}" alt="">
+                                            </p>                               
+                                        @endforeach
+                                    @endif
+                                @endif
+                            </div>
+                            <div class="btn_input_file">
+                                <input type="file" class="form-control" name="photo_gallery[]" id="photo_gallery[]" multiple>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="right_form">
                     <div class="box_list_img">
