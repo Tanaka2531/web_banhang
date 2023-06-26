@@ -6,18 +6,28 @@ use App\Models\Photo;
 use App\Http\Requests\StorePhotoRequest;
 use App\Http\Requests\UpdatePhotoRequest;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 
 class PhotoController extends Controller
 {
     public function index($type,$cate) {
-        $pageName = 'Quản lý HÌnh Ảnh';
+        $pageName = 'Quản lý Hình Ảnh';
         if($cate == 'man') {
             $photo = Photo::where('type',$type)->get();
             $type_man = $type;
             return view('admin.photo.index', compact('photo','pageName','type_man'));
+        } else if($cate == 'static') {
+            $type_man = $type;            
+            $photo = Photo::where('type',$type)->get()->toArray();
+            if($photo != null) {
+                $convert_photo = Photo::where('type',$type)->firstOrFail();
+            } else {
+                $convert_photo = NULL;
+            }
+            return view('admin.photo_static.add', compact('convert_photo','pageName','type_man'));  
         } else {
-            $photo = Photo::find($type);
-            return view('admin.photo_static.add', compact('photo','pageName'));
+            $pageName = 'Bảng điều kiển';
+            return  view('admin.index', compact('pageName'));  
         }
     }
 
@@ -48,6 +58,8 @@ class PhotoController extends Controller
             $add->photo = $imageName;
         }
         $add->type = $type;
+        $add->name = $data->photo_name;
+        $add->link = $data->photo_link;
         if($cate == 'man') {
             $add->save();
             return redirect()->route('photo',[$type,$cate]);
@@ -88,6 +100,8 @@ class PhotoController extends Controller
             $add->photo = $imageName;
         }
         $add->type = $type;
+        $add->name = $data->photo_name;
+        $add->link = $data->photo_link;
         if($cate == 'man') {
             $add->save();
             return redirect()->route('photo',[$type,$cate]);

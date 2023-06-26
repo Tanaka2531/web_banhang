@@ -17,6 +17,8 @@
                     <th></th>
                     <th class="text-center">STT</th>
                     <th class="text-center">Hình Ảnh</th>
+                    <th class="text-center">Tên hình ảnh</th>
+                    <th class="text-center">Link hình ảnh</th>
                     <th class="text-center">Thao tác</th>
                 </tr>
             </thead>
@@ -36,6 +38,8 @@
                                 @endif 
                             </a>
                         </td>
+                        <td class="text-center">{{ $v['name'] }}</td>
+                        <td class="text-center">{{ $v['link'] }}</td>
                         <td class="text-center">
                             <div class="flex_options">
                                 <a href="{{ route('loadupdatphoto',['id' => $v['id'],'type' => $type_man, 'cate' => 'man']) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
