@@ -1,7 +1,7 @@
 @extends('admin.index')
 @section('body')
 <div class="box_form">
-        <form action="{{ ($update != NULL) ? route('handleupdatemember_admins',['id' => $update['id']]) : route('handleaddmember_admins') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ ($update != NULL) ? route('handleupdatphoto',['id' => $update['id'],'type' => $type_man, 'cate' => 'man']) : route('handleaddphoto',['type' => $type_man, 'cate' => 'man']) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="box_btn_main">
                 @if($update != NULL)

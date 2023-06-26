@@ -146,10 +146,10 @@ Route::prefix('/admin')->group(function () {
             Route::prefix('/photo')->group(function () {
                 Route::get('/{type}/{cate}', 'index')->name('photo');
                 Route::get('add/{type}/{cate}', 'loadAddPhoto')->name('loadaddphoto');
-                Route::post('add/{type}/{cate}', 'handleaddbrand')->name('handleAddBrand');
-                Route::get('update/{id}/{type}/{cate}', 'loadUpdateBrand')->name('loadupdatebrand');
-                Route::post('update/{id}/{type}/{cate}', 'handleUpdateBrand')->name('handleupdatebrand');
-                Route::get('delete/{id}/{type}/{cate}', 'deleteBrand')->name('deletebrand');
+                Route::post('add/{type}/{cate}', 'handleAddPhoto')->name('handleaddphoto');
+                Route::get('update/{id}/{type}/{cate}', 'loadUpdatPhoto')->name('loadupdatphoto');
+                Route::post('update/{id}/{type}/{cate}', 'handleUpdatPhoto')->name('handleupdatphoto');
+                Route::get('delete/{id}/{type}/{cate}', 'deletPhoto')->name('deletphoto');
             });
         });
     });
