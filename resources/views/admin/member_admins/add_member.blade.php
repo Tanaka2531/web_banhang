@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <div class="box_input">
                                 <label for="title">Tên thành viên</label>
-                                <input type="text" class="form-control" name="name_member" id="name_member" placeholder="Tên sản phẩm" value="{{ ($update != NULL) ? $update['fullname']: ''}}">
+                                <input type="text" class="form-control" name="name_member" id="name_member" placeholder="Tên thành viên" value="{{ ($update != NULL) ? $update['fullname']: ''}}">
                                 @error('name_member')
                                     <span>{{ $message }}</span>
                                 @enderror
@@ -36,6 +36,12 @@
                                 @error('password')
                                     <span>{{ $message }}</span>
                                 @enderror
+                            </div>
+                            <div class="item_box_list d-none">
+                                <label for="supplier">Loại tài khoản</label>
+                                <select class="form-select" name="cate_member" aria-label="Default select example">
+                                    <option selected value="1">Chọn loại sản phẩm</option>
+                                </select>
                             </div>
                             <div class="box_input">
                                 <label for="title">Địa chỉ</label>

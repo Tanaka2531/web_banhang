@@ -11,7 +11,7 @@
                     <button type="submit" class=""><ion-icon name="search-outline"></ion-icon></button>
                 </div>          
             </form>
-            <a href="{{ route('products') }}" class="btn_redirect"><ion-icon name="arrow-back-circle-outline"></ion-icon></a>
+            <a href="{{ route('products') }}" class="btn_redirect"><ion-icon name="reload-circle-outline"></ion-icon></a>
         </div>
     </div>
     <div class="box_table_list_product">

@@ -31,16 +31,11 @@
                         <td class="text-center">{{ $k + 1 }}</td>
                         <td>
                             <a href="{{ route('loadUpdateBrand', ['id' => $v['id']]) }}">
-<<<<<<< Updated upstream
                                 @if($v['photo'] != NULL) 
                                     <img class="img_main" src="{{ asset('upload/brand/'.$v['photo']) }}" width="100" height="100" alt="">
                                 @else
                                     <img class="img_main" src="{{ asset('adminate/images/noimg.jpg') }}" width="100" height="100" alt="">
                                 @endif 
-=======
-                                <img src="{{ $v['photo'] ? asset('upload/brand/' . $v['photo']) : asset('adminate/images/noimg.jpg') }}"
-                                    width="100" height="100" alt="{{ $v['name'] }}">
->>>>>>> Stashed changes
                             </a>
                         </td>
                         <td>{{ $v['name'] }}</td>

@@ -3,64 +3,109 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories_level_two;
+use App\Models\Category;
 use App\Http\Requests\StoreCategories_level_twoRequest;
 use App\Http\Requests\UpdateCategories_level_twoRequest;
+use App\Http\Requests\CategoryTwoRequest;
+
 
 class CategoriesLevelTwoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $pageName = 'Quản lý Dang mục cấp 2';
+        $category_two = Categories_level_two::get()->sortBy('id');
+        return view('admin.category_two.index', compact('category_two','pageName'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function loadAddCategory()
     {
-        //
+        $pageName = 'Thêm danh mục cấp 2';
+        $cate_one = Category::get()->sortBy('id');
+        $update = NULL;
+
+        return view('admin.category_two.add', compact('pageName', 'update','cate_one'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreCategories_level_twoRequest $request)
-    {
-        //
+    public function handleAddCategory(CategoryTwoRequest $data) {
+
+        $add = new Categories_level_two;
+        $data->validate(
+            [
+                'name_cate_two' => 'unique:categories_level_twos,name',
+            ],
+            [
+                'name_cate_two.unique' => 'Tên danh mục bị trùng',
+            ]
+        );
+        if($data->photo_cate_two != NULL) {
+            $images = $data->photo_cate_two;      
+            $imageName = time().'.'.$images->extension();  
+            $images->move(public_path('upload/category'), $imageName);
+            $add->photo = $imageName;
+        }    
+        $add->name = $data->name_cate_two;
+        $add->status = $data->status_cate_two;
+        $add->id_cate_one = $data->cate_product_one;
+        $add->save();
+        return redirect()->route('category_two');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Categories_level_two $categories_level_two)
-    {
-        //
+    public function loadUpdateCategory($id) {
+        $update = Categories_level_two::find($id);
+        $cate_one = Category::get()->sortBy('id');
+        $pageName = 'Chỉnh sửa danh mục cấp 2';
+
+        if ($update == null) {
+            return view('products');
+        } else {
+            return view('admin.category_two.add', compact('pageName','update','cate_one'));
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Categories_level_two $categories_level_two)
-    {
-        //
+    public function handleUpdateCategory(CategoryTwoRequest $data, $id) {
+
+        $add = Categories_level_two::find($id);
+        if($add->name == $data->name_cate_two) {
+            if($data->photo_cate_two != NULL) {
+                $images = $data->photo_cate_two;      
+                $imageName = time().'.'.$images->extension();  
+                $images->move(public_path('upload/category'), $imageName);
+                $add->photo = $imageName;
+            }    
+            $add->name = $data->name_cate_two;
+            $add->status = $data->status_cate_two;
+            $add->id_cate_one = $data->cate_product_one;
+        } else {
+            $data->validate(
+                [
+                    'name_cate_two' => 'unique:categories_level_twos,name',
+                ],
+                [
+                    'name_cate_two.unique' => 'Tên danh mục bị trùng',
+                ]
+            );
+            if($data->photo_cate_two != NULL) {
+                $images = $data->photo_cate_two;      
+                $imageName = time().'.'.$images->extension();  
+                $images->move(public_path('upload/category'), $imageName);
+                $add->photo = $imageName;
+            }    
+            $add->name = $data->name_cate_two;
+            $add->status = $data->status_cate_two;
+            $add->id_cate_one = $data->cate_product_one;
+        }
+        $add->save();
+        return redirect()->route('category_two');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateCategories_level_twoRequest $request, Categories_level_two $categories_level_two)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Categories_level_two $categories_level_two)
-    {
-        //
+    public function deleteCategory($id) {
+        $dlt = Categories_level_two::find($id);
+        if ($dlt == null || $dlt->deleted_at != NULL) {
+            return view('category_two');
+        } else {
+            $dlt->delete();
+            return redirect()->route('category_two');
+        }
     }
 }

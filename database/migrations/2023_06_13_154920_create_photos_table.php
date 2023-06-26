@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->string('photo')->nullable();
+            $table->string('name')->nullable();
+            $table->string('link')->nullable();
             $table->string('type')->nullable();
             $table->timestamps();
             $table->softDeletes();

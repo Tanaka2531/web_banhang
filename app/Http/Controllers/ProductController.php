@@ -6,9 +6,11 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Color;
+use App\Models\Gallery;
 use App\Models\Color_Product;
 use App\Models\Size_Product;
 use App\Models\Size;
+use App\Models\Categories_level_two;
 use App\Http\Requests\Product_Request;
 use Illuminate\Http\Request;
 
@@ -21,7 +23,9 @@ class ProductController extends Controller
     {
         $pageName = 'Quản lý Sản Phẩm';
         $products = Product::get()->sortBy('id');
-        return view('admin.products.index_product', compact('products','pageName'));
+        $categorys = Category::get()->sortBy('id');
+        $brands = Brand::get()->sortBy('id');
+        return view('admin.products.index_product', compact('products','pageName','categorys','brands'));
     }
 
     public function loadAddProducts()
@@ -37,7 +41,7 @@ class ProductController extends Controller
         return view('admin.products.add_product', compact('pageName','categorys','brands','update','colors','sizes','color_product','size_product'));
     }
 
-    public function handleAddProducts(Product_Request $data)
+    public function handleAddProducts(Request $data)
     {
         $add = new Product;
         if($data->photo_product != NULL) {
@@ -45,7 +49,7 @@ class ProductController extends Controller
             $imageName = time().'.'.$images->extension();  
             $images->move(public_path('upload/products'), $imageName);
             $add->photo = $imageName;
-        }    
+        }   
         $add->name = $data->name_product;
         $add->desc = $data->desc_product;
         $add->content = $data->content_product;
@@ -58,9 +62,26 @@ class ProductController extends Controller
             $add->status = 0;
         }
         $add->id_cate = $data->cate_product;
+        $add->id_cate_two = $data->cate_two_product;
         $add->id_brand = $data->sup_product;
-     
         $add->save();
+
+        if($data->photo_gallery != NULL) {
+            $arr_photo = $data->photo_gallery;
+            $count_photo = count($data->photo_gallery);
+            for($i = 0;$i < $count_photo;$i++) {
+                $add_Photo = new Gallery;
+                $filename = rand(111111, 999999);
+                $images_photo = $arr_photo[$i];
+                $imageName_photo =  $filename.'.'.$images_photo->extension();  
+                $images_photo->move(public_path('upload/products/gallery'), $imageName_photo);
+                $add_Photo->id_products = $add->id;
+                $add_Photo->photo = $imageName_photo;
+                $add_Photo->type = 'product';
+                $add_Photo->save();
+            }    
+        } 
+
         if($data->arr_color != NULL) {
             $arr_color = $data->arr_color;
             $count_color = count($data->arr_color);
@@ -87,21 +108,25 @@ class ProductController extends Controller
     public function loadUpdateProducts($id) {
         $pageName = 'Chỉnh sửa sản phẩm';
         $categorys = Category::get()->sortBy('id');
+        $categorys_two = Categories_level_two::get()->sortBy('id_cate');
         $brands = Brand::get()->sortBy('id');
         $colors = Color::get()->sortBy('id');
         $sizes = Size::get()->sortBy('id');
         $color_product = Color_Product::where('id_product', $id)->pluck('color_products.id_color')->toArray();
         $size_product = Size_Product::where('id_product', $id)->pluck('size_products.id_size')->toArray();
         $update = Product::find($id);
-        
+        $categorys_1 = Category::where('id', $update['id_cate'])->get()->toArray();
+        $categorys_2 = Categories_level_two::where('id_cate_one', $categorys_1[0]['id'])->get();
+        $photo_gallery = Gallery::where('id_products',$id)->get()->toArray();
+      
         if ($update == null) {
             return view('products');
         } else {
-            return view('admin.products.add_product', compact('pageName','update','categorys','brands', 'colors', 'sizes', 'color_product','size_product'));
+            return view('admin.products.add_product', compact('pageName','update','categorys_2','categorys_two','categorys','brands', 'colors', 'sizes', 'color_product','size_product','photo_gallery'));
         }
     }
 
-    public function handleUpdateProducts(Product_Request $data, $id)
+    public function handleUpdateProducts(Request $data, $id)
     {
         $add = Product::find($id);
         if($data->photo_product != NULL) {
@@ -110,6 +135,28 @@ class ProductController extends Controller
             $images->move(public_path('upload/products'), $imageName);
             $add->photo = $imageName;
         }
+
+        $dlt_sp = Gallery::where('type', 'product');
+        $dlt_sp->delete();
+        $dlt_tras = Gallery::withTrashed()->where('type', 'product');
+        $dlt_tras->forceDelete(); 
+        
+        if($data->photo_gallery != NULL) {
+            $arr_photo = $data->photo_gallery;
+            $count_photo = count($data->photo_gallery);    
+            for($i = 0;$i < $count_photo;$i++) {
+                $add_Photo = new Gallery;
+                $filename = rand(111111, 999999);
+                $images_photo = $arr_photo[$i]; 
+                $imageName_photo = $filename.'.'.$images_photo->extension();    
+                $images_photo->move(public_path('upload/products/gallery'), $imageName_photo);
+                $add_Photo->id_products = $id;
+                $add_Photo->photo = $imageName_photo;
+                $add_Photo->type = 'product';
+                $add_Photo->save();
+            }     
+        }
+
         $dlt_cp = Color_Product::where('id_product', $id);
         $dlt_cp->delete();
         $dlt_tras = Color_Product::withTrashed()->where('id_product', $id);
@@ -138,6 +185,7 @@ class ProductController extends Controller
                 $add_SP->save();
             }      
         } 
+
         $add->name = $data->name_product;
         $add->desc = $data->desc_product;
         $add->content = $data->content_product;
@@ -150,6 +198,7 @@ class ProductController extends Controller
             $add->status = 0;
         } 
         $add->id_cate = $data->cate_product;
+        $add->id_cate_two = $data->cate_two_product;
         $add->id_brand = $data->sup_product;
         $add->save();
         return redirect()->route('products');
@@ -168,7 +217,10 @@ class ProductController extends Controller
 
     public function searchProducts(Request $data)
     {
+        $pageName = 'Tìm kiếm Sản Phẩm';
         $search = Product::where('name', 'LIKE', '%'.$data->name_search.'%')->get();
-        return view('admin.products.search_product', compact('search'));
+        return view('admin.products.search_product', compact('search','pageName'));
     }
+
+    
 }
