@@ -9,10 +9,6 @@ use GuzzleHttp\Psr7\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
     public function index()
     {
         $categories = Category::get()->sortBy('id');
@@ -21,9 +17,6 @@ class CategoryController extends Controller
         return view('admin.category.index', compact('categories', 'pageName'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function addCategory()
     {
         $pageName = 'Thêm danh mục';
@@ -32,9 +25,6 @@ class CategoryController extends Controller
         return view('admin.category.add', compact('pageName', 'update'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function handleAddCategory(StoreCategoryRequest $data)
     {
         $add = new Category();
@@ -52,9 +42,6 @@ class CategoryController extends Controller
         return redirect()->route('listCategories');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function updateCategory($id)
     {
         $update = Category::find($id);
@@ -63,14 +50,17 @@ class CategoryController extends Controller
         return view('admin.category.add', compact('update', 'pageName'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function handleUpdateCategory(UpdateCategoryRequest $data, $id)
     {
         $update = Category::find($id);
 
         if ($data->photo != NULL) {
+            if($update['photo'] != NULL) {
+                $removeFile = public_path('upload/category/'.$update['photo']);
+                if(file_exists($removeFile)) {
+                    unlink($removeFile);
+                }
+            }
             $data->validate([
                 'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
@@ -86,13 +76,15 @@ class CategoryController extends Controller
         return redirect()->route('listCategories');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function deleteCategory($id)
     {
         $delete = Category::find($id);
-
+        if($delete['photo']) {
+            $removeFile = public_path('upload/category/'.$delete['photo']);
+            if(file_exists($removeFile)) {
+                unlink($removeFile);
+            }
+        }
         $delete->delete();
         return redirect()->route('listCategories')->with('success', 'Xóa dữ liệu thành công');
     }

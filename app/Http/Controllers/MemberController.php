@@ -94,6 +94,12 @@ class MemberController extends Controller
             $add->email = $data->email;
             $add->birthday = $data->birthday;
             if($data->photo_member != NULL) {
+                if($add['photo'] != NULL) {
+                    $removeFile = public_path('upload/member_admins/'.$add['photo']);
+                    if(file_exists($removeFile)) {
+                        unlink($removeFile);
+                    }
+                }
                 $images = $data->photo_member;      
                 $imageName = time().'.'.$images->extension();  
                 $images->move(public_path('upload/member_admins'), $imageName);
@@ -122,6 +128,12 @@ class MemberController extends Controller
             $add->email = $data->email;
             $add->birthday = $data->birthday;
             if($data->photo_member != NULL) {
+                if($add['photo'] != NULL) {
+                    $removeFile = public_path('upload/member_admins/'.$add['photo']);
+                    if(file_exists($removeFile)) {
+                        unlink($removeFile);
+                    }
+                }
                 $images = $data->photo_member;      
                 $imageName = time().'.'.$images->extension();  
                 $images->move(public_path('upload/member_admins'), $imageName);
@@ -140,6 +152,12 @@ class MemberController extends Controller
         if ($dlt == null || $dlt->deleted_at != NULL) {
             return view('member_admins');
         } else {
+            if($dlt['photo'] != NULL) {
+                $removeFile = public_path('upload/member_admins/'.$dlt['photo']);
+                if(file_exists($removeFile)) {
+                    unlink($removeFile);
+                }
+            }
             $dlt->delete();
             $dlt_tras = Member::withTrashed()->where('id', $id);
             $dlt_tras->forceDelete();

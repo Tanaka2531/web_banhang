@@ -41,6 +41,10 @@ Route::prefix('/admin')->group(function () {
         Route::get('ajax_loadcate', [AjaxController::class, 'ajax_loadCate'])->name('ajax_loadcate');
         Route::get('ajax_loadproduct', [AjaxController::class, 'ajax_loadProduct'])->name('ajax_loadproduct');
         Route::get('ajax_loadproduct_brand', [AjaxController::class, 'ajax_loadProduct_Brand'])->name('ajax_loadproduct_brand'); 
+        Route::get('ajax_deletegallery', [AjaxController::class, 'ajax_deleteGallery'])->name('ajax_deletegallery');
+        Route::get('ajax_loadstatus', [AjaxController::class, 'ajax_loadStatus'])->name('ajax_loadstatus');
+        Route::get('ajax_loadstatuscate', [AjaxController::class, 'ajax_loadStatusCate'])->name('ajax_loadstatuscate');
+        Route::get('ajax_loadstatusblog', [AjaxController::class, 'ajax_loadStatusBlog'])->name('ajax_loadstatusblog');
 
         Route::controller(ProductController::class)->group(function () {
             Route::prefix('/products')->group(function () {

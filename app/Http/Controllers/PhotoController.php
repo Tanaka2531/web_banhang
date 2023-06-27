@@ -93,10 +93,17 @@ class PhotoController extends Controller
                 'photo_man.max' => 'Ảnh chỉ nhập ảnh có kích thước bé hơn 2MB',
             ]
         );
+
         if($data->photo_man != NULL) {
+            if($add['photo'] != NULL) {
+                $removeFile = public_path('upload/photo/'.$add['photo']);
+                if(file_exists($removeFile)) {
+                    unlink($removeFile);
+                }
+            }
             $images = $data->photo_man;      
             $imageName = time().'.'.$images->extension();  
-            $images->move(public_path('upload/photo'), $imageName);
+            $images->move(public_path('upload/photo/'), $imageName);
             $add->photo = $imageName;
         }
         $add->type = $type;
@@ -117,6 +124,12 @@ class PhotoController extends Controller
         if ($dlt == null || $dlt->deleted_at != NULL) {
             return view('photo');
         } else {
+            if($dlt['photo'] != NULL) {
+                $removeFile = public_path('upload/photo/'.$dlt['photo']);
+                if(file_exists($removeFile)) {
+                    unlink($removeFile);
+                }
+            }
             $dlt->delete();
             return redirect()->route('photo',[$type,$cate]);
         }

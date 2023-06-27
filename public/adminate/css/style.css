@@ -126,8 +126,8 @@ label {font-weight: 600;margin-bottom: 5px;}
 .box_delete a:hover {color: #fff;}
 .box_delete {position: absolute;right: 5px;top: 5px;}
 .box_photo_gallery {display: flex;justify-content: start;flex-flow: wrap;margin: -10px;margin-bottom: 10px;}
-.box_photo_gallery p {width: calc(25% - 20px);margin: 10px;height: 250px;}
-.box_photo_gallery p img {width: 100%;height: 100%;object-fit: cover;}
+.box_photo_gallery .img_gallery {width: calc(25% - 20px);margin: 10px;height: 200px;position: relative;}
+.box_photo_gallery .img_gallery img {width: 100%;height: 100%;object-fit: cover;border-radius: 5px;}
 .bgk_main {background: url(../images/abc.jpg) center no-repeat;background-size: 100% 100%;}
 .box_form_login label {color: #fff;}
 .btn_login input {border-color: #000 !important;background: #000 !important;transition: 0.35s;padding: 5px 30px 8px 30px;text-transform: capitalize;}
@@ -135,7 +135,7 @@ label {font-weight: 600;margin-bottom: 5px;}
 .btn_login {text-align: center;}
 .box_form_login input {border: none;height: 45px;}
 .title_admin {font-size: 32px;color: #fff;text-transform: capitalize;margin-bottom: 20px;}
-
+.btn_dlt_gallery {position: absolute;width: 30px;height: 30px;display: flex;align-items: center;justify-content: center;background: #f00;color: #fff;border-radius: 5px;font-size: 18px;right: 5px;top: 5px;cursor: pointer;}
 
 
 

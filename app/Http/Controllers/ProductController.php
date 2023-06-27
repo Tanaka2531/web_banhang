@@ -16,9 +16,6 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $pageName = 'Quản lý Sản Phẩm';
@@ -130,18 +127,34 @@ class ProductController extends Controller
     {
         $add = Product::find($id);
         if($data->photo_product != NULL) {
+            if($add['photo'] != NULL) {
+                $removeFile = public_path('upload/products/'.$add['photo']);
+                if(file_exists($removeFile)) {
+                    unlink($removeFile);
+                }
+            }
             $images = $data->photo_product;      
             $imageName = time().'.'.$images->extension();  
             $images->move(public_path('upload/products'), $imageName);
             $add->photo = $imageName;
         }
-
-        $dlt_sp = Gallery::where('type', 'product');
-        $dlt_sp->delete();
-        $dlt_tras = Gallery::withTrashed()->where('type', 'product');
-        $dlt_tras->forceDelete(); 
         
         if($data->photo_gallery != NULL) {
+            $dlt_file = Gallery::where('type', 'product')->get()->toArray();
+            if($dlt_file != NULL) {
+                foreach($dlt_file as $k => $v) {
+                    $removeFile = public_path('upload/products/gallery/'.$v['photo']);
+                    if(file_exists($removeFile)) {
+                        unlink($removeFile);
+                    }
+                }
+
+                $dlt_sp = Gallery::where('type', 'product');
+                $dlt_sp->delete();
+                $dlt_tras = Gallery::withTrashed()->where('type', 'product');
+                $dlt_tras->forceDelete(); 
+            }
+
             $arr_photo = $data->photo_gallery;
             $count_photo = count($data->photo_gallery);    
             for($i = 0;$i < $count_photo;$i++) {
@@ -207,9 +220,24 @@ class ProductController extends Controller
     public function deleteProducts($id)
     {
         $dlt = Product::find($id);
+        $dlt_file = Gallery::where('type', 'product')->get()->toArray();
         if ($dlt == null || $dlt->deleted_at != NULL) {
             return view('products');
         } else {
+            if($dlt['photo'] != NULL) {
+                $removeFile = public_path('upload/products/'.$dlt['photo']);
+                if(file_exists($removeFile)) {
+                    unlink($removeFile);
+                }
+            }
+            if($dlt_file != NULL) {
+                foreach($dlt_file as $k => $v) {
+                    $removeFile_1 = public_path('upload/products/gallery/'.$v['photo']);
+                    if(file_exists($removeFile_1)) {
+                        unlink($removeFile_1);
+                    }
+                }
+            }
             $dlt->delete();
             return redirect()->route('products');
         }

@@ -76,6 +76,12 @@ class BlogController extends Controller
             ]
         );
         if($data->photo_blog != NULL) {
+            if($add['photo'] != NULL) {
+                $removeFile = public_path('upload/blogs/'.$add['photo']);
+                if(file_exists($removeFile)) {
+                    unlink($removeFile);
+                }
+            }
             $images = $data->photo_blog;      
             $imageName = time().'.'.$images->extension();  
             $images->move(public_path('upload/blogs'), $imageName);
@@ -95,6 +101,12 @@ class BlogController extends Controller
         if ($dlt == null || $dlt->deleted_at != NULL) {
             return view('blogs');
         } else {
+            if($dlt['photo']) {
+                $removeFile = public_path('upload/blogs/'.$dlt['photo']);
+                if(file_exists($removeFile)) {
+                    unlink($removeFile);
+                }
+            }
             $dlt->delete();
             return redirect()->route('blogs');
         }
