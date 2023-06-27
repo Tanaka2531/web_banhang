@@ -86,9 +86,10 @@
                                 @if($update != NULL)
                                     @if($photo_gallery != NULL)
                                         @foreach($photo_gallery as $k => $v) 
-                                            <p>
+                                            <div class="img_gallery">
+                                                <div class="btn_dlt_gallery" data-id="{{ $v['id'] }}"><ion-icon name="trash-outline"></ion-icon></div>
                                                 <img src="{{ asset('upload/products/gallery/'.$v['photo']) }}" alt="">
-                                            </p>                               
+                                            </div>                               
                                         @endforeach
                                     @endif
                                 @endif
