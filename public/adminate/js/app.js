@@ -90,6 +90,94 @@ $(document).on('change','#cate_product_add',function() {
     });
 });
 
+$(document).on('click','.delete_main',function() {  
+    Swal.fire({
+        title: 'Bạn chắc chắn xóa mục này?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Xóa',
+        denyButtonText: 'Không',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var id = $(this).data('id');
+            var type = $(this).data('type');
+            var type_man = $(this).data('type_man');
+            var cate = $(this).data('cate');
+            if(type_man != '' && cate == 'man') {
+                window.location.href = '../../' + type + '/delete/' + id + '/' + type_man + '/' + cate;
+            } else {
+                window.location.href = type + '/delete/'+ id;
+            }
+           
+        } else if (result.isDenied) {
+            
+        };
+    });
+});
+
+$(document).on('change','#status_product_ajax',function() {
+    var id_status = $(this).val();
+    var id_prod = $(this).data('id');
+
+    $.ajax({
+        type:'GET',
+        url: "ajax_loadstatus", 
+        data: { 
+            id_status: id_status,
+            id_prod: id_prod
+        },
+    }).done(function (respose){
+        if(respose != null) {
+            alert('Cập nhật trạng thái thành công');
+            setTimeout(function() {
+                location.reload();
+            }, 100);
+        }
+    });
+});
+
+$(document).on('change','#status_cate_ajax',function() {
+    var id_status = $(this).val();
+    var id_prod = $(this).data('id');
+
+    $.ajax({
+        type:'GET',
+        url: "ajax_loadstatuscate", 
+        data: { 
+            id_status: id_status,
+            id_prod: id_prod
+        },
+    }).done(function (respose){
+        if(respose != null) {
+            alert('Cập nhật trạng thái thành công');
+            setTimeout(function() {
+                location.reload();
+            }, 100);
+        }
+    });
+});
+
+$(document).on('change','#status_blog_ajax',function() {
+    var id_status = $(this).val();
+    var id_blog = $(this).data('id');
+
+    $.ajax({
+        type:'GET',
+        url: "ajax_loadstatusblog", 
+        data: { 
+            id_status: id_status,
+            id_blog: id_blog
+        },
+    }).done(function (respose){
+        if(respose != null) {
+            alert('Cập nhật trạng thái thành công');
+            setTimeout(function() {
+                location.reload();
+            }, 100);
+        }
+    });
+});
+
 $(document).on('click','.btn_dlt_gallery',function() {
     var id_photo = $(this).data('id');
 

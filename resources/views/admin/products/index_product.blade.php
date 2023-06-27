@@ -64,18 +64,28 @@
                         <td>
                             {{ $v['name'] }}
                         </td>
-                        <td class="text-center">
-                            @if($v['status'] == 1)
-                                <span class="green_status"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
-                            @else
-                                <span class="red_status"><ion-icon name="close-circle-outline"></ion-icon></span>
-                            @endif
+                        <td class="text-center" style="width: 200px;">
+                            <select class="form-select" aria-label="Default select example" name="status_product_ajax" id="status_product_ajax" data-id="{{ $v['id'] }}"> 
+                                @if($v['status'] == 1)
+                                    <option value="0">Chọn trạng thái</option>
+                                    <option selected value="1">Hiển thị</option>
+                                    <option value="2">Không hiển thị</option>
+                                @elseif($v['status'] == 2)
+                                    <option value="0">Chọn trạng thái</option>
+                                    <option value="1">Hiển thị</option>
+                                    <option selected value="2">Không hiển thị</option>
+                                @else
+                                    <option selected value="0">Chọn trạng thái</option>
+                                    <option value="1">Hiển thị</option>
+                                    <option value="2">Không hiển thị</option>
+                                @endif
+                            </select>
                         </td>
                         <td class="text-center">
                             <div class="flex_options">
                                 <a href="{{ route('loadupdateproducts',['id' => $v['id']]) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
-                                <a href="{{ route('deleteproducts',['id' => $v['id']]) }}"><span><ion-icon name="trash-outline"></ion-icon></span></a>
-                                <a href=""><span><ion-icon name="eye-outline"></ion-icon></span></a>
+                                <a class="delete_main" data-id="{{ $v['id'] }}" data-type="products"><span><ion-icon name="trash-outline"></ion-icon></span></a>
+                                <a class="alert_123"><span><ion-icon name="eye-outline"></ion-icon></span></a>
                             </div>
                         </td>
                     </tr>    

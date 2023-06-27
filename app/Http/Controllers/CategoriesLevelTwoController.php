@@ -68,6 +68,12 @@ class CategoriesLevelTwoController extends Controller
         $add = Categories_level_two::find($id);
         if($add->name == $data->name_cate_two) {
             if($data->photo_cate_two != NULL) {
+                if($add['photo'] != NULL) {
+                    $removeFile = public_path('upload/category/'.$add['photo']);
+                    if(file_exists($removeFile)) {
+                        unlink($removeFile);
+                    }
+                }
                 $images = $data->photo_cate_two;      
                 $imageName = time().'.'.$images->extension();  
                 $images->move(public_path('upload/category'), $imageName);
@@ -86,6 +92,10 @@ class CategoriesLevelTwoController extends Controller
                 ]
             );
             if($data->photo_cate_two != NULL) {
+                $removeFile = public_path('upload/category/'.$add['photo']);
+                if(file_exists($removeFile)) {
+                    unlink($removeFile);
+                }
                 $images = $data->photo_cate_two;      
                 $imageName = time().'.'.$images->extension();  
                 $images->move(public_path('upload/category'), $imageName);
@@ -104,6 +114,12 @@ class CategoriesLevelTwoController extends Controller
         if ($dlt == null || $dlt->deleted_at != NULL) {
             return view('category_two');
         } else {
+            if($dlt['photo']) {
+                $removeFile = public_path('upload/category/'.$dlt['photo']);
+                if(file_exists($removeFile)) {
+                    unlink($removeFile);
+                }
+            }
             $dlt->delete();
             return redirect()->route('category_two');
         }
