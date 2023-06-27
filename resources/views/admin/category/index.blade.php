@@ -47,15 +47,12 @@
                                         <ion-icon name="create-outline"></ion-icon>
                                     </span>
                                 </a>
-                                <a href="{{ route('deleteCategory', ['id' => $v['id']]) }}">
-                                    <span>
-                                        <ion-icon name="trash-outline"></ion-icon>
-                                    </span>
-                                </a>
+                                <a class="delete_main" data-id="{{ $v['id'] }}" data-type="categories"><span><ion-icon name="trash-outline"></ion-icon></span></a>
                                 <a href="">
                                     <span>
                                         <ion-icon name="eye-outline"></ion-icon>
-                                    </span></a>
+                                    </span>
+                                </a>
                             </div>
                         </td>
                     <tr>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categories_level_two;
 use App\Models\Product;
 use App\Models\Gallery;
+use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -34,5 +35,27 @@ class AjaxController extends Controller
         $product->delete();
         return $product;
     }
+
+    public function ajax_loadStatus(Request $data) {
+        $product = Product::find($data['id_prod']);
+        $product->status = $data['id_status'];
+        $product->save();
+        return $product;
+    }
+    
+    public function ajax_loadStatusCate(Request $data) {
+        $product = Categories_level_two::find($data['id_prod']);
+        $product->status = $data['id_status'];
+        $product->save();
+        return $product;
+    }
+
+    public function ajax_loadStatusBlog(Request $data) {
+        $product = Blog::find($data['id_blog']);
+        $product->status = $data['id_status'];
+        $product->save();
+        return $product;
+    }
+    
     
 }

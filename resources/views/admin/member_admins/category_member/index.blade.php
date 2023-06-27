@@ -39,7 +39,7 @@
                         <td class="text-center">
                             <div class="flex_options">
                                 <a href="{{ route('loadupdatecate_member',['id' => $v['id']]) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
-                                <a href="{{ route('deletecate_member',['id' => $v['id']]) }}"><span><ion-icon name="trash-outline"></ion-icon></span></a>
+                                <a class="delete_main" data-id="{{ $v['id'] }}" data-type="cate_members"><span><ion-icon name="trash-outline"></ion-icon></span></a>
                                 <a href=""><span><ion-icon name="eye-outline"></ion-icon></span></a>
                             </div>
                         </td>
