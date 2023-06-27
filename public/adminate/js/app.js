@@ -90,6 +90,25 @@ $(document).on('change','#cate_product_add',function() {
     });
 });
 
+$(document).on('click','.btn_dlt_gallery',function() {
+    var id_photo = $(this).data('id');
+
+    $.ajax({
+        type:'GET',
+        url: "../../ajax_deletegallery", 
+        data: { 
+            id_photo: id_photo 
+        },
+    }).done(function (respose){
+        if(respose != null) {
+            alert('Xóa ảnh thành công');
+            setTimeout(function() {
+                location.reload();
+            }, 500);
+        }
+    });
+});
+
 $(document).on('change','#search_cate',function() {
     var id_cate = $(this).val();
 

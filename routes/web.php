@@ -41,6 +41,7 @@ Route::prefix('/admin')->group(function () {
         Route::get('ajax_loadcate', [AjaxController::class, 'ajax_loadCate'])->name('ajax_loadcate');
         Route::get('ajax_loadproduct', [AjaxController::class, 'ajax_loadProduct'])->name('ajax_loadproduct');
         Route::get('ajax_loadproduct_brand', [AjaxController::class, 'ajax_loadProduct_Brand'])->name('ajax_loadproduct_brand'); 
+        Route::get('ajax_deletegallery', [AjaxController::class, 'ajax_deleteGallery'])->name('ajax_deletegallery');
 
         Route::controller(ProductController::class)->group(function () {
             Route::prefix('/products')->group(function () {
