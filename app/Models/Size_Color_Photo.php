@@ -10,5 +10,5 @@ class Size_Color_Photo extends Model
 {
     use softDeletes;
     use HasFactory;
-    protected $table = 'size_color_photos';
+    protected $table = 'size_color_photo';
 }

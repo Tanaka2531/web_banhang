@@ -66,7 +66,7 @@ body {padding: 0;margin: 0;position: relative;}
 .breadcumb_main span {letter-spacing: -4px;margin-right: 4px;}
 .box_form {padding: 0 20px;padding-bottom: 50px;}
 .box_btn_main {margin-bottom: 20px;}
-.flex_form {display: flex;justify-content: space-between;}
+.flex_form {display: flex;justify-content: space-between;flex-flow: wrap;}
 .left_form {width: 69%;}
 .right_form {width: calc(100% - 70%);margin-left: 1%;}
 .item_box_list, .box_input {margin-bottom: 20px;}
@@ -136,8 +136,8 @@ label {font-weight: 600;margin-bottom: 5px;}
 .box_form_login input {border: none;height: 45px;}
 .title_admin {font-size: 32px;color: #fff;text-transform: capitalize;margin-bottom: 20px;}
 .btn_dlt_gallery {position: absolute;width: 30px;height: 30px;display: flex;align-items: center;justify-content: center;background: #f00;color: #fff;border-radius: 5px;font-size: 18px;right: 5px;top: 5px;cursor: pointer;}
-
-
+.bottom_form {width: 100%;margin-top: 1rem;}
+.box_photo_adv {text-align: center;margin-bottom: 10px;}
 
 
 
