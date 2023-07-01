@@ -59,8 +59,7 @@
                                             <option value="1">Hiển thị</option>
                                             <option value="2">Không hiển thị</option>                                    
                                         @endif
-                                    </select>
-                                   
+                                    </select>           
                                 </div>
                             </div>
                             <div class="flex_price">
@@ -75,6 +74,14 @@
                                 <div class="box_input">
                                     <label for="price_regular">Giá cũ</label>
                                     <input type="text" class="form-control" name="price_regular_product" id="price_regular_product" placeholder="Giá cũ" value="{{ ($update != NULL) ? $update['price_regular']: ''}}">
+                                </div>
+                                <div class="box_input">
+                                    <label for="price_from">Giá thấp nhất</label>
+                                    <input type="text" class="form-control" name="price_from_product" id="price_from_product" placeholder="Giá mới" value="{{ ($update != NULL) ? $update['price_from']: ''}}">
+                                </div>
+                                <div class="box_input">
+                                    <label for="price_to">Giá cao nhất</label>
+                                    <input type="text" class="form-control" name="price_to_product" id="price_to_product" placeholder="Giá mới" value="{{ ($update != NULL) ? $update['price_to']: ''}}">
                                 </div>
                             </div>
                         </div>
@@ -244,6 +251,61 @@
                                     <span class="message_red">{{ $message }}</span>
                                 @enderror
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom_form">
+                    <div class="card">
+                        <div class="card-header">Dung lượng - Màu sắc - Hình ảnh</div>
+                        <div class="card-body">
+                           <div class="box_table_advanted">
+                            <table class="table table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Dung lượng</th>
+                                        <th scope="col">Màu sắc</th>
+                                        <th scope="col" style="width: 200px;">Hình Ảnh</th>
+                                        <th scope="col">Giá bán</th>
+                                        <th scope="col">Giá niêm yết</th>
+                                        <th scope="col">Còn hàng</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="">
+                                    @if ($list_advanted != NULL)
+                                        @foreach($list_advanted as $k4 => $v4)
+                                            <tr>
+                                                <td></td>
+                                                <td>{{ $v4['name'] }}</td>
+                                                <td>{{ $v4['name_color'] }}</td>
+                                                <td>
+                                                    @if($v4['photo'] != NULL)
+                                                        <div class="box_photo_adv">
+                                                            <img src="{{ asset('upload/products/'.$v4['photo']) }}" width="75" height="75" alt="">
+                                                        </div>
+                                                    @else
+                                                        <div class="box_photo_adv">
+                                                            <img src="{{ asset('adminate/images/noimg.jpg') }}" width="75" height="75" alt="">
+                                                        </div>
+                                                    @endif
+                                                    <input type="file" class="form-control" name="photo_adv[]" id="photo_adv[]">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" name="price_regular_adv[ ]" id="price_regular_adv" value="{{ ($v4['price_regular'] != NULL)? $v4['price_regular'] :''; }}">
+                                                </td>
+                                                <td>
+                                                    <input type="number" class="form-control" name="price_sale_adv[ ]" id="price_sale_adv" value="{{ ($v4['price_sale'] != NULL)? $v4['price_sale'] :''; }}">
+                                                </td>   
+                                                <td>
+                                                    <input type="checkbox" class="form-checkbox">
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                    @endif
+                                </tbody>
+                            </table>
+                           </div>
                         </div>
                     </div>
                 </div>
