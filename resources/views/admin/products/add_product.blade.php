@@ -275,7 +275,7 @@
                                     @if ($list_advanted != NULL)
                                         @foreach($list_advanted as $k4 => $v4)
                                             <tr>
-                                                <td></td>
+                                                <td><input type="hidden" name="id_adv[]" value= "{{ $v4['id'] }}"></td>
                                                 <td>{{ $v4['name'] }}</td>
                                                 <td>{{ $v4['name_color'] }}</td>
                                                 <td>
@@ -291,10 +291,10 @@
                                                     <input type="file" class="form-control" name="photo_adv[]" id="photo_adv[]">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control" name="price_regular_adv[ ]" id="price_regular_adv" value="{{ ($v4['price_regular'] != NULL)? $v4['price_regular'] :''; }}">
+                                                    <input type="number" class="form-control" name="price_regular_adv[]" id="price_regular_adv" value="{{ ($v4['price_regular'] != NULL)? $v4['price_regular'] :''; }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control" name="price_sale_adv[ ]" id="price_sale_adv" value="{{ ($v4['price_sale'] != NULL)? $v4['price_sale'] :''; }}">
+                                                    <input type="number" class="form-control" name="price_sale_adv[]" id="price_sale_adv" value="{{ ($v4['price_sale'] != NULL)? $v4['price_sale'] :''; }}">
                                                 </td>   
                                                 <td>
                                                     <input type="checkbox" class="form-checkbox">
