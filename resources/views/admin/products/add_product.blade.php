@@ -288,13 +288,13 @@
                                                             <img src="{{ asset('adminate/images/noimg.jpg') }}" width="75" height="75" alt="">
                                                         </div>
                                                     @endif
-                                                    <input type="file" class="form-control" name="photo_adv" id="photo_adv">
+                                                    <input type="file" class="form-control" name="photo_adv[]" id="photo_adv[]">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control" name="price_regular_adv" id="price_regular_adv" value="{{ ($v4['price_regular'] != NULL)? $v4['price_regular'] :''; }}">
+                                                    <input type="number" class="form-control" name="price_regular_adv[ ]" id="price_regular_adv" value="{{ ($v4['price_regular'] != NULL)? $v4['price_regular'] :''; }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" class="form-control" name="price_sale_adv" id="price_sale_adv" value="{{ ($v4['price_sale'] != NULL)? $v4['price_sale'] :''; }}">
+                                                    <input type="number" class="form-control" name="price_sale_adv[ ]" id="price_sale_adv" value="{{ ($v4['price_sale'] != NULL)? $v4['price_sale'] :''; }}">
                                                 </td>   
                                                 <td>
                                                     <input type="checkbox" class="form-checkbox">

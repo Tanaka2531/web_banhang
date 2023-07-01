@@ -222,26 +222,35 @@ class ProductController extends Controller
                 $add_SP->id_product = $id;
                 $add_SP->id_size = $arr_size[$i];
                 $add_SP->save(); 
+            }      
+        }
 
-                $arr_color_adv = $data->arr_color;
-                $count_color_adv = count($data->arr_color);
-                for($j = 0;$j < $count_color_adv;$j++) {
+        if($data->arr_size != NULL && $data->arr_color != NULL) {
+
+            $arr_size_adv = $data->arr_size;
+            $count_size_adv = count($data->arr_size);
+            $arr_color_adv = $data->arr_color;
+            $count_color_adv = count($data->arr_color);
+
+            for($i = 0;$i < $count_size_adv;$i++) {  
+                for($j = 0;$j < $count_color_adv;$j++) {  
+                   
                     $add_advanted = Size_Color_Photo::where([
                         ['id_products', '=', $id],
-                        ['id_size', '=', $arr_size[$i]],
+                        ['id_size', '=', $arr_size_adv[$i]],
                         ['id_color', '=', $arr_color_adv[$j]],
                     ])->firstOrFail();
+                    // dd($data->price_regular_adv[$add_advanted['id']]);  
                     $add_advanted->id_products = $id;
-                    $add_advanted->id_size = $arr_size[$i];
+                    $add_advanted->id_size = $arr_size_adv[$i];
                     $add_advanted->id_color = $arr_color_adv[$j];
-                    $add_advanted->price_regular = $data->price_regular_adv;
-                    $add_advanted->price_sale = $data->price_sale_adv;
+                    $add_advanted->price_regular = $data->price_regular_adv[$j];
+                    $add_advanted->price_sale =  $data->price_sale_adv[$j];
                     $add_advanted->photo = '';
-                    $add_advanted->save();
-                } 
-            
+                    $add_advanted->save();    
+                }
             }      
-        } 
+        }
 
         $add->name = $data->name_product;
         $add->desc = $data->desc_product;
