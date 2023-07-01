@@ -221,35 +221,40 @@ class ProductController extends Controller
                 $add_SP = new Size_Product;
                 $add_SP->id_product = $id;
                 $add_SP->id_size = $arr_size[$i];
-                $add_SP->save(); 
-            }      
+                $add_SP->save();
+                $arr_color_adv = $data->arr_color;
+                $count_color_adv = count($data->arr_color);
+                for($j = 0;$j < $count_color_adv;$j++) {
+                    if(Size_Color_Photo::where([
+                        ['id_products','=',$id],
+                        ['id_size','=',$arr_size[$i]],
+                        ['id_color','=',$arr_color_adv[$j]],
+                    ])->get()->toArray() == NULL) {
+                        $add_advanted = new Size_Color_Photo;
+                        $add_advanted->id_products = $id;
+                        $add_advanted->id_size = $arr_size[$i];
+                        $add_advanted->id_color = $arr_color_adv[$j];
+                        $add_advanted->price_regular = 0;
+                        $add_advanted->price_sale = 0;
+                        $add_advanted->photo = '';
+                        $add_advanted->save();     
+                    }
+                }
+            }     
         }
 
-        if($data->arr_size != NULL && $data->arr_color != NULL) {
-
-            $arr_size_adv = $data->arr_size;
-            $count_size_adv = count($data->arr_size);
-            $arr_color_adv = $data->arr_color;
-            $count_color_adv = count($data->arr_color);
-
-            for($i = 0;$i < $count_size_adv;$i++) {  
-                for($j = 0;$j < $count_color_adv;$j++) {  
-                   
-                    $add_advanted = Size_Color_Photo::where([
-                        ['id_products', '=', $id],
-                        ['id_size', '=', $arr_size_adv[$i]],
-                        ['id_color', '=', $arr_color_adv[$j]],
-                    ])->firstOrFail();
-                    // dd($data->price_regular_adv[$add_advanted['id']]);  
-                    $add_advanted->id_products = $id;
-                    $add_advanted->id_size = $arr_size_adv[$i];
-                    $add_advanted->id_color = $arr_color_adv[$j];
-                    $add_advanted->price_regular = $data->price_regular_adv[$j];
-                    $add_advanted->price_sale =  $data->price_sale_adv[$j];
-                    $add_advanted->photo = '';
-                    $add_advanted->save();    
-                }
-            }      
+        if($data->id_adv != NULL) {
+            $count_id_adv = count($data->id_adv);
+            for($i = 0;$i < $count_id_adv;$i++) {     
+                $add_advanted = Size_Color_Photo::where([
+                    ['id_products', '=', $id],
+                    ['id', '=', $data->id_adv[$i]],
+                ])->firstOrFail();
+                $add_advanted->price_regular = $data->price_regular_adv[$i];
+                $add_advanted->price_sale =  $data->price_sale_adv[$i];
+                $add_advanted->photo = '';
+                $add_advanted->save();    
+            }   
         }
 
         $add->name = $data->name_product;
@@ -270,9 +275,10 @@ class ProductController extends Controller
         $add->id_brand = $data->sup_product;
         $add->save();
 
-
-
-
+        Size_Color_Photo::where('id_products', $id)->whereNotIn('id_color',$data->arr_color)->delete();
+        Size_Color_Photo::where('id_products', $id)->whereNotIn('id_size',$data->arr_size)->delete();
+        Size_Color_Photo::withTrashed()->where('id_products', $id)->whereNotIn('id_color',$data->arr_color)->forceDelete();
+        Size_Color_Photo::withTrashed()->where('id_products', $id)->whereNotIn('id_size',$data->arr_size)->forceDelete();   
         return redirect()->route('products');
     }
    

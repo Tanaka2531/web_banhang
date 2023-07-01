@@ -11,7 +11,12 @@ class CategoryMemberController extends Controller
 {
     public function index() {
         $pageName = 'Quản lý Danh Mục Tài khoản';
-        $cate_member = category_member::where('status_role',1)->get();
+        $cate_member = category_member::where(
+            [
+                ['status_role','!=',1],
+                ['status_role','!=',2],
+            ]
+        )->get();
         return view('admin.member_admins.category_member.index', compact('cate_member','pageName'));
     }
 
@@ -33,7 +38,7 @@ class CategoryMemberController extends Controller
             ]
         );
         $add->name_role = $data->name_role;
-        $add->status_role = 1;
+        $add->status_role = 3;
         $add->status = $data->status_cate_member;
         $add->save();
         return redirect()->route('cate_members');
@@ -53,7 +58,7 @@ class CategoryMemberController extends Controller
         $add = category_member::find($id);
         if($add->name_role == $data->name_role) {
             $add->name_role = $data->name_role;
-            $add->status_role = 1;
+            $add->status_role = 3;
             $add->status = $data->status_cate_member;
         } else {
             $data->validate(
@@ -66,7 +71,7 @@ class CategoryMemberController extends Controller
                 ]
             );
             $add->name_role = $data->name_role;
-            $add->status_role = 1;
+            $add->status_role = 3;
             $add->status = $data->status_cate_member;
         }  
         $add->save();
