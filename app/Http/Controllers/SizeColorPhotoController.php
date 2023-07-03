@@ -27,10 +27,10 @@ class SizeColorPhotoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSize_Color_PhotoRequest $request)
-    {
-        //
-    }
+    // public function store(StoreSize_Color_PhotoRequest $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
@@ -51,10 +51,10 @@ class SizeColorPhotoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSize_Color_PhotoRequest $request, Size_Color_Photo $size_Color_Photo)
-    {
-        //
-    }
+    // public function update(UpdateSize_Color_PhotoRequest $request, Size_Color_Photo $size_Color_Photo)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
