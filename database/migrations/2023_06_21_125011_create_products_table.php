@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->integer('inventory')->nullable();
             $table->longText('status')->nullable();
+            $table->longText('status_hot')->nullable();
+            $table->longText('status_best_seller')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
