@@ -14,7 +14,7 @@ use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CategoryMemberController;
 use App\Http\Controllers\CategoriesLevelTwoController;
 use App\Http\Controllers\PhotoController;
-
+use App\Http\Controllers\OrderController;
 
 Route::prefix('/')->group(function () {
     Route::get('/', function () {
@@ -43,8 +43,12 @@ Route::prefix('/admin')->group(function () {
         Route::get('ajax_loadproduct_brand', [AjaxController::class, 'ajax_loadProduct_Brand'])->name('ajax_loadproduct_brand'); 
         Route::get('ajax_deletegallery', [AjaxController::class, 'ajax_deleteGallery'])->name('ajax_deletegallery');
         Route::get('ajax_loadstatus', [AjaxController::class, 'ajax_loadStatus'])->name('ajax_loadstatus');
+        Route::get('ajax_loadstatushot', [AjaxController::class, 'ajax_loadStatusHot'])->name('ajax_loadstatushot');
         Route::get('ajax_loadstatuscate', [AjaxController::class, 'ajax_loadStatusCate'])->name('ajax_loadstatuscate');
         Route::get('ajax_loadstatusblog', [AjaxController::class, 'ajax_loadStatusBlog'])->name('ajax_loadstatusblog');
+        Route::get('ajax_loadstatusbrand', [AjaxController::class, 'ajax_loadStatusBrand'])->name('ajax_loadstatusbrand');
+        Route::get('ajax_loadstatuscateone', [AjaxController::class, 'ajax_loadStatusCateOne'])->name('ajax_loadstatuscateone');
+
 
         Route::controller(ProductController::class)->group(function () {
             Route::prefix('/products')->group(function () {
@@ -55,6 +59,17 @@ Route::prefix('/admin')->group(function () {
                 Route::post('update/{id}', 'handleUpdateProducts')->name('handleupdateproducts');
                 Route::get('delete/{id}', 'deleteProducts')->name('deleteproducts');
                 Route::get('search', 'searchProducts')->name('searchproducts');              
+            });
+        });
+
+        Route::controller(OrderController::class)->group(function () {
+            Route::prefix('/orders')->group(function () {
+                Route::get('/', 'index')->name('orders');
+                Route::get('load_views', 'loadViews')->name('loadviews');
+                Route::get('detail/{id}', 'loadOrder')->name('loadorder');
+                Route::get('detail/{id}', 'handleOrder')->name('handleorder');
+                Route::get('delete/{id}', 'deleteOrder')->name('deleteorder');
+                Route::get('search', 'searchOrder')->name('searchorder');              
             });
         });
 
@@ -82,12 +97,12 @@ Route::prefix('/admin')->group(function () {
 
         Route::controller(BlogController::class)->group(function () {
             Route::prefix('/blogs')->group(function () {
-                Route::get('/', 'index')->name('blogs');
-                Route::get('add', 'loadAddBlogs')->name('loadaddblogs');
-                Route::post('add', 'handleAddBlogs')->name('handleaddblogs');
-                Route::get('update/{id}', 'loadUpdateBlogs')->name('loadupdateblogs');
-                Route::post('update/{id}', 'handleUpdateBlogs')->name('handleupdateblogs');
-                Route::get('delete/{id}', 'deleteBlogs')->name('deleteblogs');
+                Route::get('/{type}', 'index')->name('blogs');
+                Route::get('add/{type}', 'loadAddBlogs')->name('loadaddblogs');
+                Route::post('add/{type}', 'handleAddBlogs')->name('handleaddblogs');
+                Route::get('update/{id}/{type}', 'loadUpdateBlogs')->name('loadupdateblogs');
+                Route::post('update/{id}/{type}', 'handleUpdateBlogs')->name('handleupdateblogs');
+                Route::get('delete/{id}/{type}', 'deleteBlogs')->name('deleteblogs');
             });
         });
         
