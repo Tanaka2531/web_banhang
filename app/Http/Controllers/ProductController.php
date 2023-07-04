@@ -40,7 +40,7 @@ class ProductController extends Controller
         return view('admin.products.add_product', compact('pageName','categorys','brands','update','colors','sizes','color_product','size_product','list_advanted'));
     }
 
-    public function handleAddProducts(Request $data)
+    public function handleAddProducts(Product_Request $data)
     {
         $add = new Product;
         if($data->photo_product != NULL) {
@@ -57,10 +57,16 @@ class ProductController extends Controller
         $add->price_sale = $data->price_sale_product;
         $add->price_from = $data->price_from_product;
         $add->price_to = $data->price_to_product;
+        $add->inventory = $data->inventory_product;
         if($data->status_product != 0) {
             $add->status = $data->status_product;
         } else {
             $add->status = 0;
+        }
+        if($data->status_product_hot != 0) {
+            $add->status_hot = $data->status_product_hot;
+        } else {
+            $add->status_hot = 0;
         }
         $add->id_cate = $data->cate_product;
         $add->id_cate_two = $data->cate_two_product;
@@ -147,6 +153,7 @@ class ProductController extends Controller
 
     public function handleUpdateProducts(Request $data, $id)
     {
+        // dd($data['photo_adv']);
         $add = Product::find($id);
         if($data->photo_product != NULL) {
             if($add['photo'] != NULL) {
@@ -251,8 +258,14 @@ class ProductController extends Controller
                     ['id', '=', $data->id_adv[$i]],
                 ])->firstOrFail();
                 $add_advanted->price_regular = $data->price_regular_adv[$i];
-                $add_advanted->price_sale =  $data->price_sale_adv[$i];
-                $add_advanted->photo = '';
+                $add_advanted->price_sale =  $data->price_sale_adv[$i];      
+                $filename_adv = rand(111111, 999999);
+                if(isset($data->photo_adv[$i])) {
+                    $images_photo_adv = $data->photo_adv[$i]; 
+                    $imageName_photo_adv = $filename_adv.'.'.$images_photo_adv->extension();    
+                    $images_photo_adv->move(public_path('upload/products/advanted/'), $imageName_photo_adv);
+                    $add_advanted->photo = $imageName_photo_adv;
+                }
                 $add_advanted->save();    
             }   
         }
@@ -265,20 +278,28 @@ class ProductController extends Controller
         $add->price_sale = $data->price_sale_product;
         $add->price_from = $data->price_from_product;
         $add->price_to = $data->price_to_product;
+        $add->inventory = $data->inventory_product;
         if($data->status_product != 0) {
             $add->status = $data->status_product;
         } else {
             $add->status = 0;
         } 
+        if($data->status_product_hot != 0) {
+            $add->status_hot = $data->status_product_hot;
+        } else {
+            $add->status_hot = 0;
+        }
         $add->id_cate = $data->cate_product;
         $add->id_cate_two = $data->cate_two_product;
         $add->id_brand = $data->sup_product;
         $add->save();
 
-        Size_Color_Photo::where('id_products', $id)->whereNotIn('id_color',$data->arr_color)->delete();
-        Size_Color_Photo::where('id_products', $id)->whereNotIn('id_size',$data->arr_size)->delete();
-        Size_Color_Photo::withTrashed()->where('id_products', $id)->whereNotIn('id_color',$data->arr_color)->forceDelete();
-        Size_Color_Photo::withTrashed()->where('id_products', $id)->whereNotIn('id_size',$data->arr_size)->forceDelete();   
+        if($data->arr_color != NULL && $data->arr_size != NULL) {
+            Size_Color_Photo::where('id_products', $id)->whereNotIn('id_color',$data->arr_color)->delete();
+            Size_Color_Photo::where('id_products', $id)->whereNotIn('id_size',$data->arr_size)->delete();
+            Size_Color_Photo::withTrashed()->where('id_products', $id)->whereNotIn('id_color',$data->arr_color)->forceDelete();
+            Size_Color_Photo::withTrashed()->where('id_products', $id)->whereNotIn('id_size',$data->arr_size)->forceDelete();
+        }  
         return redirect()->route('products');
     }
    

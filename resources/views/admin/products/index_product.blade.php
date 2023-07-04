@@ -37,12 +37,13 @@
         <table class="table table_list_product align-middle">
             <thead>
                 <tr class="sty_head_table">
-                    <th></th>
-                    <th class="text-center">STT</th>
-                    <th class="text-center">Hình Ảnh</th>
+                    <th style="width: 75px;"></th>
+                    <th style="width: 30px;" class="text-center">STT</th>
+                    <th style="width: 200px;" class="text-center">Hình Ảnh</th>
                     <th>Tên sản phẩm</th>
-                    <th class="text-center">Trạng thái</th>
-                    <th class="text-center">Thao tác</th>
+                    <th style="width: 175px;" class="text-center">Hiển thị</th>
+                    <th style="width: 175px;" class="text-center">Nổi bật</th>
+                    <th style="width: 175px;" class="text-center">Thao tác</th>
                 </tr>
             </thead>
             <tbody class="load_search">
@@ -51,8 +52,8 @@
                         <td class="text-center">
                             <input class="sty_checkbox form-check-input" type="checkbox">
                         </td>
-                        <td class="text-center">{{ ($k + 1) }}</td>
-                        <td class="text-center">
+                        <td style="width: 30px;" class="text-center">{{ ($k + 1) }}</td>
+                        <td style="width: 200px;" class="text-center">
                             <a href="{{ route('loadupdateproducts',['id' => $v['id']]) }}">
                                 @if($v['photo'] != NULL) 
                                     <img class="img_main" src="{{ asset('upload/products/'.$v['photo']) }}" width="100" height="100" alt="">
@@ -64,7 +65,7 @@
                         <td>
                             {{ $v['name'] }}
                         </td>
-                        <td class="text-center" style="width: 200px;">
+                        <td class="text-center" style="width: 175px;">
                             <select class="form-select" aria-label="Default select example" name="status_product_ajax" id="status_product_ajax" data-id="{{ $v['id'] }}"> 
                                 @if($v['status'] == 1)
                                     <option value="0">Chọn trạng thái</option>
@@ -78,6 +79,23 @@
                                     <option selected value="0">Chọn trạng thái</option>
                                     <option value="1">Hiển thị</option>
                                     <option value="2">Không hiển thị</option>
+                                @endif
+                            </select>
+                        </td>
+                        <td class="text-center" style="width: 175px;">
+                            <select class="form-select" aria-label="Default select example" name="status_product_ajax_1" id="status_product_ajax_1" data-id="{{ $v['id'] }}"> 
+                                @if($v['status_hot'] == 1)
+                                    <option value="0">Chọn trạng thái</option>
+                                    <option selected value="1">Nổi bật</option>
+                                    <option value="2">Không nội bật</option>
+                                @elseif($v['status_hot'] == 2)
+                                    <option value="0">Chọn trạng thái</option>
+                                    <option value="1">Nổi bật</option>
+                                    <option selected value="2">Không nội bật</option>
+                                @else
+                                    <option selected value="0">Chọn trạng thái</option>
+                                    <option value="1">Nổi bật</option>
+                                    <option value="2">Không nội bật</option>
                                 @endif
                             </select>
                         </td>
