@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <div class="box_check_status">
                                 <div class="item_check_status">
-                                    <label for="status">Trạng thái:</label>
+                                    <label for="status">Hiển thị:</label>
                                     <select class="form-select" aria-label="Default select example" name="status_product">            
                                         @if($update != NULL) 
                                             @if($update['status'] == 1)
@@ -61,11 +61,39 @@
                                         @endif
                                     </select>           
                                 </div>
+                                <div class="item_check_status">
+                                    <label for="status">Nổi bật:</label>
+                                    <select class="form-select" aria-label="Default select example" name="status_product_hot">            
+                                        @if($update != NULL) 
+                                            @if($update['status'] == 1)
+                                                <option value="0">Chọn trạng thái</option>
+                                                <option selected value="1">Nổi bật</option>
+                                                <option value="2">Không nổi bật</option>
+                                            @elseif($update['status'] == 2)
+                                                <option value="0">Chọn trạng thái</option>
+                                                <option value="1">Nổi bật</option>
+                                                <option selected value="2">Không nổi bật</option>
+                                            @else
+                                                <option selected value="0">Chọn trạng thái</option>
+                                                <option value="1">Nổi bật</option>
+                                                <option value="2">Không nổi bật</option>
+                                            @endif
+                                        @else
+                                            <option selected value="0">Chọn trạng thái</option>
+                                            <option value="1">Nổi bật</option>
+                                            <option value="2">Không nổi bật</option>                                   
+                                        @endif
+                                    </select>           
+                                </div>
                             </div>
                             <div class="flex_price">
                                 <div class="box_input">
                                     <label for="code">Mã sản phẩm</label>
                                     <input type="text" class="form-control" name="code_product" id="code_product" placeholder="Mã sản phẩm" value="{{ ($update != NULL) ? $update['code']: ''}}">
+                                </div>
+                                <div class="box_input">
+                                    <label for="inventory">Số lượng tồn kho</label>
+                                    <input type="text" class="form-control" name="inventory_product" id="inventory_product" placeholder="Số lượng tồn kho" value="{{ ($update != NULL) ? $update['inventory']: ''}}">
                                 </div>
                                 <div class="box_input">
                                     <label for="price_sale">Giá mới</label>
@@ -76,13 +104,13 @@
                                     <input type="text" class="form-control" name="price_regular_product" id="price_regular_product" placeholder="Giá cũ" value="{{ ($update != NULL) ? $update['price_regular']: ''}}">
                                 </div>
                                 <div class="box_input">
-                                    <label for="price_from">Giá thấp nhất</label>
-                                    <input type="text" class="form-control" name="price_from_product" id="price_from_product" placeholder="Giá mới" value="{{ ($update != NULL) ? $update['price_from']: ''}}">
+                                    <label for="price_from">Giá tối thiểu</label>
+                                    <input type="text" class="form-control" name="price_from_product" id="price_from_product" placeholder="Giá tối thiểu" value="{{ ($update != NULL) ? $update['price_from']: ''}}">
                                 </div>
                                 <div class="box_input">
-                                    <label for="price_to">Giá cao nhất</label>
-                                    <input type="text" class="form-control" name="price_to_product" id="price_to_product" placeholder="Giá mới" value="{{ ($update != NULL) ? $update['price_to']: ''}}">
-                                </div>
+                                    <label for="price_to">Giá tối đa</label>
+                                    <input type="text" class="form-control" name="price_to_product" id="price_to_product" placeholder="Giá tối đa" value="{{ ($update != NULL) ? $update['price_to']: ''}}">
+                                </div>      
                             </div>
                         </div>
                     </div>         
@@ -238,7 +266,7 @@
                                 <div class="box_img">         
                                     @if($update != NULL)
                                         @if($update['photo'] != NULL)
-                                            <img src="{{ asset('upload/products/'.$update['photo']) }}" alt="">
+                                            <img width="385" height="385" src="{{ asset('upload/products/'.$update['photo']) }}" alt="">
                                         @else
                                             <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
                                         @endif
@@ -281,14 +309,14 @@
                                                 <td>
                                                     @if($v4['photo'] != NULL)
                                                         <div class="box_photo_adv">
-                                                            <img src="{{ asset('upload/products/'.$v4['photo']) }}" width="75" height="75" alt="">
+                                                            <img src="{{ asset('upload/products/advanted/'.$v4['photo']) }}" width="75" height="75" alt="">
                                                         </div>
                                                     @else
                                                         <div class="box_photo_adv">
                                                             <img src="{{ asset('adminate/images/noimg.jpg') }}" width="75" height="75" alt="">
                                                         </div>
                                                     @endif
-                                                    <input type="file" class="form-control" name="photo_adv[]" id="photo_adv[]">
+                                                    <input type="file" class="form-control" name="photo_adv[]" id="photo_adv[]"  value="{{ ($v4['photo'] != NULL)? $v4['photo'] :''; }}">
                                                 </td>
                                                 <td>
                                                     <input type="number" class="form-control" name="price_regular_adv[]" id="price_regular_adv" value="{{ ($v4['price_regular'] != NULL)? $v4['price_regular'] :''; }}">

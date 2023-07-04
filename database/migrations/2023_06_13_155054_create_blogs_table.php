@@ -17,6 +17,7 @@ return new class extends Migration
             $table->longText('desc')->nullable();
             $table->longText('content')->nullable();
             $table->string('photo')->nullable();
+            $table->string('type')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
