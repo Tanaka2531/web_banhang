@@ -2,7 +2,7 @@
 @section('body')
 <div class="box_btn_search">
     <div class="flex_btn_search">
-        <div class="btn_add"><a href="{{ route('loadaddblogs',['type' => $type_page]) }}">Thêm mới</a></div>
+        <div class="btn_add"><a href="{{ route('loadaddblogs') }}">Thêm mới</a></div>
         <div class="btn_delete_all">Xóa tất cả</div>
         <div class="input_search">
             <input type="text" name="" id="" placeholder="Nhập tin tức cần tìm" class="form-control">
@@ -30,7 +30,7 @@
                     </td>
                     <td class="text-center">{{ ($k + 1) }}</td>
                     <td>
-                        <a href="{{ route('loadupdateblogs', ['id' => $v['id'],'type' => $type_page]) }}">
+                        <a href="{{ route('loadupdateblogs', ['id' => $v['id']]) }}">
                             @if($v['photo'] != NULL) 
                                 <img class="img_main" src="{{ asset('upload/blogs/'.$v['photo']) }}" width="100" height="100" alt="">
                             @else
@@ -58,8 +58,8 @@
                     </td>
                     <td class="text-center">
                         <div class="flex_options">
-                            <a href="{{ route('loadupdateblogs',['id' => $v['id'],'type' => $type_page]) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
-                            <a class="delete_main" data-id="{{ $v['id'] }}" data-type="blogs" data-type_blogs="{{ $type_page }}"><span><ion-icon name="trash-outline"></ion-icon></span></a>
+                            <a href="{{ route('loadupdateblogs',['id' => $v['id']]) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
+                            <a class="delete_main" data-id="{{ $v['id'] }}" data-type="blogs"><span><ion-icon name="trash-outline"></ion-icon></span></a>
                             <a class="alert_123"><span><ion-icon name="eye-outline"></ion-icon></span></a>
                         </div>
                     </td>

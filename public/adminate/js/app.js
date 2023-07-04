@@ -102,12 +102,9 @@ $(document).on('click','.delete_main',function() {
             var id = $(this).data('id');
             var type = $(this).data('type');
             var type_man = $(this).data('type_man');
-            var type_blogs = $(this).data('type_blogs');
             var cate = $(this).data('cate');
             if(type_man != '' && cate == 'man') {
                 window.location.href = '../../' + type + '/delete/' + id + '/' + type_man + '/' + cate;
-            } else if(type_blogs != '' && type_blogs != null) {
-                window.location.href = '../' + type + '/delete/' + id + '/' + type_blogs;
             } else {
                 window.location.href = type + '/delete/'+ id;
             }
@@ -125,49 +122,6 @@ $(document).on('change','#status_product_ajax',function() {
     $.ajax({
         type:'GET',
         url: "ajax_loadstatus", 
-        data: { 
-            id_status: id_status,
-            id_prod: id_prod
-        },
-    }).done(function (respose){
-        if(respose != null) {
-            alert('Cập nhật trạng thái thành công');
-            setTimeout(function() {
-                location.reload();
-            }, 100);
-        }
-    });
-});
-
-$(document).on('change','#status_product_ajax_1',function() {
-    var id_status = $(this).val();
-    var id_prod = $(this).data('id');
-
-    $.ajax({
-        type:'GET',
-        url: "ajax_loadstatushot", 
-        data: { 
-            id_status: id_status,
-            id_prod: id_prod
-        },
-    }).done(function (respose){
-        if(respose != null) {
-            alert('Cập nhật trạng thái thành công');
-            setTimeout(function() {
-                location.reload();
-            }, 100);
-        }
-    });
-});
-
-
-$(document).on('change','#status_brand_ajax',function() {
-    var id_status = $(this).val();
-    var id_prod = $(this).data('id');
-
-    $.ajax({
-        type:'GET',
-        url: "ajax_loadstatusbrand", 
         data: { 
             id_status: id_status,
             id_prod: id_prod
@@ -203,34 +157,13 @@ $(document).on('change','#status_cate_ajax',function() {
     });
 });
 
-$(document).on('change','#status_cate1_ajax',function() {
-    var id_status = $(this).val();
-    var id_cate1 = $(this).data('id');
-
-    $.ajax({
-        type:'GET',
-        url: "ajax_loadstatuscateone", 
-        data: { 
-            id_status: id_status,
-            id_cate1: id_cate1
-        },
-    }).done(function (respose){
-        if(respose != null) {
-            alert('Cập nhật trạng thái thành công');
-            setTimeout(function() {
-                location.reload();
-            }, 100);
-        }
-    });
-});
-
 $(document).on('change','#status_blog_ajax',function() {
     var id_status = $(this).val();
     var id_blog = $(this).data('id');
 
     $.ajax({
         type:'GET',
-        url: "../ajax_loadstatusblog", 
+        url: "ajax_loadstatusblog", 
         data: { 
             id_status: id_status,
             id_blog: id_blog

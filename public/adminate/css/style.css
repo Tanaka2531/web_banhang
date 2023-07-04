@@ -16,7 +16,7 @@ body {padding: 0;margin: 0;position: relative;}
 .left_nav_menu .list_nav_menu {position: relative;white-space: nowrap;}
 .list_nav_menu li {padding: 10px 10px;background: #f0f0f0;margin-bottom: 5px;border-radius: 5px;}
 .list_nav_menu li a {color: #000;text-decoration: none;display: flex;justify-content: start;align-items: center;}
-.list_nav_menu li a ion-icon {font-size: 20px;margin-right: 10px;}
+.list_nav_menu li a ion-icon {font-size: 18px;margin-right: 5px;}
 .list_nav_menu li a span {font-size: 16px;}
 .list_nav_menu li .ul_child {opacity: 0;height: 0px;list-style: none;padding: 0;margin: 0;width: 0%;visibility: hidden;}
 .list_nav_menu li .ul_child.act {opacity: 1;height: auto;width: 100%;visibility: unset;}
@@ -89,8 +89,8 @@ label {font-weight: 600;margin-bottom: 5px;}
 .container_main {min-height: 500px;margin-top: 20px;}
 .table_list_product th, .table_list_product tr, .table_list_product thead {border-style: unset !important;}
 .table_list_product {background: #f0f0f0;border-radius: 5px !important;overflow: hidden;}
-.box_img {padding: 10px;border: 1px solid #e0e0e0;margin-bottom: 15px;border-radius: 5px;text-align: center;}
-.box_img img {border-radius: 5px;}
+.box_img {padding: 10px;border: 1px solid #e0e0e0;margin-bottom: 15px;border-radius: 5px;}
+.box_img img {width: 100%;border-radius: 5px;}
 .left_nav_menu .list_nav_menu li a span {z-index: 1;font-size: 16px;visibility: unset;opacity: 1;display: block;white-space: nowrap;}
 .left_nav_menu.act .list_nav_menu li {margin: 5px 10px;transition: 0.5s;}
 .left_nav_menu .list_nav_menu li {margin: 0 auto;transition: 0.5s;margin-bottom: 5px;}
@@ -138,15 +138,14 @@ label {font-weight: 600;margin-bottom: 5px;}
 .btn_dlt_gallery {position: absolute;width: 30px;height: 30px;display: flex;align-items: center;justify-content: center;background: #f00;color: #fff;border-radius: 5px;font-size: 18px;right: 5px;top: 5px;cursor: pointer;}
 .bottom_form {width: 100%;margin-top: 1rem;}
 .box_photo_adv {text-align: center;margin-bottom: 10px;}
-.box_photo_adv img {width: 75px;height: 75px;object-fit: cover;}
-.box_img img {object-fit: cover;width: 300px;height: 300px;}
-.title_info {font-size: 16px;font-weight: bold;margin-bottom: 5px;}
-.item_info {margin-bottom: 20px;}
-.sty_body_table {background: #fff !important;border: 1px solid #d2d2d2 !important;border-top: none !important;}
-.sty_body_table tr {border-bottom: 1px solid #ebebeb !important;}
-.box_total_order {text-align: end;max-width: 400px;margin-left: auto;padding-top: 10px;}
-.item_Ship {display: flex;justify-content: space-between;padding: 10px 0;}
-.item_Ship span {font-size: 18px;display: block;}
+
+
+
+
+
+
+
+
 
 
 
