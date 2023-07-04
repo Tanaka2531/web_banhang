@@ -38,7 +38,7 @@
             </ul>
         </li>   
         <li>
-            <a href="{{ route('orders') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Đơn hàng</span></a>
+            <a href=""><ion-icon name="construct-outline"></ion-icon><span>Quản lý Đơn hàng</span></a>
         </li> 
         <li>
             <p data-vitri="2">
@@ -81,24 +81,7 @@
             </ul>
         </li>      
         <li>
-            <p data-vitri="4">
-                <a class="a_menu"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Bài viết</span></a>
-                <ion-icon name="chevron-down-circle-outline"></ion-icon>
-            </p>
-            <ul class="ul_child ul_child_4">
-                <li>
-                    <a href="{{ route('blogs',['type' => 'policy']) }}">Chính sách</a>
-                </li>
-                <li>
-                    <a href="{{ route('blogs',['type' => 'payments']) }}">Hình thức thanh toán</a>
-                </li>
-                <li>
-                    <a href="{{ route('blogs',['type' => 'criterial']) }}">Tiêu chí</a>
-                </li>  
-                <li>
-                    <a href="{{ route('blogs',['type' => 'blogs']) }}">Tin tức</a>
-                </li>
-            </ul>
+            <a href="{{ route('blogs') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý Tin tức</span></a>
         </li>
         
         <li>

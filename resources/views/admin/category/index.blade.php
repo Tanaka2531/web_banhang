@@ -39,23 +39,7 @@
                             </a>
                         </td>
                         <td>{{ $v['name'] }}</td>
-                        <td class="text-center" style="width: 200px;">
-                            <select class="form-select" aria-label="Default select example" name="status_cate1_ajax" id="status_cate1_ajax" data-id="{{ $v['id'] }}"> 
-                                @if($v['status'] == 1)
-                                    <option value="0">Chọn trạng thái</option>
-                                    <option selected value="1">Hiển thị</option>
-                                    <option value="2">Không hiển thị</option>
-                                @elseif($v['status'] == 2)
-                                    <option value="0">Chọn trạng thái</option>
-                                    <option value="1">Hiển thị</option>
-                                    <option selected value="2">Không hiển thị</option>
-                                @else
-                                    <option selected value="0">Chọn trạng thái</option>
-                                    <option value="1">Hiển thị</option>
-                                    <option value="2">Không hiển thị</option>
-                                @endif
-                            </select>
-                        </td>
+                        <td class="text-center">{{ $v['status'] }}</td>
                         <td class="text-center">
                             <div class="flex_options">
                                 <a href="{{ route('loadUpdateCategory', ['id' => $v['id']]) }}">
