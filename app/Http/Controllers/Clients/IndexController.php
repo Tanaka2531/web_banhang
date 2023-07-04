@@ -22,17 +22,12 @@ class IndexController extends Controller
     public function index()
     {
         $pageName = 'Trang chủ';
-        $slides = Photo::where('type', 'slider')
-            ->get()
-            ->take(10);
-        $banners = Photo::where('type', 'advertisement')
-            ->get()
-            ->take(3);
+        $slides = Photo::where('type', 'slider')->get();
+        $banners = Photo::where('type', 'advertisement')->get();
         $news = Blog::where('status', '1')
-            ->get()
-            ->take(20);
+            ->get();
 
-        return view('client.index.index', compact('pageName', 'slides', 'banners', 'news'));
+        return view('client.index.index', compact('pageName',  'slides', 'banners', 'news'));
     }
 
     public function categoryListPage($name_list, $id_list)
@@ -70,31 +65,13 @@ class IndexController extends Controller
         return view('client.product.index', compact('pageName', 'products'));
     }
 
+
     public function productDetail($id)
     {
-        $clrProduct = Color_Product::where('id_product', $id)->get('id_color');
-        $sizeProduct = Size_Product::where('id_product', $id)->get('id_size');
-
-        for ($i = 0; $i < count($clrProduct); $i++) {
-            $clrName[] = Color::where('id', $clrProduct[$i]['id_color'])
-                ->select('name', 'code_color')
-                ->get();
-        }
-
-        for ($i = 0; $i < count($sizeProduct); $i++) {
-            $sizeName[] = Size::where('id', $sizeProduct[$i]['id_size'])
-                ->select('name')
-                ->get();
-        }
-
-        $productPhotoChild = Gallery::where('id_products', $id)
-            ->get();
-
         $productDetail = Product::where('id', $id)
             ->where('status', '1')
             ->first();
-
-        dd($productPhotoChild);
+        // dd($productDetail);
 
         if (!empty($productDetail)) {
             $productDetail = $productDetail;
@@ -102,7 +79,7 @@ class IndexController extends Controller
             $productDetail = false;
         }
 
-        return view('client.product.detail', compact('productDetail', 'clrName', 'sizeName', 'productPhotoChild'));
+        return view('client.product.detail', compact('productDetail'));
     }
 
     public static function logo()
@@ -119,7 +96,7 @@ class IndexController extends Controller
     public static function loadLevel1Cate()
     {
         $categories = Category::skip(0)
-            ->take(12)
+            ->take(10)
             ->get()
             ->sortBy('id');
 

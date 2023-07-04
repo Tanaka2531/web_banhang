@@ -25,11 +25,6 @@ use App\Http\Controllers\Clients\IndexController;
                         @endif
                     </li>
                 @endforeach
-                <li>
-                    <a href="" title="Tin tức">
-                        <span>Tin tức</span>
-                    </a>
-                </li>
             </ul>
         </nav>
     </div>

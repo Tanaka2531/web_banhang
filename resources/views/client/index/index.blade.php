@@ -53,8 +53,7 @@ use App\Http\Controllers\Clients\IndexController;
             </section>
         @endif
     @endforeach
-    @if (count($news))
-    <section class="news--featured mt-5">
+    <section class="news--featured mgt-5">
         <div class="wrap-content">
             <div class="home__title">
                 <h2>Tin tức</h2>
@@ -67,10 +66,9 @@ use App\Http\Controllers\Clients\IndexController;
                         </div>
                     @endforeach
                 </div>
-                <div class="swiper-button swiper-news-prev swiper-button-prev"></div>
-                <div class="swiper-button swiper-news-next swiper-button-next"></div>
+                <div class="swiper-news-prev swiper-button-prev"></div>
+                <div class="swiper-news-next swiper-button-next"></div>
             </div>
         </div>
-    </section>        
-    @endif
+    </section>
 @endsection
