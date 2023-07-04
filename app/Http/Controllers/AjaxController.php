@@ -6,6 +6,8 @@ use App\Models\Categories_level_two;
 use App\Models\Product;
 use App\Models\Gallery;
 use App\Models\Blog;
+use App\Models\Brand;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -42,6 +44,13 @@ class AjaxController extends Controller
         $product->save();
         return $product;
     }
+
+    public function ajax_loadStatusHot(Request $data) {
+        $product = Product::find($data['id_prod']);
+        $product->status_hot = $data['id_status'];
+        $product->save();
+        return $product;
+    }
     
     public function ajax_loadStatusCate(Request $data) {
         $product = Categories_level_two::find($data['id_prod']);
@@ -57,5 +66,18 @@ class AjaxController extends Controller
         return $product;
     }
     
+    public function ajax_loadStatusBrand(Request $data) {
+        $product = Brand::find($data['id_prod']);
+        $product->status = $data['id_status'];
+        $product->save();
+        return $product;
+    }
+
+    public function ajax_loadStatusCateOne(Request $data) {
+        $product = Category::find($data['id_cate1']);
+        $product->status = $data['id_status'];
+        $product->save();
+        return $product;
+    }
     
 }
