@@ -16,9 +16,6 @@ return new class extends Migration
             $table->foreignId('id_order')->constrained('orders')->nullable();
             $table->foreignId('id_product')->constrained('products')->nullable();
             $table->string('address');
-            $table->string('content')->nullable();
-            $table->integer('temp_price');
-            $table->integer('ship_price')->nullable();
             $table->integer('price_regular');
             $table->integer('price_sale');
             $table->string('photo');

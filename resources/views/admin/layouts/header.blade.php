@@ -18,12 +18,13 @@
         </div>
         <div class="container_avt">
             <div class="flex_avt">
-                <a href="{{ route('loadupdatemember_admins',['id' => Auth::guard('user')->user()->id]) }}">Xin chào, {{ Auth::guard('user')->user()->fullname }}</a>
+                <a href="{{ route('loadupdatemember_admins',['id' => Auth::guard('user')->user()->id]) }}">Hi, {{ Auth::guard('user')->user()->fullname }}</a>
                 <img src="{{ asset('adminate/images/avt.jpg') }}" width="35" height="35" alt="">
             </div>
             <ul class="ul_avt">
                 <li><a href="{{ route('loadupdatemember_admins',['id' => Auth::guard('user')->user()->id]) }}">Quản lí thông tin</a></li>
                 <li><a href="{{ route('handlelogout') }}">Đăng xuất</a></li>
+                <li><a href="">...</a></li>
             </ul>
         </div>
     </div>

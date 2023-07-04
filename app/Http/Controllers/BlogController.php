@@ -9,47 +9,21 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function index($type)
+    public function index()
     {
-        if($type == 'policy') {
-            $load_name = 'Chính sách';
-        } else if($type == 'payments') {
-            $load_name = 'Hình thức thanh toán';
-        } else if($type == 'criterial') {
-            $load_name = 'Tiêu chí';
-        } else if($type == 'blogs') {
-            $load_name = 'Tin tức';
-        } else {
-            $load_name = 'Bài viết';
-        }
-
-        $pageName = 'Quản lý '.$load_name;
-        $type_page = $type;
-        $blogs = Blog::where('type',$type)->get()->sortBy('id');
-        return view('admin.blogs.index_blog', compact('blogs','pageName','type_page'));
+        $pageName = 'Quản lý tin tức';
+        $blogs = Blog::get()->sortBy('id');
+        return view('admin.blogs.index_blog', compact('blogs','pageName'));
     }
 
-    public function loadAddBlogs($type)
+    public function loadAddBlogs()
     {
-        if($type == 'policy') {
-            $load_name = 'Chính sách';
-        } else if($type == 'payments') {
-            $load_name = 'Hình thức thanh toán';
-        } else if($type == 'criterial') {
-            $load_name = 'Tiêu chí';
-        } else if($type == 'blogs') {
-            $load_name = 'Tin tức';
-        } else {
-            $load_name = 'Bài viết';
-        }
-
-        $pageName = 'Thêm '.$load_name;
-        $type_page = $type;
+        $pageName = 'Thêm tin tức';
         $update = NULL;
-        return view('admin.blogs.add_blog', compact('update','pageName','type_page'));
+        return view('admin.blogs.add_blog', compact('update','pageName'));
     }
 
-    public function handleAddBlogs(Request $data,$type)
+    public function handleAddBlogs(Request $data)
     {
         $add = new Blog;
         $data->validate(
@@ -72,35 +46,22 @@ class BlogController extends Controller
         $add->name = $data->name_blog;
         $add->desc = $data->desc_blog;
         $add->content = $data->content_blog;
-        $add->type = $type;
         $add->status = $data->status_blogs;
         $add->save();
-        return redirect()->route('blogs',[$type]);
+        return redirect()->route('blogs');
     }
 
-    public function loadUpdateBlogs($id,$type) {
-        if($type == 'policy') {
-            $load_name = 'Chính sách';
-        } else if($type == 'payments') {
-            $load_name = 'Hình thức thanh toán';
-        } else if($type == 'criterial') {
-            $load_name = 'Tiêu chí';
-        } else if($type == 'blogs') {
-            $load_name = 'Tin tức';
-        } else {
-            $load_name = 'Bài viết';
-        }
-        $pageName = 'Chỉnh sửa '.$load_name;
-        $type_page = $type;
+    public function loadUpdateBlogs($id) {
+        $pageName = 'Chỉnh sửa tin tức';
         $update = Blog::find($id);
         if ($update == null) {
             return view('blogs');
         } else {
-            return view('admin.blogs.add_blog', compact('update','pageName','type_page'));
+            return view('admin.blogs.add_blog', compact('update','pageName'));
         }
     }
 
-    public function handleUpdateBlogs(Request $data, $id, $type)
+    public function handleUpdateBlogs(Request $data, $id)
     {
         $add = Blog::find($id);
         $data->validate(
@@ -129,13 +90,12 @@ class BlogController extends Controller
         $add->name = $data->name_blog;
         $add->desc = $data->desc_blog;
         $add->content = $data->content_blog;
-        $add->type = $type;
         $add->status = $data->status_blogs;
         $add->save();
-        return redirect()->route('blogs',[$type]);
+        return redirect()->route('blogs');
     }
 
-    public function deleteBlogs($id, $type)
+    public function deleteBlogs($id)
     {
         $dlt = Blog::find($id);
         if ($dlt == null || $dlt->deleted_at != NULL) {
@@ -148,7 +108,7 @@ class BlogController extends Controller
                 }
             }
             $dlt->delete();
-            return redirect()->route('blogs',[$type]);
+            return redirect()->route('blogs');
         }
     }
 }
