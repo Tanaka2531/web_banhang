@@ -37,6 +37,7 @@ use App\Http\Controllers\Clients\IndexController;
             <div class="footer-article--3">
                 <div class="footer__social">
                     <h2 class="footer__title">Kết nối với chúng tôi</h2>
+                    @if (IndexController::social()!=false)
                     <ul>
                         @foreach (IndexController::social() as $social)
                             <li>
@@ -50,6 +51,7 @@ use App\Http\Controllers\Clients\IndexController;
                             </li>
                         @endforeach
                     </ul>
+                    @endif                    
                 </div>
             </div>
             <div class="footer-article--4">

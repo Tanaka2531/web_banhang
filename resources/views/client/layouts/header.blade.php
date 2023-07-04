@@ -7,7 +7,11 @@ use App\Http\Controllers\Clients\IndexController;
             <div class="header__block--left">
                 <a class="header__logo" href="{{ route('clientIndex') }}">
                     <figure class="header__logo-inner">
+                        @if (IndexController::logo()!=false)                            
                         <img src="{{ asset('upload/photo/' . IndexController::logo()->photo) }}" alt="CaoThangMobile">
+                        @else
+                        <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
+                        @endif
                         <figcaption class="figcaption-hidden">CaoThangMobile</figcaption>
                     </figure>
                 </a>

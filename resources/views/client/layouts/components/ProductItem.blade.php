@@ -10,8 +10,14 @@
         <div class="product__info">
             <h3 class="product__name">{{ $product->name }}</h3>
             <div class="product__price">
-                <span class="product__price-new">@convert($product->price_regular)</span>
-                <span class="product__price-old">@convert($product->price_sale)</span>
+                <div class="product__price-from product__price-range">
+                    Giá từ:
+                    <span class="product__price-new">@convert($product->price_from)</span>
+                </div>
+                <div class="product__price-to product__price-range">
+                    Đến: 
+                    <span class="product__price-new">@convert($product->price_to)</span>
+                </div>
                 {{-- <span class="product__price-discount">20%</span> --}}
             </div>
             <div class="product__rating">

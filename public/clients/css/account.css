@@ -1,128 +1,28 @@
 /* General */
 
-.bg-radial-linear\:dark-mix-white {
-    background: -webkit-radial-gradient(50% 0%, circle closest-corner, #dadada 0%, #3a3a3a 50%, #2a2a2a 75%, #1a1a1a 100%);
+.general__title {
+    margin-bottom: 2.5rem;
 }
-
-
-/* Account */
-
-
-/* .body-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100dvh;
-    height: 100vh;
-} */
-
-.account {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100svh;
-    height: 100vh;
-}
-
-.account__inner {
-    min-width: 300px;
-}
-
-.account__title {
-    text-align: center;
-}
-
-.account__title .title {
-    font-family: var(--font-bold);
-    font-size: clamp(26px, 3.5vw, 34px);
-    color: var(--clr-light-red);
-    text-transform: uppercase;
-}
-
-.account__form {}
-
-.account__item {
-    position: relative;
-}
-
-.account__item:not(:last-child) {
-    margin-bottom: 1rem;
-}
-
-.account__label {
-    font-family: var(--font-medium);
-    font-size: 17px;
-    color: var(--clr-txt-white);
-    margin-bottom: 0.25rem;
-}
-
-.account__input {}
-
-.account__input input {
-    position: relative;
-    width: 100%;
-    height: 38px;
-    font-family: var(--font-medium);
-    font-size: 16px;
-    text-indent: 0.75rem;
-}
-
-.account__input input:focus-visible,
-.account__input input:focus-within,
-.account__input input:focus,
-.account__input input:active {
-    border-radius: 0px;
-}
-
-.account__input-icon {
-    position: absolute;
-    top: 0;
-    right: 0;
-}
-
-.account__button {
-    width: 100%;
-}
-
-.account__button button {
-    width: 100%;
-    color: var(--clr-txt-white);
-    background: #1a1a1a;
-}
-
-
-/* General */
 
 .general__title>h2 {
-    font-weight: bold;
-    font-size: 24px;
-    color: #1a1a1a;
+    font-family: var(--font-bold);
+    font-size: var(--font-sz-4xl);
+    color: var(--color-white);
     text-align: center;
     text-transform: uppercase;
 }
 
-.body-register {
+
+/* Account Section */
+
+.account-section {
     display: grid;
     place-items: center;
     height: 100vh;
-    /* background: #1a1a1a; */
+    background: linear-gradient(45deg, #C33764, #1D2671);
 }
 
-@keyframes spinCircle {
-    0% {
-        transform: rotateZ(0deg);
-    }
-
-    100% {
-        transform: rotateZ(360deg);
-    }
-}
-
-
-/* Register Section */
-
-.register {
+.account {
     overflow: hidden;
     position: relative;
     isolation: isolate;
@@ -130,77 +30,97 @@
     padding: 0.25rem;
 }
 
-.register:before {
+.account:before {
     --width: 1000px;
     content: '';
     position: absolute;
     top: calc(50% - var(--width)/2);
     left: calc(50% - var(--width)/2);
+    z-index: -1;
     width: var(--width);
     aspect-ratio: 1;
-    z-index: -1;
-    background: conic-gradient(#12dcda00, #12dcda);
-    animation: spinCircle 5s linear infinite;
+    background: #ffffff20;
 }
 
-.register__inner {
+.account__inner {
     border-radius: inherit;
-    background: #fdfdfd;
-    padding: 1rem 2rem;
+    padding: 1.5rem 2rem;
 }
 
-.register__label {
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-    color: #1a1a1a;
+.account__label {
+    position: absolute;
+    top: 50%;
+    left: 0.625rem;
+    z-index: 2;
+    font-family: var(--font-medium);
+    font-size: var(--font-sz-l);
+    color: var(--color-black);
     margin-bottom: 0.25rem;
+    transform: translateY(-50%);
+    transition: all 0.15s ease-out;
 }
 
-.register__input {
+.account__input {
     flex: 1;
     border-radius: 0.25rem;
     padding: 0.625rem;
 }
 
-.register__input-list {
+.account__input:focus-visible+.account__label,
+.account__input:not(:placeholder-shown)+.account__label,
+.account__input:hover+.account__label {
+    top: -0.625rem;
+    left: 0;
+    font-family: var(--font-bold);
+    font-size: var(--font-sz-m);
+    color: var(--color-white);
+}
+
+.account__input::-webkit-input-placeholder {
+    opacity: 0;
+    transition: all 0.15s ease-out;
+}
+
+.account__input:focus-visible::-webkit-input-placeholder,
+.account__input:hover::-webkit-input-placeholder {
+    opacity: 1;
+}
+
+.account__input-list {
     width: 350px;
 }
 
-.register__input-item {
+.account__input-item {
+    position: relative;
     display: flex;
     width: 100%;
 }
 
-.register__input-item:not(.is-password)>input {
-    border: 1px solid #ccc;
+.account__input-item:not(:last-child) {
+    margin-bottom: 2rem;
 }
 
-.register__input-item:not(:last-child) {
-    margin-bottom: 0.875rem;
-}
-
-.register__input-item:is(.is-password) {
-    border: 1px solid #ccc;
+.account__input-item:is(.is-password) {
     border-radius: 0.25rem;
     background: #fff;
 }
 
-.register__input-item:not(.is-password) {
+.account__input-item:not(.is-password) {
     flex-direction: column;
 }
 
-.register__input-icon {
+.account__input-icon {
     display: grid;
     place-items: center;
     width: 40px;
+    cursor: pointer;
 }
 
-.register__button {
+.account__button {
     width: 100%;
-    font-size: 14px;
-    font-weight: bold;
-    color: #fff;
+    font-family: var(--font-bold);
+    font-size: var(--font-sz-m);
+    color: var(--color-white);
     text-transform: uppercase;
     border-radius: 0.25rem;
     background: #1a1a1a;
@@ -209,12 +129,12 @@
     cursor: pointer;
 }
 
-.register__button:hover {
+.account__button:hover {
     text-shadow: 0px 0px 2px #fff;
     box-shadow: 0px 0px 5px 1px #1a1a1a;
 }
 
-.register__button-item {
+.account__button-item {
     display: flex;
     align-items: center;
     gap: 0.25rem 1rem;

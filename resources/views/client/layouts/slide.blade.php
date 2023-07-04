@@ -1,3 +1,4 @@
+@if (count($slides))
 <section class="slideshow">
     <div class="slideshow__list swiper swiper-slideshow">
         <div class="swiper-wrapper">
@@ -14,11 +15,13 @@
                 </div>
             @endforeach
         </div>
-        <div class="swiper-slide-prev swiper-button-prev"></div>
-        <div class="swiper-slide-next swiper-button-next"></div>
+        <div class="swiper-button swiper-slide-prev swiper-button-prev"></div>
+        <div class="swiper-button swiper-slide-next swiper-button-next"></div>
     </div>
-</section>
+</section>    
+@endif
 
+@if (count($banners))
 <section class="banner__ads">
     <div class="wrap-content">
         <div class="banner__ads-list">
@@ -37,3 +40,4 @@
         </div>
     </div>
 </section>
+@endif

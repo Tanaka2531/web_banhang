@@ -62,8 +62,42 @@ function News() {
     });
 };
 
+function eyesOnOff() {
+    $('.account__input-icon').on('click', function() {
+        if ($(this).find('ion-icon').attr('name') === 'eye-off-outline') {
+            $(this).find('ion-icon').attr('name', 'eye-outline');
+            $(this).parents('.account__input-item').find('input').attr('type', 'text');
+        } else {
+            $(this).find('ion-icon').attr('name', 'eye-off-outline');
+            $(this).parents('.account__input-item').find('input').attr('type', 'password');
+        }
+    });
+}
+
+function productGallery() {
+    var swiper = new Swiper(".childGallery", {
+        loop: true,
+        spaceBetween: 10,
+        slidesPerView: 3,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+    var swiper2 = new Swiper(".parentGallery", {
+        loop: true,
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: swiper,
+        },
+    });
+}
+
 $(document).ready(function() {
     // MenuScroll();
     SlideShow();
     News();
+    eyesOnOff();
 });
