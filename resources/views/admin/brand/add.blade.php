@@ -37,27 +37,17 @@
                             </div>
                             <div class="box_input">
                                 <label for="title">Trạng thái</label>
-                                <select class="form-select" aria-label="Default select example" name="status">            
-                                    @if($update != NULL) 
-                                        @if($update['status'] == 1)
-                                            <option value="0">Chọn trạng thái</option>
-                                            <option selected value="1">Hiển thị</option>
-                                            <option value="2">Không hiển thị</option>
-                                        @elseif($update['status'] == 2)
-                                            <option value="0">Chọn trạng thái</option>
-                                            <option value="1">Hiển thị</option>
-                                            <option selected value="2">Không hiển thị</option>
-                                        @else
-                                            <option selected value="0">Chọn trạng thái</option>
-                                            <option value="1">Hiển thị</option>
-                                            <option value="2">Không hiển thị</option>
-                                        @endif
+                                <select class="form-select" aria-label="Default select example" name="status">
+                                    @if ($update)
+                                        <option value="Hiển thị" {{ $update['status'] == 'Hiển thị' }}>Hiển thị</option>
+                                        <option value="Không hiển thị" {{ $update['status'] == 'Không hiển thị' }}>
+                                            Không hiển thị
+                                        </option>
                                     @else
-                                        <option selected value="0">Chọn trạng thái</option>
-                                        <option value="1">Hiển thị</option>
-                                        <option value="2">Không hiển thị</option>                                    
+                                        <option value="Hiển thị">Hiển thị</option>
+                                        <option value="Không hiển thị">Không hiển thị</option>
                                     @endif
-                                </select>      
+                                </select>
                                 @if ($errors->get('status'))
                                     <div class="alert-validate">
                                         <ul>
@@ -82,8 +72,6 @@
                                     @else
                                         <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
                                     @endif
-                                @else
-                                    <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
                                 @endif
                             </div>
                             <input type="file" class="form-control" name="photo" id="photo">

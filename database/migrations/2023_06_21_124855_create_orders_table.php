@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_member')->constrained('members')->nullable();
-            $table->string('code_order');
             $table->integer('total_price');
-            $table->string('payments');
+            $table->integer('temp_price');
+            $table->integer('ship_price');
             $table->string('status_order');
             $table->timestamps();
             $table->softDeletes();
