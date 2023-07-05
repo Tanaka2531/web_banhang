@@ -9,11 +9,9 @@
                     <form action="{{ route('handlelogin') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="box_input">
-                            <label for="title">Tài khoản</label>
                             <input type="text" class="form-control" name="username" id="username" placeholder="Tài khoản">
                         </div>
                         <div class="box_input">
-                            <label for="title">Mật khẩu</label>
                             <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu">
                         </div>
                         <div class="btn_login">

@@ -33,7 +33,7 @@ Route::prefix('/')->group(function () {
     })->name('clientRegister');
 });
 
-// Auth::routes();
+Auth::routes();
 
 Route::get('/admin/login', function () {
     return view('admin.login');

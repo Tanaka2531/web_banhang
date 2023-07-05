@@ -34,7 +34,12 @@ class StatisticalController extends Controller
             return view('admin.statistical.details', compact('pageName','categoty','type_page'));
         } else if($type == 'members') {
             $type_page = $type;
-            $categoty = category_member::get()->sortBy('id');
+            $categoty = category_member::where(
+                [
+                    ['status_role','!=',1],
+                    ['status_role','!=',2],
+                ]
+            )->get();
             return view('admin.statistical.details', compact('pageName','categoty','type_page'));
         }
     }
