@@ -46,9 +46,11 @@
                 <ion-icon name="chevron-down-circle-outline"></ion-icon>
             </p>
             <ul class="ul_child ul_child_2">
-                <li>
-                    <a href="{{ route('member_admins') }}">Tài khoản Quản trị</a>
-                </li>
+                @if(Auth::guard('user')->user()->role == 0)
+                    <li>
+                        <a href="{{ route('member_admins') }}">Tài khoản Quản trị</a>
+                    </li>
+                @endif
                 <li>
                     <a href="{{ route('cate_members') }}">Danh mục Tài Khoản</a>
                 </li>
@@ -102,7 +104,7 @@
         </li>
         
         <li>
-            <a href=""><ion-icon name="construct-outline"></ion-icon><span>Quản lý thống kê</span></a>
+            <a href="{{ route('statistical') }}"><ion-icon name="construct-outline"></ion-icon><span>Quản lý thống kê</span></a>
         </li>
     </ul>   
 </div> 
