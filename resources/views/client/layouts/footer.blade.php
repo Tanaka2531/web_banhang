@@ -51,7 +51,7 @@ use App\Http\Controllers\Clients\IndexController;
                             </li>
                         @endforeach
                     </ul>
-                    @endif                    
+                    @endif        
                 </div>
             </div>
             <div class="footer-article--4">

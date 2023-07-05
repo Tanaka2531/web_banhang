@@ -27,10 +27,10 @@ class ColorProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreColor_ProductRequest $request)
-    {
-        //
-    }
+    // public function store(StoreColor_ProductRequest $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
@@ -51,10 +51,10 @@ class ColorProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateColor_ProductRequest $request, Color_Product $color_Product)
-    {
-        //
-    }
+    // public function update(UpdateColor_ProductRequest $request, Color_Product $color_Product)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.

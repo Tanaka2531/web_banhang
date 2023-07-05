@@ -1,6 +1,6 @@
 @extends('admin.index')
 @section('body')
-<div class="box_form">
+    <div class="box_form">
         <form action="{{ ($convert_photo != NULL) ? route('handleupdatphoto',['id' => $convert_photo['id'],'type' => $type_man, 'cate' => 'static']) : route('handleaddphoto',['type' => $type_man, 'cate' => 'static']) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="box_btn_main">

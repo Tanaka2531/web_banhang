@@ -1,7 +1,7 @@
 @extends('admin.index')
 @section('body')
 <div class="box_form">
-    <form action="{{ ($update != NULL) ? route('handleupdateblogs',['id' => $update['id']]) : route('handleaddblogs') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ ($update != NULL) ? route('handleupdateblogs',['id' => $update['id'],'type'=> $type_page]) : route('handleaddblogs',['type'=> $type_page]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="box_btn_main">
                 @if($update != NULL)
@@ -43,21 +43,21 @@
                                     @if($update != NULL) 
                                         @if($update['status'] == 1)
                                             <option value="0">Chọn trạng thái</option>
-                                            <option selected value="1">Hoạt động</option>
-                                            <option value="2">Không hoạt động</option>
+                                            <option selected value="1">Hiển thị</option>
+                                            <option value="2">Không hiển thị</option>
                                         @elseif($update['status'] == 2)
                                             <option value="0">Chọn trạng thái</option>
-                                            <option value="1">Hoạt động</option>
-                                            <option selected value="2">Không hoạt động</option>
+                                            <option value="1">Hiển thị</option>
+                                            <option selected value="2">Không hiển thị</option>
                                         @else
                                             <option selected value="0">Chọn trạng thái</option>
-                                            <option value="1">Hoạt động</option>
-                                            <option value="2">Không hoạt động</option>
+                                            <option value="1">Hiển thị</option>
+                                            <option value="2">Không hiển thị</option>
                                         @endif
                                     @else
                                         <option selected value="0">Chọn trạng thái</option>
-                                        <option value="1">Hoạt động</option>
-                                        <option value="2">Không hoạt động</option>                                    
+                                        <option value="1">Hiển thị</option>
+                                        <option value="2">Không hiển thị</option>                                    
                                     @endif
                                 </select>
                             </div>

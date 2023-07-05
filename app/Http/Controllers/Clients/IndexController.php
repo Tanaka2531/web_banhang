@@ -97,8 +97,6 @@ class IndexController extends Controller
         $productBrand = Brand::where('id', $productDetail['id'])
             ->first();
 
-        // dd($productBrand);
-
         if (!empty($productDetail)) {
             $productDetail = $productDetail;
         } else {

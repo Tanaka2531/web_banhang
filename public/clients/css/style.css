@@ -94,7 +94,6 @@
     color: var(--color-black);
 }
 
-
 /* Search Block */
 
 .search__block {
@@ -223,7 +222,6 @@
 .slideshow__list:hover .swiper-button:after {
     opacity: 1;
 }
-
 
 /* Menu */
 
