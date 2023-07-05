@@ -111,7 +111,7 @@ label {font-weight: 600;margin-bottom: 5px;}
 .reload_search, .btn_redirect {display: flex;width: 36px;height: 36px;align-items: center;justify-content: center;background: #ffffff;margin-left: 10px;border-radius: 5px;color: #000;font-size: 31px;}
 .txt_green {color: #00be00;}
 .wap_500 {max-width: 500px;width: 100%;margin: 0 auto;display: flex;align-items: center;justify-content: center;height: 100vh;flex-direction: column;}
-.box_form_login {width: 100%;padding: 30px;border: 2px solid #bababa;border-radius: 20px;background: #f0f0f024;}
+.box_form_login {width: 100%;padding: 30px;border: 2px solid #ffffff;border-radius: 20px;background: #ffffff;}
 .flex_avt a {margin-right: 10px;font-style: italic;font-size: 13px;color: #000;text-decoration: none;}
 .flex_avt a:hover {color: #005aff;}
 .full_form {width: 100%;}
@@ -128,12 +128,12 @@ label {font-weight: 600;margin-bottom: 5px;}
 .box_photo_gallery {display: flex;justify-content: start;flex-flow: wrap;margin: -10px;margin-bottom: 10px;}
 .box_photo_gallery .img_gallery {width: calc(25% - 20px);margin: 10px;height: 200px;position: relative;}
 .box_photo_gallery .img_gallery img {width: 100%;height: 100%;object-fit: cover;border-radius: 5px;}
-.bgk_main {background: url(../images/abc.jpg) center no-repeat;background-size: 100% 100%;}
-.box_form_login label {color: #fff;}
-.btn_login input {border-color: #000 !important;background: #000 !important;transition: 0.35s;padding: 5px 30px 8px 30px;text-transform: capitalize;}
+.bgk_main {background: url(../images/xam.jpg) center no-repeat;background-size: 100% 100%;}
+.box_form_login label {color: #000;}
+.btn_login input {border-color: #000 !important;background: #000 !important;transition: 0.35s;padding: 0 20px;text-transform: capitalize;height: 40px !important;line-height: 37px;border-radius: 5px !important;}
 .btn_login input:hover {box-shadow: 0 0 4px #fff;}
 .btn_login {text-align: center;}
-.box_form_login input {border: none;height: 45px;}
+.box_form_login input {border: none;height: 54px;border-bottom: 2px solid #00000045;border-radius: 0;}
 .title_admin {font-size: 32px;color: #fff;text-transform: capitalize;margin-bottom: 20px;}
 .btn_dlt_gallery {position: absolute;width: 30px;height: 30px;display: flex;align-items: center;justify-content: center;background: #f00;color: #fff;border-radius: 5px;font-size: 18px;right: 5px;top: 5px;cursor: pointer;}
 .bottom_form {width: 100%;margin-top: 1rem;}
@@ -160,7 +160,7 @@ label {font-weight: 600;margin-bottom: 5px;}
 a {text-decoration: none !important;color: #000 !important;}
 .box_export_cate {padding: 0 20px;}
 .box_export_cate select {margin-bottom: 10px;}
-
+.title_login {font-size: 40px;font-weight: 500;margin-bottom: 30px;padding-right: 100px;text-transform: capitalize;}
 
 
 
