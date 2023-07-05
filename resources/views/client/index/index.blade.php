@@ -9,9 +9,14 @@ use App\Http\Controllers\Clients\IndexController;
         @if ($category->photo)
             <section class="product--featured mt-5">
                 <div class="wrap-content">
-                    <a class="product__banner d-block mb-3" href="{{ route('categoriesList',['name_list'=>$category->name,'id_list'=>$category->id]) }}">
+                    <a class="product__banner d-block mb-3"
+                        href="{{ route('categoriesList', ['name_list' => $category->name, 'id_list' => $category->id]) }}">
                         <figure class="product__banner-inner">
-                            <img src="{{ asset('upload/category/' . $category->photo) }}" alt="{{ $category->name }}">
+                            @if ($category->photo)
+                                <img src="{{ asset('upload/category/' . $category->photo) }}" alt="{{ $category->name }}">
+                            @else
+                                <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
+                            @endif
                             <figcaption class="figcaption-hidden">{{ $category->name }}</figcaption>
                         </figure>
                     </a>
@@ -20,11 +25,17 @@ use App\Http\Controllers\Clients\IndexController;
                             @if (indexController::loadLevel2Cate($category->id) != false)
                                 @foreach (IndexController::loadLevel2Cate($category->id) as $category_cat)
                                     <div class="product-parent__item">
-                                        <a class="product-parent__item-inner" href="{{ route('categoriesCat',['name_list'=>$category->name,'id_list'=>$category->id,'name_cat'=>$category_cat->name,'id_cat'=>$category_cat->id]) }}">
+                                        <a class="product-parent__item-inner"
+                                            href="{{ route('categoriesCat', ['name_list' => $category->name, 'id_list' => $category->id, 'name_cat' => $category_cat->name, 'id_cat' => $category_cat->id]) }}">
                                             <div class="product-parent__photo">
                                                 <figure class="product-parent__photo-inner">
-                                                    <img src="{{ asset('upload/category/' . $category_cat->photo) }}"
-                                                        alt="{{ $category_cat->name }}">
+                                                    @if ($category_cat->photo)
+                                                        <img src="{{ asset('upload/category/' . $category_cat->photo) }}"
+                                                            alt="{{ $category_cat->name }}">
+                                                    @else
+                                                        <img src="{{ asset('adminate/images/noimg.jpg') }}"
+                                                            alt="" />
+                                                    @endif
                                                     <figcaption class="figcaption-hidden">{{ $category_cat->name }}
                                                     </figcaption>
                                                 </figure>
@@ -43,7 +54,8 @@ use App\Http\Controllers\Clients\IndexController;
                                     @include('client.layouts.components.ProductItem')
                                 @endforeach
                             </div>
-                            <a class="product--featured__group-btn" href="{{ route('categoriesList',['name_list'=>$category->name,'id_list'=>$category->id]) }}">
+                            <a class="product--featured__group-btn"
+                                href="{{ route('categoriesList', ['name_list' => $category->name, 'id_list' => $category->id]) }}">
                                 Xem toàn bộ sản phẩm
                                 <ion-icon name="arrow-forward"></ion-icon>
                             </a>
@@ -53,22 +65,24 @@ use App\Http\Controllers\Clients\IndexController;
             </section>
         @endif
     @endforeach
-    <section class="news--featured mgt-5">
-        <div class="wrap-content">
-            <div class="home__title">
-                <h2>Tin tức</h2>
-            </div>
-            <div class="news__list swiper swiper-news">
-                <div class="swiper-wrapper">
-                    @foreach ($news as $item)
-                        <div class="swiper-slide">
-                            @include('client.layouts.components.NewsItem')
-                        </div>
-                    @endforeach
+    @if (count($news))
+        <section class="news--featured mt-5">
+            <div class="wrap-content">
+                <div class="home__title">
+                    <h2>Tin tức</h2>
                 </div>
-                <div class="swiper-news-prev swiper-button-prev"></div>
-                <div class="swiper-news-next swiper-button-next"></div>
+                <div class="news__list swiper swiper-news">
+                    <div class="swiper-wrapper">
+                        @foreach ($news as $item)
+                            <div class="swiper-slide">
+                                @include('client.layouts.components.NewsItem')
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="swiper-button custom-swipper-button swiper-news-prev swiper-button-prev"></div>
+                    <div class="swiper-button custom-swipper-button swiper-news-next swiper-button-next"></div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 @endsection
