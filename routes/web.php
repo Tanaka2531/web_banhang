@@ -15,6 +15,8 @@ use App\Http\Controllers\CategoryMemberController;
 use App\Http\Controllers\CategoriesLevelTwoController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StatisticalController;
+
 
 Route::prefix('/')->group(function () {
     Route::controller(IndexController::class)->group(function () {
@@ -88,6 +90,15 @@ Route::prefix('/admin')->group(function () {
                 Route::get('update/{id}', 'loadUpdateSizes')->name('loadupdatesizes');
                 Route::post('update/{id}', 'handleUpdateSizes')->name('handleupdatesizes');
                 Route::get('delete/{id}', 'deleteSizes')->name('deletesizes');
+            });
+        });
+
+        Route::controller(StatisticalController::class)->group(function () {
+            Route::prefix('/statistical')->group(function () {
+                Route::get('/', 'index')->name('statistical');
+                Route::get('details/{type}', 'loadStatistical')->name('loadstatistical');
+                Route::get('details_cate/{type}', 'loadStatisticalCate')->name('loadstatisticalcate');
+                Route::post('details_cate/{type}', 'handleStatisticalCate')->name('handlestatisticalcate');
             });
         });
 
