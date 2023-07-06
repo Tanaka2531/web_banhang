@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 class MemberController extends Controller
 {
     public function index() {
-       $member_admins = Member::where('role',1)->get();  
+       $member_admins = Member::where('role','!=', 0)->get();  
        $pageName = 'Quản lý tài khoản admin';
        return view('admin.member_admins.index_member', compact('member_admins','pageName'));
     }
