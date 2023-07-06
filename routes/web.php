@@ -16,7 +16,7 @@ use App\Http\Controllers\CategoriesLevelTwoController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StatisticalController;
-
+use App\Http\Controllers\Clients\IndexController;
 
 Route::prefix('/')->group(function () {
     Route::controller(IndexController::class)->group(function () {
@@ -33,7 +33,7 @@ Route::prefix('/')->group(function () {
     })->name('clientRegister');
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/admin/login', function () {
     return view('admin.login');

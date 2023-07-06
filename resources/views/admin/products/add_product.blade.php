@@ -11,130 +11,7 @@
                 @endif
                 <input type="reset" class="btn btn-secondary gradient-buttons" value="Nhập lại">
             </div>
-            <div class="flex_form">
-                <div class="left_form">
-                    <div class="card mb-3">
-                        <div class="card-header">Thông tin chung</div>
-                        <div class="card-body">
-                            <div class="box_input">
-                                <label for="title">Tên sản phẩm</label>
-                                <input type="text" class="form-control" name="name_product" id="name_product" placeholder="Tên sản phẩm" value="{{ ($update != NULL) ? $update['name']: ''}}">
-                                @error('name_product')
-                                    <span>{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="box_input">
-                                <label for="title">Mô tả</label>
-                                <textarea type="text" class="form-control" name="desc_product" id="desc_product" placeholder="Mô tả">{{ ($update != NULL) ? $update['desc']: ''}}</textarea>
-                            </div>
-                            <div class="box_input">
-                                <label for="title">Nội dung</label>
-                                <textarea type="text" class="form-control" name="content_product" id="content_product" placeholder="Nội dung">{{ ($update != NULL) ? $update['content']: ''}}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="card-header">Thuộc tính - Giá sản phẩm</div>
-                        <div class="card-body">
-                            <div class="box_check_status">
-                                <div class="item_check_status">
-                                    <label for="status">Hiển thị:</label>
-                                    <select class="form-select" aria-label="Default select example" name="status_product">            
-                                        @if($update != NULL) 
-                                            @if($update['status'] == 1)
-                                                <option value="0">Chọn trạng thái</option>
-                                                <option selected value="1">Hiển thị</option>
-                                                <option value="2">Không hiển thị</option>
-                                            @elseif($update['status'] == 2)
-                                                <option value="0">Chọn trạng thái</option>
-                                                <option value="1">Hiển thị</option>
-                                                <option selected value="2">Không hiển thị</option>
-                                            @else
-                                                <option selected value="0">Chọn trạng thái</option>
-                                                <option value="1">Hiển thị</option>
-                                                <option value="2">Không hiển thị</option>
-                                            @endif
-                                        @else
-                                            <option selected value="0">Chọn trạng thái</option>
-                                            <option value="1">Hiển thị</option>
-                                            <option value="2">Không hiển thị</option>                                    
-                                        @endif
-                                    </select>           
-                                </div>
-                                <div class="item_check_status">
-                                    <label for="status">Nổi bật:</label>
-                                    <select class="form-select" aria-label="Default select example" name="status_product_hot">            
-                                        @if($update != NULL) 
-                                            @if($update['status'] == 1)
-                                                <option value="0">Chọn trạng thái</option>
-                                                <option selected value="1">Nổi bật</option>
-                                                <option value="2">Không nổi bật</option>
-                                            @elseif($update['status'] == 2)
-                                                <option value="0">Chọn trạng thái</option>
-                                                <option value="1">Nổi bật</option>
-                                                <option selected value="2">Không nổi bật</option>
-                                            @else
-                                                <option selected value="0">Chọn trạng thái</option>
-                                                <option value="1">Nổi bật</option>
-                                                <option value="2">Không nổi bật</option>
-                                            @endif
-                                        @else
-                                            <option selected value="0">Chọn trạng thái</option>
-                                            <option value="1">Nổi bật</option>
-                                            <option value="2">Không nổi bật</option>                                   
-                                        @endif
-                                    </select>           
-                                </div>
-                            </div>
-                            <div class="flex_price">
-                                <div class="box_input">
-                                    <label for="code">Mã sản phẩm</label>
-                                    <input type="text" class="form-control" name="code_product" id="code_product" placeholder="Mã sản phẩm" value="{{ ($update != NULL) ? $update['code']: ''}}">
-                                </div>
-                                <div class="box_input">
-                                    <label for="inventory">Số lượng tồn kho</label>
-                                    <input type="text" class="form-control" name="inventory_product" id="inventory_product" placeholder="Số lượng tồn kho" value="{{ ($update != NULL) ? $update['inventory']: ''}}">
-                                </div>
-                                <div class="box_input">
-                                    <label for="price_sale">Giá mới</label>
-                                    <input type="text" class="form-control" name="price_sale_product" id="price_sale_product" placeholder="Giá mới" value="{{ ($update != NULL) ? $update['price_sale']: ''}}">
-                                </div>
-                                <div class="box_input">
-                                    <label for="price_regular">Giá cũ</label>
-                                    <input type="text" class="form-control" name="price_regular_product" id="price_regular_product" placeholder="Giá cũ" value="{{ ($update != NULL) ? $update['price_regular']: ''}}">
-                                </div>
-                                <div class="box_input">
-                                    <label for="price_from">Giá tối thiểu</label>
-                                    <input type="text" class="form-control" name="price_from_product" id="price_from_product" placeholder="Giá tối thiểu" value="{{ ($update != NULL) ? $update['price_from']: ''}}">
-                                </div>
-                                <div class="box_input">
-                                    <label for="price_to">Giá tối đa</label>
-                                    <input type="text" class="form-control" name="price_to_product" id="price_to_product" placeholder="Giá tối đa" value="{{ ($update != NULL) ? $update['price_to']: ''}}">
-                                </div>      
-                            </div>
-                        </div>
-                    </div>         
-                    <div class="card">
-                        <div class="card-header">Thư viện ảnh sản phẩm</div>
-                        <div class="card-body">
-                            <div class="box_photo_gallery">
-                                @if($update != NULL)
-                                    @if($photo_gallery != NULL)
-                                        @foreach($photo_gallery as $k => $v) 
-                                            <div class="img_gallery">
-                                                <div class="btn_dlt_gallery" data-id="{{ $v['id'] }}"><ion-icon name="trash-outline"></ion-icon></div>
-                                                <img src="{{ asset('upload/products/gallery/'.$v['photo']) }}" alt="">
-                                            </div>                               
-                                        @endforeach
-                                    @endif
-                                @endif
-                            </div>
-                            <div class="btn_input_file">
-                                <input type="file" class="form-control" name="photo_gallery[]" id="photo_gallery[]" multiple>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="flex_form flex_form_product">
                 <div class="right_form">
                     <div class="box_list_img">
                         <div class="card mb-3">
@@ -278,6 +155,129 @@
                                 @error('photo_product')
                                     <span class="message_red">{{ $message }}</span>
                                 @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="left_form">
+                    <div class="card mb-3">
+                        <div class="card-header">Thông tin chung</div>
+                        <div class="card-body">
+                            <div class="box_input">
+                                <label for="title">Tên sản phẩm</label>
+                                <input type="text" class="form-control" name="name_product" id="name_product" placeholder="Tên sản phẩm" value="{{ ($update != NULL) ? $update['name']: ''}}">
+                                @error('name_product')
+                                    <span>{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="box_input">
+                                <label for="title">Mô tả</label>
+                                <textarea type="text" class="form-control" name="desc_product" id="desc_product" placeholder="Mô tả">{{ ($update != NULL) ? $update['desc']: ''}}</textarea>
+                            </div>
+                            <div class="box_input">
+                                <label for="title">Nội dung</label>
+                                <textarea type="text" class="form-control form_textarea" name="content_product" id="content_product" placeholder="Nội dung">{{ ($update != NULL) ? $update['content']: ''}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-header">Thuộc tính - Giá sản phẩm</div>
+                        <div class="card-body">
+                            <div class="box_check_status">
+                                <div class="item_check_status">
+                                    <label for="status">Hiển thị:</label>
+                                    <select class="form-select" aria-label="Default select example" name="status_product">            
+                                        @if($update != NULL) 
+                                            @if($update['status'] == 1)
+                                                <option value="0">Chọn trạng thái</option>
+                                                <option selected value="1">Hiển thị</option>
+                                                <option value="2">Không hiển thị</option>
+                                            @elseif($update['status'] == 2)
+                                                <option value="0">Chọn trạng thái</option>
+                                                <option value="1">Hiển thị</option>
+                                                <option selected value="2">Không hiển thị</option>
+                                            @else
+                                                <option selected value="0">Chọn trạng thái</option>
+                                                <option value="1">Hiển thị</option>
+                                                <option value="2">Không hiển thị</option>
+                                            @endif
+                                        @else
+                                            <option selected value="0">Chọn trạng thái</option>
+                                            <option value="1">Hiển thị</option>
+                                            <option value="2">Không hiển thị</option>                                    
+                                        @endif
+                                    </select>           
+                                </div>
+                                <div class="item_check_status">
+                                    <label for="status">Nổi bật:</label>
+                                    <select class="form-select" aria-label="Default select example" name="status_product_hot">            
+                                        @if($update != NULL) 
+                                            @if($update['status'] == 1)
+                                                <option value="0">Chọn trạng thái</option>
+                                                <option selected value="1">Nổi bật</option>
+                                                <option value="2">Không nổi bật</option>
+                                            @elseif($update['status'] == 2)
+                                                <option value="0">Chọn trạng thái</option>
+                                                <option value="1">Nổi bật</option>
+                                                <option selected value="2">Không nổi bật</option>
+                                            @else
+                                                <option selected value="0">Chọn trạng thái</option>
+                                                <option value="1">Nổi bật</option>
+                                                <option value="2">Không nổi bật</option>
+                                            @endif
+                                        @else
+                                            <option selected value="0">Chọn trạng thái</option>
+                                            <option value="1">Nổi bật</option>
+                                            <option value="2">Không nổi bật</option>                                   
+                                        @endif
+                                    </select>           
+                                </div>
+                            </div>
+                            <div class="flex_price">
+                                <div class="box_input">
+                                    <label for="code">Mã sản phẩm</label>
+                                    <input type="text" class="form-control" name="code_product" id="code_product" placeholder="Mã sản phẩm" value="{{ ($update != NULL) ? $update['code']: ''}}">
+                                </div>
+                                <div class="box_input">
+                                    <label for="inventory">Số lượng tồn kho</label>
+                                    <input type="text" class="form-control" name="inventory_product" id="inventory_product" placeholder="Số lượng tồn kho" value="{{ ($update != NULL) ? $update['inventory']: ''}}">
+                                </div>
+                                <div class="box_input">
+                                    <label for="price_sale">Giá mới</label>
+                                    <input type="text" class="form-control" name="price_sale_product" id="price_sale_product" placeholder="Giá mới" value="{{ ($update != NULL) ? $update['price_sale']: ''}}">
+                                </div>
+                                <div class="box_input">
+                                    <label for="price_regular">Giá cũ</label>
+                                    <input type="text" class="form-control" name="price_regular_product" id="price_regular_product" placeholder="Giá cũ" value="{{ ($update != NULL) ? $update['price_regular']: ''}}">
+                                </div>
+                                <div class="box_input">
+                                    <label for="price_from">Giá tối thiểu</label>
+                                    <input type="text" class="form-control" name="price_from_product" id="price_from_product" placeholder="Giá tối thiểu" value="{{ ($update != NULL) ? $update['price_from']: ''}}">
+                                </div>
+                                <div class="box_input">
+                                    <label for="price_to">Giá tối đa</label>
+                                    <input type="text" class="form-control" name="price_to_product" id="price_to_product" placeholder="Giá tối đa" value="{{ ($update != NULL) ? $update['price_to']: ''}}">
+                                </div>      
+                            </div>
+                        </div>
+                    </div>         
+                    <div class="card">
+                        <div class="card-header">Thư viện ảnh sản phẩm</div>
+                        <div class="card-body">
+                            <div class="box_photo_gallery">
+                                @if($update != NULL)
+                                    @if($photo_gallery != NULL)
+                                        @foreach($photo_gallery as $k => $v) 
+                                            <div class="img_gallery">
+                                                <div class="btn_dlt_gallery" data-id="{{ $v['id'] }}"><ion-icon name="trash-outline"></ion-icon></div>
+                                                <img src="{{ asset('upload/products/gallery/'.$v['photo']) }}" alt="">
+                                            </div>                               
+                                        @endforeach
+                                    @endif
+                                @endif
+                            </div>
+                            <div class="btn_input_file">
+                                <input type="file" class="form-control" name="photo_gallery[]" id="photo_gallery[]" multiple>
                             </div>
                         </div>
                     </div>
