@@ -87,15 +87,15 @@
                                 @if($v['status_hot'] == 1)
                                     <option value="0">Chọn trạng thái</option>
                                     <option selected value="1">Nổi bật</option>
-                                    <option value="2">Không nội bật</option>
+                                    <option value="2">Không nổi bật</option>
                                 @elseif($v['status_hot'] == 2)
                                     <option value="0">Chọn trạng thái</option>
                                     <option value="1">Nổi bật</option>
-                                    <option selected value="2">Không nội bật</option>
+                                    <option selected value="2">Không nổi bật</option>
                                 @else
                                     <option selected value="0">Chọn trạng thái</option>
                                     <option value="1">Nổi bật</option>
-                                    <option value="2">Không nội bật</option>
+                                    <option value="2">Không nổi bật</option>
                                 @endif
                             </select>
                         </td>

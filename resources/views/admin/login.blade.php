@@ -6,6 +6,7 @@
         <div class="bgk_main">
             <div class="wap_500"> 
                 <div class="box_form_login">
+                    <div class="title_login">Đăng nhập</div>
                     <form action="{{ route('handlelogin') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="box_input">

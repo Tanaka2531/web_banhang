@@ -9,7 +9,7 @@
     </div>
     <ul class="list_nav_menu">
         <li>
-            <a href="{{ route('loadadminindex') }}"><ion-icon name="construct-outline"></ion-icon><span>Bảng điều khiển</span></a>
+            <a href="{{ route('dashboard') }}"><ion-icon name="construct-outline"></ion-icon><span>Bảng điều khiển</span></a>
         </li> 
         <li>
             <p data-vitri="1">

@@ -29,7 +29,7 @@
                         </div>
                         <div class="box_input">
                             <label for="title">Nội dung</label>
-                            <textarea type="text" class="form-control" name="content_blog" id="content_blog" placeholder="Nội dung" >{{ ($update != NULL) ? $update['content'] : '' }}</textarea>
+                            <textarea type="text" class="form-control form_textarea" name="content_blog" id="content_blog" placeholder="Nội dung" >{{ ($update != NULL) ? $update['content'] : '' }}</textarea>
                         </div>
                     </div>
                 </div>

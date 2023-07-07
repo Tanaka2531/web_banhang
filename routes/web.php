@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
@@ -16,7 +17,7 @@ use App\Http\Controllers\CategoriesLevelTwoController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StatisticalController;
-
+use App\Http\Controllers\Clients\IndexController;
 
 Route::prefix('/')->group(function () {
     Route::controller(IndexController::class)->group(function () {
@@ -33,7 +34,7 @@ Route::prefix('/')->group(function () {
     })->name('clientRegister');
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/admin/login', function () {
     return view('admin.login');
@@ -42,9 +43,7 @@ Route::post('/admin/login', [LoginController::class, 'handleLogin'])->name('hand
 
 Route::prefix('/admin')->group(function () {
     Route::group(['middleware' => ['checkauth:admin']], function () {
-        Route::get('/', function () {
-            return view('admin.index')->with(['pageName' => 'Trang quản trị']);
-        })->name('loadadminindex');
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/admin/logout', [LoginController::class, 'handleLoout'])->name('handlelogout');
 
         Route::get('ajax_loadcate', [AjaxController::class, 'ajax_loadCate'])->name('ajax_loadcate');
