@@ -4,7 +4,7 @@ use App\Http\Controllers\Clients\IndexController;
 @extends('client.index')
 @section('content')
     @include('client.layouts.slide')
-
+    @if(IndexController::loadLevel1Cate() == true)
     @foreach (IndexController::loadLevel1Cate() as $category)
         @if ($category->photo)
             <section class="product--featured mt-5">
@@ -65,6 +65,7 @@ use App\Http\Controllers\Clients\IndexController;
             </section>
         @endif
     @endforeach
+    @endif
     @if (count($news))
         <section class="news--featured mt-5">
             <div class="wrap-content">
