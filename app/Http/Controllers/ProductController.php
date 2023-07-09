@@ -121,7 +121,7 @@ class ProductController extends Controller
                 } 
             }      
         }  
-        return redirect()->route('products');
+        return redirect()->route('products')->with('noti','Thêm sản phẩm thành công !!!');
     }
 
     public function loadUpdateProducts($id) {
@@ -153,7 +153,6 @@ class ProductController extends Controller
 
     public function handleUpdateProducts(Request $data, $id)
     {
-        // dd($data['photo_adv']);
         $add = Product::find($id);
         if($data->photo_product != NULL) {
             if($add['photo'] != NULL) {
@@ -169,21 +168,6 @@ class ProductController extends Controller
         }
         
         if($data->photo_gallery != NULL) {
-            $dlt_file = Gallery::where('type', 'product')->get()->toArray();
-            if($dlt_file != NULL) {
-                foreach($dlt_file as $k => $v) {
-                    $removeFile = public_path('upload/products/gallery/'.$v['photo']);
-                    if(file_exists($removeFile)) {
-                        unlink($removeFile);
-                    }
-                }
-
-                $dlt_sp = Gallery::where('type', 'product');
-                $dlt_sp->delete();
-                $dlt_tras = Gallery::withTrashed()->where('type', 'product');
-                $dlt_tras->forceDelete(); 
-            }
-
             $arr_photo = $data->photo_gallery;
             $count_photo = count($data->photo_gallery);    
             for($i = 0;$i < $count_photo;$i++) {
@@ -198,7 +182,6 @@ class ProductController extends Controller
                 $add_Photo->save();
             }     
         }
-
         $dlt_cp = Color_Product::where('id_product', $id);
         $dlt_cp->delete();
         $dlt_tras = Color_Product::withTrashed()->where('id_product', $id);
@@ -300,7 +283,7 @@ class ProductController extends Controller
             Size_Color_Photo::withTrashed()->where('id_products', $id)->whereNotIn('id_color',$data->arr_color)->forceDelete();
             Size_Color_Photo::withTrashed()->where('id_products', $id)->whereNotIn('id_size',$data->arr_size)->forceDelete();
         }  
-        return redirect()->route('products');
+        return redirect()->route('products')->with('noti','Cập nhật sản phẩm thành công !!!');
     }
    
     public function deleteProducts($id)

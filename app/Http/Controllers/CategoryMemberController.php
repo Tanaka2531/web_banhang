@@ -41,7 +41,7 @@ class CategoryMemberController extends Controller
         $add->status_role = 3;
         $add->status = $data->status_cate_member;
         $add->save();
-        return redirect()->route('cate_members');
+        return redirect()->route('cate_members')->with('noti','Thêm danh mục thành công !!!');
     }
 
     public function loadUpdateCate_Member($id) {
@@ -75,7 +75,7 @@ class CategoryMemberController extends Controller
             $add->status = $data->status_cate_member;
         }  
         $add->save();
-        return redirect()->route('cate_members');
+        return redirect()->route('cate_members')->with('noti','Cập nhật danh mục thành công !!!');
     }
 
     public function deleteCate_Member($id) {

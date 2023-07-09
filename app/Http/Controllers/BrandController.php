@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
@@ -42,7 +43,7 @@ class BrandController extends Controller
         $add->status = $data->status;
         $add->save();
 
-        return redirect()->route('listBrands');
+        return redirect()->route('listBrands')->with('noti','Thêm hãng sản xuất thành công !!!');
     }
 
     public function updateBrand($id)
@@ -73,7 +74,7 @@ class BrandController extends Controller
         $update->status = $data->status;
         $update->save();
 
-        return redirect()->route('listBrands');
+        return redirect()->route('listBrands')->with('noti','Cập nhật hãng sản xuất thành công !!!');
     }
 
     public function deleteBrand($id)
@@ -87,5 +88,12 @@ class BrandController extends Controller
         }
         $delete->delete();
         return redirect()->route('listBrands')->with('success', 'Xóa dữ liệu thành công');
+    }
+
+    public function searchBrand(Request $data)
+    {
+        $pageName = 'Tìm kiếm danh mục hãng sản xuất';
+        $search = Brand::where('name', 'LIKE', '%'.$data->name_search.'%')->get();
+        return view('admin.brand.search', compact('search','pageName'));
     }
 }

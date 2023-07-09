@@ -42,11 +42,21 @@
                         <td>{{ $v['fullname'] }}</td>
                         <td class="text-center txt_green">{{ ($v['role'] == 1)? 'admin':'' }}</td>
                         <td class="text-center">
-                            @if($v['status'] == 1)
-                                <span class="green_status"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
-                            @else
-                                <span class="red_status"><ion-icon name="close-circle-outline"></ion-icon></span>
-                            @endif
+                            <select class="form-select" aria-label="Default select example" name="status_ajax_member" id="status_ajax_member">            
+                                @if($v['status'] == 1)
+                                    <option value="3">Chọn trạng thái</option>
+                                    <option selected value="1">Hoạt động</option>
+                                    <option value="2">Không hoạt động</option>
+                                @elseif($v['status'] == 2)
+                                    <option value="3">Chọn trạng thái</option>
+                                    <option value="1">Hoạt động</option>
+                                    <option selected value="2">Không hoạt động</option>
+                                @else
+                                    <option selected value="0">Chọn trạng thái</option>
+                                    <option value="1">Hoạt động</option>
+                                    <option value="2">Không hoạt động</option>
+                                @endif
+                            </select>
                         </td>
                         <td class="text-center">
                             <div class="flex_options">

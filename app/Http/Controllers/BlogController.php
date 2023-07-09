@@ -75,7 +75,7 @@ class BlogController extends Controller
         $add->type = $type;
         $add->status = $data->status_blogs;
         $add->save();
-        return redirect()->route('blogs',[$type]);
+        return redirect()->route('blogs',[$type])->with('noti','Thêm bài viết thành công !!!');
     }
 
     public function loadUpdateBlogs($id,$type) {
@@ -132,7 +132,7 @@ class BlogController extends Controller
         $add->type = $type;
         $add->status = $data->status_blogs;
         $add->save();
-        return redirect()->route('blogs',[$type]);
+        return redirect()->route('blogs',[$type])->with('noti','Cập nhật bài viết thành công !!!');
     }
 
     public function deleteBlogs($id, $type)
@@ -151,4 +151,16 @@ class BlogController extends Controller
             return redirect()->route('blogs',[$type]);
         }
     }
+
+    public function searchBlogs(Request $data, $type)
+    {
+        $pageName = 'Tìm kiếm bài viết';
+        $type_page = $type;
+        $search = Blog::where([
+            ['name', 'LIKE', '%'.$data->name_search.'%'],
+            ['type',$type]
+        ])->get();
+        return view('admin.blogs.search_blog', compact('search','pageName','type_page'));
+    }
+
 }

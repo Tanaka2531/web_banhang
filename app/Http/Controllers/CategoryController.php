@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -39,7 +39,7 @@ class CategoryController extends Controller
         $add->status = $data->input('status');
         $add->save();
 
-        return redirect()->route('listCategories');
+        return redirect()->route('listCategories')->with('noti','Thêm danh mục thành công !!!');
     }
 
     public function updateCategory($id)
@@ -73,7 +73,7 @@ class CategoryController extends Controller
         $update->status = $data->status;
         $update->save();
 
-        return redirect()->route('listCategories');
+        return redirect()->route('listCategories')->with('noti','Cập nhật danh mục thành công !!!');
     }
 
     public function deleteCategory($id)
@@ -86,7 +86,7 @@ class CategoryController extends Controller
             }
         }
         $delete->delete();
-        return redirect()->route('listCategories')->with('success', 'Xóa dữ liệu thành công');
+        return redirect()->route('listCategories');
     }
 
     public function deleteAllCategory(UpdateCategoryRequest $data)
@@ -100,5 +100,12 @@ class CategoryController extends Controller
 
         $delete->delete();
         return redirect()->route('listCategories')->with('success', 'Xóa dữ liệu thành công');
+    }
+
+    public function searchCate(Request $data)
+    {
+        $pageName = 'Tìm kiếm danh mục cấp 1';
+        $search = Category::where('name', 'LIKE', '%'.$data->name_search.'%')->get();
+        return view('admin.category.search', compact('search','pageName'));
     }
 }

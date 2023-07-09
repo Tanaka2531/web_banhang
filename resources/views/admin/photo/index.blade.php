@@ -4,10 +4,6 @@
         <div class="flex_btn_search">
             <div class="btn_add"><a href="{{ route('loadaddphoto',['type' => $type_man, 'cate' => 'man']) }}">Thêm mới</a></div>
             <div class="btn_delete_all">Xóa tất cả</div>
-            <div class="input_search">
-                <input type="text" name="name_search" id="name_search" placeholder="Nhập sản phẩm cần tìm" class="form-control">
-                <button type="submit" class=""><ion-icon name="search-outline"></ion-icon></button>
-            </div>
         </div>
     </div>
     <div class="box_table_list_product">
