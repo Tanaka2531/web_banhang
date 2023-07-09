@@ -227,6 +227,42 @@ $(document).on('change','#status_blog_ajax',function() {
     });
 });
 
+$(document).on('change','#status_blog_ajax_1',function() {
+    var id_status = $(this).val();
+    var id_blog = $(this).data('id');
+
+    $.ajax({
+        type:'GET',
+        url: "../../ajax_loadstatusblog", 
+        data: { 
+            id_status: id_status,
+            id_blog: id_blog
+        },
+    }).done(function (respose){
+        if(respose != null) {
+           Swal.fire('Cập nhật trạng thái thành công !', '', 'success')
+        }
+    });
+});
+
+$(document).on('change','#status_ajax_cate_member',function() {
+    var id_status = $(this).val();
+    var id_cate_m = $(this).data('id');
+
+    $.ajax({
+        type:'GET',
+        url: "ajax_loadstatuscatemember", 
+        data: { 
+            id_status: id_status,
+            id_cate_m: id_cate_m
+        },
+    }).done(function (respose){
+        if(respose != null) {
+           Swal.fire('Cập nhật trạng thái thành công !', '', 'success')
+        }
+    });
+});
+
 $(document).on('click','.btn_dlt_gallery',function() {
     var id_photo = $(this).data('id');
 
@@ -239,6 +275,9 @@ $(document).on('click','.btn_dlt_gallery',function() {
     }).done(function (respose){
         if(respose != null) { 
             Swal.fire('Xóa ảnh thành công!', '', 'success')
+            setTimeout(function() {
+                location.reload();
+            }, 300);  
         }
     });
 });

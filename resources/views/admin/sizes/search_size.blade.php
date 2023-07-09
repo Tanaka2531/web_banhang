@@ -7,10 +7,11 @@
             <form action="{{ route('searchsize') }}" method="GET" enctype="multipart/form-data">
                 @csrf
                 <div class="input_search">
-                    <input type="text" name="name_search" id="name_search" placeholder="Nhập dung lượng cần tìm" class="form-control">
+                    <input type="text" name="name_search" id="name_search" placeholder="Nhập sản phẩm cần tìm" class="form-control">
                     <button type="submit" class=""><ion-icon name="search-outline"></ion-icon></button>
                 </div>          
             </form>
+            <a href="{{ route('sizes') }}" class="btn_redirect"><ion-icon name="reload-circle-outline"></ion-icon></a>
         </div>
     </div>
     <div class="box_table_list_product">
@@ -24,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($sizes as $k => $v) 
+                @foreach($search as $k => $v) 
                     <tr>
                         <td class="text-center">
                             <input class="sty_checkbox form-check-input" type="checkbox">

@@ -26,5 +26,10 @@
                 <li><a href="{{ route('handlelogout') }}">Đăng xuất</a></li>
             </ul>
         </div>
+        @if(session('noti') != NULL)
+            <div class="arlert_tong">
+                {{ session('noti') }}
+            </div>
+        @endif
     </div>
 </div>

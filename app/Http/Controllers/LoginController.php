@@ -8,7 +8,7 @@ use Illuminate\Http\RedirectResponse;
 class LoginController extends Controller {
     public function handleLogin(Request $data) {
         if (Auth::guard('user')->attempt($data->only(['username', 'password']))) {
-            return redirect()->route('loadadminindex');
+            return redirect()->route('dashboard')->with('noti','Đăng nhập thành công');
         } else {
             return redirect()->back()->withInput();
         }

@@ -10,10 +10,8 @@
                 <input type="text" name="name_search" id="name_search" placeholder="Nhập bài viết cần tìm" class="form-control">
                 <button type="submit" class=""><ion-icon name="search-outline"></ion-icon></button>
             </div>
-            @error('name_search')
-                <span class="message_red">{{ $message }}</span>
-            @enderror
         </form>
+        <a href="{{ route('blogs',['type' => $type_page]) }}" class="btn_redirect"><ion-icon name="reload-circle-outline"></ion-icon></a>
     </div>
 </div>
 <div class="box_table_list_product">
@@ -29,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($blogs as $k => $v)
+            @foreach($search as $k => $v)
                 <tr>
                     <td class="text-center">
                         <input class="sty_checkbox form-check-input" type="checkbox">
@@ -46,7 +44,7 @@
                     </td>
                     <td>{{ $v['name'] }}</td>
                     <td class="text-center" style="width: 200px;">
-                        <select class="form-select" aria-label="Default select example" name="status_blog_ajax" id="status_blog_ajax" data-id="{{ $v['id'] }}"> 
+                        <select class="form-select" aria-label="Default select example" name="status_blog_ajax_1" id="status_blog_ajax_1" data-id="{{ $v['id'] }}"> 
                             @if($v['status'] == 1)
                                 <option value="0">Chọn trạng thái</option>
                                 <option selected value="1">Hiển thị</option>

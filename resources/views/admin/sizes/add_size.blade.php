@@ -22,10 +22,6 @@
                                 <span>{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="item_check_status">
-                            <label for="status">Hiển thị:</label>
-                            <input class="sty_checkbox form-check-input" type="checkbox">
-                        </div>
                     </div>
                 </div>   
             </div>

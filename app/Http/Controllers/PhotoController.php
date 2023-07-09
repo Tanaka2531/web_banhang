@@ -62,10 +62,10 @@ class PhotoController extends Controller
         $add->link = $data->photo_link;
         if($cate == 'man') {
             $add->save();
-            return redirect()->route('photo',[$type,$cate]);
+            return redirect()->route('photo',[$type,$cate])->with('noti','Thêm hình ảnh thành công !!!');
         } else {
             $add->save();
-            return redirect()->route('photo',[$type,$cate]);
+            return redirect()->route('photo',[$type,$cate])->with('noti','Thêm hình ảnh thành công !!!');
         }
     }
 
@@ -111,10 +111,10 @@ class PhotoController extends Controller
         $add->link = $data->photo_link;
         if($cate == 'man') {
             $add->save();
-            return redirect()->route('photo',[$type,$cate]);
+            return redirect()->route('photo',[$type,$cate])->with('noti','Cập nhật dung lượng thành công !!!');
         } else {
             $add->save();
-            return redirect()->route('photo',[$type,$cate]);
+            return redirect()->route('photo',[$type,$cate])->with('noti','Cập nhật dung lượng thành công !!!');
         }
     }
 

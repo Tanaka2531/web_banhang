@@ -28,7 +28,7 @@ class ColorController extends Controller
         $add->name = $data->name_color;
         $add->code_color = $data->name_code;
         $add->save();
-        return redirect()->route('colors');
+        return redirect()->route('colors')->with('noti','Thêm màu sắc thành công !!!');
     }
 
     public function loadUpdateColors($id)
@@ -49,7 +49,7 @@ class ColorController extends Controller
         $add->code_color = $data->name_code;
         // $add->status = $data->name_size;
         $add->save();
-        return redirect()->route('colors');
+        return redirect()->route('colors')->with('noti','Cập nhật màu sắc thành công !!!');
     }
 
     public function deletecolors($id) {
@@ -60,5 +60,12 @@ class ColorController extends Controller
             $dlt->delete();
             return redirect()->route('colors');
         }
+    }
+
+    public function searchColor(Request $data)
+    {
+        $pageName = 'Tìm kiếm màu sắc';
+        $search = Color::where('name', 'LIKE', '%'.$data->name_search.'%')->get();
+        return view('admin.colors.search_color', compact('search','pageName'));
     }
 }

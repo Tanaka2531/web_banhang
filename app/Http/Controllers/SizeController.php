@@ -30,7 +30,7 @@ class SizeController extends Controller
         $add = new Size;
         $add->name = $data->name_size;
         $add->save();
-        return redirect()->route('sizes');
+        return redirect()->route('sizes')->with('noti','Thêm dung lượng thành công !!!');
     }
 
     public function loadUpdateSizes($id) {
@@ -48,7 +48,7 @@ class SizeController extends Controller
         $add = Size::find($id);
         $add->name = $data->name_size;
         $add->save();
-        return redirect()->route('sizes');
+        return redirect()->route('sizes')->with('noti','Cập nhật dung lượng thành công !!!');
     }
 
     public function deleteSizes($id)
@@ -62,4 +62,10 @@ class SizeController extends Controller
         }
     }
 
+    public function searchSize(Request $data)
+    {
+        $pageName = 'Tìm kiếm dung lượng';
+        $search = Size::where('name', 'LIKE', '%'.$data->name_search.'%')->get();
+        return view('admin.sizes.search_size', compact('search','pageName'));
+    }
 }

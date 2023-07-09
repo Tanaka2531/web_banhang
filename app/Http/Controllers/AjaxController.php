@@ -8,6 +8,7 @@ use App\Models\Gallery;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\category_member;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -81,6 +82,13 @@ class AjaxController extends Controller
 
     public function ajax_loadStatusCateOne(Request $data) {
         $product = Category::find($data['id_cate1']);
+        $product->status = $data['id_status'];
+        $product->save();
+        return $product;
+    }
+
+    public function ajax_loadStatusCateMember(Request $data) {
+        $product = category_member::find($data['id_cate_m']);
         $product->status = $data['id_status'];
         $product->save();
         return $product;

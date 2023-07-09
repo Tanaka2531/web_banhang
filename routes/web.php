@@ -56,7 +56,7 @@ Route::prefix('/admin')->group(function () {
         Route::get('ajax_loadstatusblog', [AjaxController::class, 'ajax_loadStatusBlog'])->name('ajax_loadstatusblog');
         Route::get('ajax_loadstatusbrand', [AjaxController::class, 'ajax_loadStatusBrand'])->name('ajax_loadstatusbrand');
         Route::get('ajax_loadstatuscateone', [AjaxController::class, 'ajax_loadStatusCateOne'])->name('ajax_loadstatuscateone');
-
+        Route::get('ajax_loadstatuscatemember', [AjaxController::class, 'ajax_loadStatusCateMember'])->name('ajax_loadstatuscatemember');
 
         Route::controller(ProductController::class)->group(function () {
             Route::prefix('/products')->group(function () {
@@ -89,6 +89,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('update/{id}', 'loadUpdateSizes')->name('loadupdatesizes');
                 Route::post('update/{id}', 'handleUpdateSizes')->name('handleupdatesizes');
                 Route::get('delete/{id}', 'deleteSizes')->name('deletesizes');
+                Route::get('search', 'searchSize')->name('searchsize');
             });
         });
 
@@ -109,6 +110,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('update/{id}', 'loadUpdateColors')->name('loadupdatecolors');
                 Route::post('update/{id}', 'handleUpdateColors')->name('handleupdatecolors');
                 Route::get('delete/{id}', 'deleteColors')->name('deletecolors');
+                Route::get('search', 'searchColor')->name('searchcolor');
             });
         });
 
@@ -120,6 +122,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('update/{id}/{type}', 'loadUpdateBlogs')->name('loadupdateblogs');
                 Route::post('update/{id}/{type}', 'handleUpdateBlogs')->name('handleupdateblogs');
                 Route::get('delete/{id}/{type}', 'deleteBlogs')->name('deleteblogs');
+                Route::get('search/{type}', 'searchBlogs')->name('searchblogs');
             });
         });
 
@@ -153,6 +156,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('update/{id}', 'updateCategory')->name('loadUpdateCategory');
                 Route::patch('update/{id}', 'handleUpdateCategory')->name('handleUpdateCategory');
                 Route::get('delete/{id}', 'deleteCategory')->name('deleteCategory');
+                Route::get('search', 'searchCate')->name('searchcate');
             });
         });
 
@@ -164,6 +168,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('update/{id}', 'loadUpdateCategory')->name('loadupdatecategory_two');
                 Route::post('update/{id}', 'handleUpdateCategory')->name('handleupdatecategory_two');
                 Route::get('delete/{id}', 'deleteCategory')->name('deletecategory_two');
+                Route::get('search', 'searchCatetwo')->name('searchcatetwo');
             });
         });
 
@@ -175,6 +180,7 @@ Route::prefix('/admin')->group(function () {
                 Route::get('update/{id}', 'updateBrand')->name('loadUpdateBrand');
                 Route::patch('update/{id}', 'handleUpdateBrand')->name('handleUpdateBrand');
                 Route::get('delete/{id}', 'deleteBrand')->name('deleteBrand');
+                Route::get('search', 'searchBrand')->name('searchbrand');
             });
         });
 
