@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategories_level_twoRequest;
 use App\Http\Requests\UpdateCategories_level_twoRequest;
 use App\Http\Requests\CategoryTwoRequest;
+use Illuminate\Http\Request;
 
 
 class CategoriesLevelTwoController extends Controller
@@ -48,7 +49,7 @@ class CategoriesLevelTwoController extends Controller
         $add->status = $data->status_cate_two;
         $add->id_cate_one = $data->cate_product_one;
         $add->save();
-        return redirect()->route('category_two');
+        return redirect()->route('category_two')->with('noti','Thêm danh mục thành công !!!');
     }
 
     public function loadUpdateCategory($id) {
@@ -106,7 +107,7 @@ class CategoriesLevelTwoController extends Controller
             $add->id_cate_one = $data->cate_product_one;
         }
         $add->save();
-        return redirect()->route('category_two');
+        return redirect()->route('category_two')->with('noti','Cập nhật danh mục thành công !!!');
     }
 
     public function deleteCategory($id) {
@@ -123,5 +124,12 @@ class CategoriesLevelTwoController extends Controller
             $dlt->delete();
             return redirect()->route('category_two');
         }
+    }
+
+    public function searchCatetwo(Request $data)
+    {
+        $pageName = 'Tìm kiếm danh mục cấp 2';
+        $search = Categories_level_two::where('name', 'LIKE', '%'.$data->name_search.'%')->get();
+        return view('admin.category_two.search', compact('search','pageName'));
     }
 }

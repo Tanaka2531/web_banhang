@@ -42,26 +42,6 @@
                     </div>
                 </a>
             </div>
-            <div class="item_statistical">
-                <a href="">
-                    <div class="content_statistical">
-                        <p>Xuất file excel danh sách thành viên</p>
-                    </div>
-                    <div class="img_statistical">
-                    <ion-icon name="download-outline"></ion-icon>
-                    </div>
-                </a>
-            </div>
-            <div class="item_statistical">
-                <a href="{{ route('loadstatisticalcate',['type' => 'members']) }}">
-                    <div class="content_statistical">
-                        <p>Xuất file excel danh sách thành viên theo danh mục phân loại tài khoản</p>
-                    </div>
-                    <div class="img_statistical">
-                        <ion-icon name="download-outline"></ion-icon>
-                    </div>
-                </a>
-            </div>
         </div>
     </div>
 @endsection

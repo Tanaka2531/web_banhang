@@ -57,7 +57,7 @@ class MemberController extends Controller
         $add->status = $data->status_member;
         $add->role = 1;
         $add->save();
-        return redirect()->route('member_admins');
+        return redirect()->route('member_admins')->with('noti','Thêm tài khoản thành công !!!');
     }
 
     public function loadUpdateMember_admins($id)
@@ -143,7 +143,7 @@ class MemberController extends Controller
             $add->role = 1;
         } 
         $add->save();
-        return redirect()->route('member_admins');
+        return redirect()->route('member_admins')->with('noti','cập nhật tài khoản thành công !!!');
     }
 
     public function deleteMember_admins($id)
