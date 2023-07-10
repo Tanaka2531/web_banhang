@@ -32,6 +32,7 @@
             </div>
             <a class="reload_search" href="{{ route('products') }}"><ion-icon name="reload-circle-outline"></ion-icon></a>
         </div>
+        <div class="alert_ajax"><span>Không có sản phẩm bạn đang cần tìm</span><span class="btn_reload_alert"><ion-icon name="close-outline"></ion-icon></span></div>
     </div>
     <div class="box_table_list_product">
         <table class="table table_list_product align-middle">

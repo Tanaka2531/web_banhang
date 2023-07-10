@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categories_level_two;
 use App\Models\Product;
 use App\Models\Gallery;
+use App\Models\Order;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Category;
@@ -93,5 +94,63 @@ class AjaxController extends Controller
         $product->save();
         return $product;
     }
-    
+
+    public function ajax_SearchOrder(Request $data) {
+        $order = Order::where('status_order',$data['id_status_order'])
+        ->join('blogs','orders.payments','=','blogs.id')
+        ->select('orders.*', 'blogs.name as name_payments')
+        ->get();
+        return $order;
+    }
+
+    public function ajax_SearchOrder_2(Request $data) {
+        $order = Order::where('status_payment',$data['id_status_payments'])
+        ->join('blogs','orders.payments','=','blogs.id')
+        ->select('orders.*', 'blogs.name as name_payments')
+        ->get();
+        return $order;
+    }
+
+    public function ajax_SearchOrder_Price(Request $data) {
+
+        if($data['khoang_gia'] == 1) {
+            $order = Order::where('total_price','<=','1000000')
+            ->join('blogs','orders.payments','=','blogs.id')
+            ->select('orders.*', 'blogs.name as name_payments')
+            ->get();
+        } else if($data['khoang_gia'] == 2) {
+            $order = Order::where([
+                ['total_price','>=','1000000'],
+                ['total_price','<=','10000000']
+            ])
+            ->join('blogs','orders.payments','=','blogs.id')
+            ->select('orders.*', 'blogs.name as name_payments')
+            ->get();
+        } else if($data['khoang_gia'] == 3) {
+            $order = Order::where([
+                ['total_price','>=','1000000'],
+                ['total_price','<=','50000000']
+            ])
+            ->join('blogs','orders.payments','=','blogs.id')
+            ->select('orders.*', 'blogs.name as name_payments')
+            ->get();
+        } else if($data['khoang_gia'] == 4) {
+            $order = Order::where([
+                ['total_price','>=','1000000'],
+                ['total_price','<=','100000000']
+            ])
+            ->join('blogs','orders.payments','=','blogs.id')
+            ->select('orders.*', 'blogs.name as name_payments')
+            ->get();
+        } else if($data['khoang_gia'] == 5) {
+            $order = Order::where([
+                ['total_price','>=','1000000'],
+                ['total_price','<=','200000000']
+            ])
+            ->join('blogs','orders.payments','=','blogs.id')
+            ->select('orders.*', 'blogs.name as name_payments')
+            ->get();
+        } 
+        return $order;
+    }
 }

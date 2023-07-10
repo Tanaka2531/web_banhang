@@ -13,7 +13,7 @@
                 </div>
                 <div class="item_dashboard">
                     <p>Tổng doanh thu cửa hàng</p>
-                    <span>{{ $total_order }}</span>
+                    <span>@convert($total_order)</span>
                 </div>
             </div>
         </div>
