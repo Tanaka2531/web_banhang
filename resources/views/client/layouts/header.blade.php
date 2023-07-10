@@ -37,7 +37,7 @@ use App\Http\Controllers\Clients\IndexController;
                     </a>
                 </div>
                 <div class="header__info">
-                    <a class="header__info-inner" href="" title="Giỏ hàng của bạn">
+                    <a class="header__info-inner" href="{{ route('cart') }}" title="Giỏ hàng của bạn">
                         <div class="header__info-icon">
                             <ion-icon name="cart-outline"></ion-icon>
                         </div>
@@ -53,8 +53,13 @@ use App\Http\Controllers\Clients\IndexController;
                             <ion-icon name="person-outline"></ion-icon>
                         </div>
                         <div class="header__info-content">
+                            @if (Auth::guard('client')->user())
+                            <a>Xin chào {{ Auth::guard('client')->user()->fullname }}</a>
+                            <a class="header__account-logout --color-red d-block" href="{{ route('handleClientLogout') }}" title="Đăng xuất">Đăng xuất</a>
+                            @else
                             <a class="header__account-sign-in --color-red d-block" href="{{ route('clientLogin') }}" title="Đăng nhập">Đăng nhập</a>
                             <a class="header__account-register --color-black d-block" href="{{ route('clientRegister') }}" title="Đăng ký">Đăng ký</a>
+                            @endif
                         </div>
                     </div>
                 </div>

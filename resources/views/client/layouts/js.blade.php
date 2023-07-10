@@ -1,4 +1,5 @@
 <script src="{{ asset('clients/js/jquery-3.6.4.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="{{ asset('clients/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('clients/swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ asset('clients/js/lazyload.min.js') }}"></script>

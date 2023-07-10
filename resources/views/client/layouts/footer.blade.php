@@ -22,47 +22,46 @@ use App\Http\Controllers\Clients\IndexController;
                             <a href="tel:0339311897">0339 311 897</a>
                         </p>
                     </div>
-                </div>                
+                </div>
             </div>
             <div class="footer-article--2">
-                <h2 class="footer__title">Chính sách mua hàng</h2>
-                <ul class="footer-article__ul">
-                    <?php for ($i = 0; $i < 5; $i++) { ?>
-                    <li>
-                        <a href="">Chính sách <?= $i + 1 ?></a>
-                    </li>
-                    <?php } ?>
-                </ul>
+                <h2 class="footer__title">Chính sách của chúng tôi</h2>
+                @if (IndexController::policy() != false)
+                    <ul class="footer-article__ul">
+                        @foreach (IndexController::policy() as $policy)
+                            <li>
+                                <a href="{{ $policy->link }}">{{ $policy->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
             <div class="footer-article--3">
                 <div class="footer__social">
                     <h2 class="footer__title">Kết nối với chúng tôi</h2>
-                    @if (IndexController::social()!=false)
-                    <ul>
-                        @foreach (IndexController::social() as $social)
-                            <li>
-                                <a class="hvr-float-shadow" href="{{ $social->link }}" target="_blank">
-                                    <figure>
-                                        <img src="{{ asset('upload/photo/' . $social->photo) }}"
-                                            alt="{{ $social->name }}">
-                                        <figcaption>{{ $social->name }}</figcaption>
-                                    </figure>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                    @endif        
+                    @if (IndexController::social() != false)
+                        <ul>
+                            @foreach (IndexController::social() as $social)
+                                <li>
+                                    <a class="hvr-float-shadow" href="{{ $social->link }}" target="_blank">
+                                        <figure>
+                                            <img src="{{ asset('upload/photo/' . $social->photo) }}"
+                                                alt="{{ $social->name }}">
+                                            <figcaption>{{ $social->name }}</figcaption>
+                                        </figure>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
             <div class="footer-article--4">
-                <h2 class="footer__title">Hệ thống chi nhánh</h2>
-                <ul class="footer-article__ul footer__branch">
-                    <?php for ($i = 0; $i < 4; $i++) { ?>
-                    <li>
-                        <a href="">Chi nhánh <?= $i + 1 ?>: 123 bfc, Phường 7, Gò Vấp, Hồ Chí Minh</a>
-                    </li>
-                    <?php } ?>
-                </ul>
+                <h2 class="footer__title">Hình thức thanh toán</h2>
+                <div class="payment__method-photo">
+                    <img src="{{ asset('clients/images/payments.png') }}"
+                    alt="Hình thức thanh toán">
+                </div>
             </div>
         </div>
     </div>
