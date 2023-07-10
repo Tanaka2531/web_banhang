@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('birthday')->nullable();
             $table->string('photo')->nullable();
+            $table->string('remember_token')->nullable();
             $table->string('status');
             $table->integer('role');
             $table->timestamps();

@@ -10,6 +10,7 @@ use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MemberClientController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\CategoryMemberController;
@@ -17,24 +18,44 @@ use App\Http\Controllers\CategoriesLevelTwoController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StatisticalController;
+
+// Clients
 use App\Http\Controllers\Clients\IndexController;
+use App\Http\Controllers\Clients\ProductDetailController;
+use App\Http\Controllers\Clients\CartController;
+use App\Http\Controllers\Clients\AccountController;
+
+Auth::routes();
 
 Route::prefix('/')->group(function () {
     Route::controller(IndexController::class)->group(function () {
         Route::get('/', 'index')->name('clientIndex');
         Route::get('danh-muc/{name_list}/{id_list}', 'categoryListPage')->name('categoriesList');
         Route::get('danh-muc/{name_list}/{id_list}/{name_cat}/{id_cat}', 'categoryCatPage')->name('categoriesCat');
-        Route::get('san-pham/{id}', 'productDetail')->name('productDetailPage');
     });
-    Route::get('/login', function () {
-        return view('client.account.login');
-    })->name('clientLogin');
-    Route::get('/register', function () {
-        return view('client.account.register');
-    })->name('clientRegister');
-});
 
-// Auth::routes();
+    Route::controller(ProductDetailController::class)->group(function () {
+        Route::get('san-pham/{id}', 'index')->name('productDetailPage');
+        Route::get('load_price', 'loadPrice')->name('ajaxLoadPrice');
+    });
+
+    Route::controller(CartController::class)->group(function () {
+        Route::get('gio-hang', 'cart')->name('cart');
+        Route::get('add-to-cart/{id}', 'addToCart')->name('add.to.cart');
+        Route::patch('update-cart', 'update')->name('update.cart');
+        Route::delete('remove-from-cart', 'remove')->name('remove.from.cart');
+
+        Route::post('thanh-toan/{code}', 'payment')->name('payment');
+    });
+
+    Route::controller(AccountController::class)->group(function () {
+        Route::get('dang-nhap', 'login')->name('clientLogin');
+        Route::post('dang-nhap', 'handleLogin')->name('handleClientLogin');
+        Route::get('dang-ky', 'register')->name('clientRegister');
+        Route::post('dang-ky', 'handleRegister')->name('handleClientRegister');
+        Route::get('dang-xuat', 'handleLogout')->name('handleClientLogout');
+    });
+});
 
 Route::get('/admin/login', function () {
     return view('admin.login');
@@ -73,11 +94,11 @@ Route::prefix('/admin')->group(function () {
         Route::controller(OrderController::class)->group(function () {
             Route::prefix('/orders')->group(function () {
                 Route::get('/', 'index')->name('orders');
-                Route::get('load_views', 'loadViews')->name('loadviews');
+                // Route::get('load_views', 'loadViews')->name('loadviews');
                 Route::get('detail/{id}', 'loadOrder')->name('loadorder');
-                Route::get('detail/{id}', 'handleOrder')->name('handleorder');
+                Route::post('detail/{id}', 'updateOrder')->name('updateOrder');
                 Route::get('delete/{id}', 'deleteOrder')->name('deleteorder');
-                Route::get('search', 'searchOrder')->name('searchorder');              
+                Route::get('search', 'searchOrder')->name('searchorder');
             });
         });
 
@@ -136,6 +157,17 @@ Route::prefix('/admin')->group(function () {
                 Route::get('delete/{id}', 'deleteMember_admins')->name('deletemember_admins');
             });
         });
+
+        // Route::controller(MemberClientController::class)->group(function () {
+        //     Route::prefix('/member_admins')->group(function () {
+        //         Route::get('/', 'index')->name('member_admins');
+        //         Route::get('add', 'loadAddMember_admins')->name('loadaddmember_admins');
+        //         Route::post('add', 'handleAddMember_admins')->name('handleaddmember_admins');
+        //         Route::get('update/{id}', 'loadUpdateMember_admins')->name('loadupdatemember_admins');
+        //         Route::post('update/{id}', 'handleUpdateMember_admins')->name('handleupdatemember_admins');
+        //         Route::get('delete/{id}', 'deleteMember_admins')->name('deletemember_admins');
+        //     });
+        // });
 
         Route::controller(CategoryMemberController::class)->group(function () {
             Route::prefix('/cate_members')->group(function () {

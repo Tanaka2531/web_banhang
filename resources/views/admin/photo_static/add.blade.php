@@ -34,7 +34,8 @@
                                             <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
                                         @endif
                                     </div>
-                                    <input type="file" class="form-control" name="photo_man" id="photo_man" value="{{ ($convert_photo != NULL) ? $convert_photo['photo']: ''}}">
+                                    <label for="photo_man" class="photo-label">Chọn hình ảnh....</label>
+                                    <input type="file" class="form-control btn-choose-file" name="photo_man" id="photo_man" value="{{ ($convert_photo != NULL) ? $convert_photo['photo']: ''}}">
                                     @error('photo_man')
                                         <span class="message_red">{{ $message }}</span>
                                     @enderror

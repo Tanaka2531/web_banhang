@@ -28,7 +28,8 @@ class IndexController extends Controller
         $banners = Photo::where('type', 'advertisement')
             ->get()
             ->take(3);
-        $news = Blog::where('status', '1')
+        $news = Blog::where('type', 'blogs')
+            ->where('status', '1')
             ->get()
             ->take(20);
 
@@ -68,42 +69,6 @@ class IndexController extends Controller
         }
 
         return view('client.product.index', compact('pageName', 'products'));
-    }
-
-    public function productDetail($id)
-    {
-        $clrProduct = Color_Product::where('id_product', $id)->get('id_color');
-        $sizeProduct = Size_Product::where('id_product', $id)->get('id_size');
-
-        for ($i = 0; $i < count($clrProduct); $i++) {
-            $clrName[] = Color::where('id', $clrProduct[$i]['id_color'])
-                ->select('id', 'name', 'code_color')
-                ->get();
-        }
-
-        for ($i = 0; $i < count($sizeProduct); $i++) {
-            $sizeName[] = Size::where('id', $sizeProduct[$i]['id_size'])
-                ->select('id', 'name')
-                ->get();
-        }
-
-        $productPhotoChild = Gallery::where('id_products', $id)
-            ->get();
-
-        $productDetail = Product::where('id', $id)
-            ->where('status', '1')
-            ->first();
-
-        $productBrand = Brand::where('id', $productDetail['id'])
-            ->first();
-
-        if (!empty($productDetail)) {
-            $productDetail = $productDetail;
-        } else {
-            $productDetail = false;
-        }
-
-        return view('client.product.detail', compact('productDetail', 'clrName', 'sizeName', 'productPhotoChild', 'productBrand'));
     }
 
     public static function logo()
@@ -151,6 +116,7 @@ class IndexController extends Controller
     {
         $products = Product::where('id_cate', $id_list)
             ->where('status', '1')
+            ->where('status_hot', '1')
             ->skip(0)
             ->take(10)
             ->get()
@@ -158,6 +124,20 @@ class IndexController extends Controller
 
         if (count($products)) {
             return $products;
+        } else {
+            return false;
+        }
+    }
+
+    public static function policy()
+    {
+        $policies = Blog::where('type', 'policy')
+            ->where('status', '1')
+            ->get()
+            ->sortBy('id');
+
+        if (count($policies)) {
+            return $policies;
         } else {
             return false;
         }

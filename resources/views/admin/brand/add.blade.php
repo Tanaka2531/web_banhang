@@ -86,7 +86,8 @@
                                     <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
                                 @endif
                             </div>
-                            <input type="file" class="form-control" name="photo" id="photo">
+                            <label for="photo" class="photo-label">Chọn hình ảnh....</label>
+                            <input type="file" class="form-control btn-choose-file" name="photo" id="photo">
                             @if ($errors->get('photo'))
                                 <div class="alert-validate">
                                     <ul>

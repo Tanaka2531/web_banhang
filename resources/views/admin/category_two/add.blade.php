@@ -88,7 +88,8 @@
                                     <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
                                 @endif
                             </div>
-                            <input type="file" class="form-control" name="photo_cate_two" id="photo_cate_two">
+                            <label for="photo_cate_two" class="photo-label">Chọn hình ảnh....</label>
+                            <input type="file" class="form-control btn-choose-file" name="photo_cate_two" id="photo_cate_two">
                             @error('photo_cate_two')
                                 <span class="message_red">{{ $message }}</span>
                             @enderror

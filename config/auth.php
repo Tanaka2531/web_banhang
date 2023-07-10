@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'user',
         ],
+        'client' => [
+            'driver' => 'session',
+            'provider' => 'client',
+        ],
     ],
 
     /*
@@ -73,6 +77,10 @@ return [
             'driver' => 'database',
             'table' => 'members',
         ],
+        'client' => [
+            'driver' => 'database',
+            'table' => 'members',
+        ],
     ],
 
     /*
@@ -97,6 +105,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'client' => [
+            'provider' => 'client',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

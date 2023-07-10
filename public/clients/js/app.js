@@ -1,23 +1,11 @@
+// isExist()
+function isExist(ele) {
+    return ele.length;
+}
+
 // Menu Scroll
 function MenuScroll() {
-    // if ($('.menu')) {
-    //     var headerHeight = $('#primary-header').outerHeight(true);
-    //     var headerBlockHeight = $('.header__block').outerHeight(true);
-    //     var menuHeight = $('.menu').outerHeight(true);
-
-    //     $(window).scroll(function() {
-    //         if ($(window).scrollTop() >= (headerHeight + 50)) {
-    //             $('.menu').addClass('has-scroll');
-    //             $('.slideshow').css({ marginTop: menuHeight });
-    //         };
-    //         if ($(window).scrollTop() <= headerBlockHeight) {
-    //             $('.menu').removeClass('has-scroll');
-    //             $('.slideshow').css({ marginTop: 0 });
-    //         };
-    //     });
-    // };
-
-    if ($(".header")) {
+    if (isExist($(".header"))) {
         $(".header").addClass("has-scroll");
         var pointHeight = $(".header").outerHeight();
         $(".top-space").css({
@@ -114,50 +102,237 @@ function eyesOnOff() {
 }
 
 function productGallery() {
-    var swiper = new Swiper(".childGallery", {
-        loop: true,
-        speed: 800,
-        spaceBetween: 10,
-        slidesPerView: 3,
-        freeMode: true,
-        watchSlidesProgress: true,
-    });
-    var swiper2 = new Swiper(".parentGallery", {
-        loop: true,
-        speed: 800,
-        spaceBetween: 10,
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        thumbs: {
-            swiper: swiper,
-        },
-    });
+    if (isExist($('.product-detail--left-top-left'))) {
+        var swiper = new Swiper(".childGallery", {
+            loop: true,
+            speed: 800,
+            spaceBetween: 10,
+            slidesPerView: 3,
+            freeMode: true,
+            watchSlidesProgress: true,
+        });
+        var swiper2 = new Swiper(".parentGallery", {
+            loop: true,
+            speed: 800,
+            spaceBetween: 10,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            thumbs: {
+                swiper: swiper,
+            },
+        });
+    }
 }
 
-function findProductPrice(idSize, idColor, idPrd) {}
+function AlertBoxHandMade(title = '', bgClr = '#ec2d3f') {
+    $('.alert-box').addClass('show');
+    $('.alert-box').attr('style', '--bg-clr:' + bgClr + ';');
+    $('.alert-title').text(title);
+    $('.alert-close').click(function() {
+        $(this).parent($('.alert-box')).removeClass('show');
+    });
+    setTimeout(() => {
+        $('.alert-close').parent($('.alert-box')).removeClass('show');
+    }, 5000);
+}
+
+/**
+ * Number.prototype.format(n, x)
+ * 
+ * @param integer n: length of decimal
+ * @param integer x: length of sections
+ */
+Number.prototype.format = function(currency, n, x) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,') + currency;
+};
+
+function findProductPrice() {
+    if (isExist($('.storage__item.active')) && isExist($('.color__item.active'))) {
+        var idSize = $('.storage__item.active').data('id'),
+            idColor = $('.color__item.active').data('id'),
+            idPrd = $('.product-detail').data('id'),
+            url = $('.product-detail').data('url');
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            data: {
+                idPrd: idPrd,
+                idSize: idSize,
+                idColor: idColor
+            },
+            success: function(result) {
+                var priceNew = result[0].priceNew.format('đ'),
+                    priceOld = result[0].priceOld.format('đ'),
+                    inventory = result[0].inventory;
+
+                $(".product-detail__price-new").html(priceNew);
+                $(".product-detail__price-old").html(priceOld);
+                $('.cart__item-quantity input').attr('data-max', inventory);
+            }
+        })
+    }
+}
+
 
 function getSizeId() {
-    $(".storage__item").on("click", function() {
-        $(".storage__item.active").removeClass("active");
-        $(this).addClass("active");
-        var idSize = $(this).data("id");
-    });
-    $(".storage__item.active").each(function() {
-        var idSize = $(this).data("id");
-    });
+    if (isExist($('.product-detail__storage'))) {
+        $('.storage__item').on('click', function() {
+            $('.storage__item.active').removeClass('active');
+            $(this).addClass('active');
+
+            findProductPrice();
+        });
+    }
 }
 
 function getColorId() {
-    $(".color__item").on("click", function() {
-        $(".color__item.active").removeClass("active");
-        $(this).addClass("active");
-        var idColor = $(this).data("id");
+    if (isExist($('.product-detail__color'))) {
+        $('.color__item').on('click', function() {
+            $('.color__item.active').removeClass('active');
+            $(this).addClass('active');
+
+            findProductPrice();
+        });
+    }
+}
+
+function AddCart() {
+    if (isExist($('.add-cart'))) {
+        $('body').on('click', '.add-cart', function() {
+            var _this = $(this),
+                cmd;
+
+            if (_this.hasClass('out-of-stock')) {
+                AlertBoxHandMade('Sản phẩm đã hết hàng!');
+                exist();
+            }
+
+            if (isExist($('.storage__item.active')) && isExist($('.color__item.active'))) {
+                var url = _this.data('url');
+
+                if (_this.hasClass('buy-now')) cmd = 1;
+                else cmd = 0;
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    method: "get",
+                    data: {
+                        id: _this.data('id'),
+                        idSize: _this.parents('form').find('.storage__item.active').data('id'),
+                        idColor: _this.parents('form').find('.color__item.active').data('id'),
+                        quantity: _this.parents("#primary-main").find(".cart__item-quantity input").val(),
+                    },
+                    success: function(data) {
+                        // if (cmd === 0) alert('Thêm vào giỏ hàng thành công!');
+                        if (cmd === 0) AlertBoxHandMade('Thêm vào giỏ hàng thành công!', '#29bc1b');
+                        else window.location.href = "../gio-hang";
+                    }
+                });
+            } else {
+                AlertBoxHandMade('Bạn vui lòng chọn màu sắc và dung lượng cho sản phẩm!');
+            }
+        });
+    }
+}
+
+function UpdateCart(url, id, quantity) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: url,
+        method: "patch",
+        data: {
+            id: id,
+            quantity: quantity
+        },
+        success: function(data) {
+            window.location.reload();
+        }
     });
-    $(".color__item.active").each(function() {
-        var idColor = $(this).data("id");
+}
+
+function DeleteCart(url, id) {
+    if (confirm("Bạn muốn xóa sản phẩm này khỏi giỏ hàng?")) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url,
+            method: "DELETE",
+            data: {
+                id: id
+            },
+            success: function(response) {
+                window.location.reload();
+            }
+        });
+    }
+}
+
+function UpdateQuantity() {
+    $('body').on('click', '.cart__item-quantity-button:not(.detail)', function() {
+        var urlUpdate = $(this).parents('.cart__item-quantity').data('url'),
+            urlDelete = $(this).parents('.cart__item').find('.remove-from-cart').data('url'),
+            idPrd = $(this).parents('.cart__item').data('id'),
+            quantity = parseInt($(this).parents('.cart__item-quantity').find('input').val()),
+            action;
+
+        if ($(this).hasClass('--plus')) quantity += 1;
+        else quantity -= 1;
+
+        if (quantity >= 1) action = 'update';
+        else action = 'delete';
+
+        if (action === 'update') {
+            $(this).parents('.cart__item-quantity').find('input').val(quantity);
+            UpdateCart(urlUpdate, idPrd, quantity);
+        } else {
+            DeleteCart(urlDelete, idPrd);
+        }
     });
+}
+
+function ChangeQuantity() {
+    $('body').on('click', '.cart__item-quantity-button.detail', function() {
+        var quantity = parseInt($(this).parents('.cart__item-quantity').find('input').val()),
+            quantityMin = parseInt($(this).parents('.cart__item-quantity').find('input').data('min')),
+            quantityMax = parseInt($(this).parents('.cart__item-quantity').find('input').data('max'));
+
+        if ($(this).hasClass('--plus')) {
+            if (quantity < quantityMax) {
+                quantity += 1;
+            } else {
+                AlertBoxHandMade('Đã tối đa số lượng sản phẩm!');
+            }
+        } else {
+            if (quantity > quantityMin) quantity -= 1;
+        }
+
+        if (quantity >= 1) action = 'update';
+
+        $(this).parents('.cart__item-quantity').find('input').val(quantity);
+    });
+}
+
+function DeleteCartDetail() {
+    $('body').on('click', '.remove-from-cart', function() {
+        var url = $(this).data('url'),
+            idPrd = $(this).parents('.cart__item').data('id');
+
+        DeleteCart(url, idPrd);
+    })
 }
 
 $(function() {
@@ -168,4 +343,8 @@ $(function() {
     productGallery();
     getSizeId();
     getColorId();
+    AddCart();
+    UpdateQuantity();
+    DeleteCartDetail();
+    ChangeQuantity();
 });
