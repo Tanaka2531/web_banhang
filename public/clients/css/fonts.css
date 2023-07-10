@@ -7,6 +7,14 @@
 }
 
 @font-face {
+    font-family: 'Montserrat-BoldItalic';
+    src: url('/fonts/Montserrat-BoldItalic.woff2') format('woff2'), url('/fonts/Montserrat-BoldItalic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: 'Montserrat-Italic';
     src: url('/fonts/Montserrat-Italic.woff2') format('woff2'), url('/fonts/Montserrat-Italic.woff') format('woff');
     font-weight: normal;

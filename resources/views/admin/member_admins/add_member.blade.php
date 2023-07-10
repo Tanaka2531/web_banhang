@@ -116,7 +116,8 @@
                                         <img src="{{ asset('adminate/images/noimg.jpg') }}" alt="" />
                                     @endif
                                 </div>
-                                <input type="file" class="form-control" name="photo_member" id="photo_member" value="{{ ($update != NULL) ? $update['photo']: ''}}">
+                            <label for="photo_member" class="photo-label">Chọn hình ảnh....</label>
+                            <input type="file" class="form-control btn-choose-file" name="photo_member" id="photo_member" value="{{ ($update != NULL) ? $update['photo']: ''}}">
                                 @error('photo_member')
                                     <span class="message_red">{{ $message }}</span>
                                 @enderror
