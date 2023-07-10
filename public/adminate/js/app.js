@@ -256,7 +256,7 @@ $(document).on('change', '#search_cate', function() {
             id_cate: id_cate
         },
     }).done(function(respose) {
-        if (respose != null) {
+        if (respose != '') {
             var res = '';
             $.each(respose, function(key, value) {
                 res +=
@@ -314,10 +314,13 @@ $(document).on('change', '#search_cate', function() {
                     '</td>' +
                     '</tr>';
             });
-
+            $('.alert_ajax').removeClass('act');
             $('.load_search').html(res);
             $('#search_brand').prop('disabled', true);
             $('.reload_search').addClass('act');
+        } else {
+            $('.alert_ajax').addClass('act');
+            $('.load_search').html('<tr></tr>');
         }
     });
 });
@@ -332,7 +335,7 @@ $(document).on('change', '#search_brand', function() {
             id_brand: id_brand
         },
     }).done(function(respose) {
-        if (respose != null) {
+        if (respose != '') {
             var res = ''
             $.each(respose, function(key, value) {
                 res +=
@@ -390,9 +393,183 @@ $(document).on('change', '#search_brand', function() {
                     '</td>' +
                     '</tr>';
             });
+            $('.alert_ajax').removeClass('act');
             $('.load_search').html(res);
             $('#search_cate').prop('disabled', true);
             $('.reload_search').addClass('act');
+        } else {
+            $('.alert_ajax').addClass('act');
+            $('.load_search').html('<tr></tr>');
         }
     });
+});
+
+$(document).on('change', '#select_status_order', function() {
+    var id_status_order = $(this).val();
+
+    $.ajax({
+        type: 'GET',
+        url: "ajax_searchorder",
+        data: {
+            id_status_order: id_status_order
+        },
+    }).done(function(respose) {
+        if (respose != '') { 
+            var res = '';
+            $.each(respose, function(key, value) {
+                res +=
+                '<tr>'+
+                    '<td class="text-center">'+
+                        '<input class="sty_checkbox form-check-input" type="checkbox">'+
+                    '</td>'+
+                    '<td style="width: 30px;" class="text-center">'+ (key + 1) +'</td>'+
+                    '<td>'+
+                        '<a href="orders/detail/'+value.id+'">'+value.code_order+'</a>'+
+                    '</td>'+
+                    '<td>'+value.name+'</td>'+
+                    '<td style="color:#ec2d3f;font-weight:bold;">'+value.total_price+'</td>'+
+                    '<td>'+ value.name_payments +'</td>'+
+                    '<td class="text-center" style="width: 175px;">'+value.status_order+'</td>'+
+                    '<td class="text-center" style="width: 175px;">'+value.status_payment+'</td>'+
+                    '<td class="text-center">'+
+                        '<div class="flex_options">'+
+                            '<a href="orders/detail/'+value.id+'"><span>'+
+                                    '<ion-icon name="create-outline"></ion-icon>'+
+                                '</span></a>'+
+                            '<a class="delete_main" data-id="'+value.id+'" data-type="orders"><span>'+
+                                    '<ion-icon name="trash-outline"></ion-icon>'+
+                                '</span></a>'+
+                        '</div>'+
+                    '</td>'+
+                '</tr>';
+            });
+            $('.alert_ajax').removeClass('act');
+            $('.load_search').html(res);
+            $('#select_status_payments').prop('disabled', true);
+            $('#customRange2').prop('disabled', true);
+        } else {
+            $('.alert_ajax').addClass('act');
+            $('.load_search').html('<tr></tr>');
+        }
+    });
+});
+
+$(document).on('change', '#select_status_payments', function() {
+    var id_status_payments = $(this).val();
+
+    $.ajax({
+        type: 'GET',
+        url: "ajax_searchorder_2",
+        data: {
+            id_status_payments: id_status_payments
+        },
+    }).done(function(respose) {
+        if (respose != '') { 
+            var res = '';
+            $.each(respose, function(key, value) {
+                res +=
+                '<tr>'+
+                    '<td class="text-center">'+
+                        '<input class="sty_checkbox form-check-input" type="checkbox">'+
+                    '</td>'+
+                    '<td style="width: 30px;" class="text-center">'+ (key + 1) +'</td>'+
+                    '<td>'+
+                        '<a href="orders/detail/'+value.id+'">'+value.code_order+'</a>'+
+                    '</td>'+
+                    '<td>'+value.name+'</td>'+
+                    '<td style="color:#ec2d3f;font-weight:bold;">'+value.total_price+'</td>'+
+                    '<td>'+ value.name_payments +'</td>'+
+                    '<td class="text-center" style="width: 175px;">'+value.status_order+'</td>'+
+                    '<td class="text-center" style="width: 175px;">'+value.status_payment+'</td>'+
+                    '<td class="text-center">'+
+                        '<div class="flex_options">'+
+                            '<a href="orders/detail/'+value.id+'"><span>'+
+                                    '<ion-icon name="create-outline"></ion-icon>'+
+                                '</span></a>'+
+                            '<a class="delete_main" data-id="'+value.id+'" data-type="orders"><span>'+
+                                    '<ion-icon name="trash-outline"></ion-icon>'+
+                                '</span></a>'+
+                        '</div>'+
+                    '</td>'+
+                '</tr>';
+            });
+            $('.alert_ajax').removeClass('act');
+            $('.load_search').html(res);
+            $('#select_status_order').prop('disabled', true);
+            $('#customRange2').prop('disabled', true);
+        } else {
+            $('.alert_ajax').addClass('act');
+            $('.load_search').html('<tr></tr>');
+        }
+    });
+});
+
+$(document).on('click','.btn_change_range',function() {
+    var khoang_gia = $('#customRange2').val();
+    $('.hidden_range').removeClass('active_hidden');
+    if(khoang_gia == 1) {
+        $('.range_number').removeClass('act');
+        $('.range_number_1').addClass('act');
+    } else if(khoang_gia == 2) {
+        $('.range_number').removeClass('act');
+        $('.range_number_2').addClass('act');
+    } else if(khoang_gia == 3) {
+        $('.range_number').removeClass('act');
+        $('.range_number_3').addClass('act');
+    } else if(khoang_gia == 4) {
+        $('.range_number').removeClass('act');
+        $('.range_number_4').addClass('act');
+    } else if(khoang_gia == 5) {
+        $('.range_number').removeClass('act');
+        $('.range_number_5').addClass('act');
+    }
+    $.ajax({
+        type: 'GET',
+        url: "ajax_searchorder_price",
+        data: {
+            khoang_gia: khoang_gia
+        },
+    }).done(function(respose) {
+        if (respose != '') { 
+            var res = '';
+            $.each(respose, function(key, value) {
+                res +=
+                '<tr>'+
+                    '<td class="text-center">'+
+                        '<input class="sty_checkbox form-check-input" type="checkbox">'+
+                    '</td>'+
+                    '<td style="width: 30px;" class="text-center">'+ (key + 1) +'</td>'+
+                    '<td>'+
+                        '<a href="orders/detail/'+value.id+'">'+value.code_order+'</a>'+
+                    '</td>'+
+                    '<td>'+value.name+'</td>'+
+                    '<td style="color:#ec2d3f;font-weight:bold;">'+value.total_price+'</td>'+
+                    '<td>'+ value.name_payments +'</td>'+
+                    '<td class="text-center" style="width: 175px;">'+value.status_order+'</td>'+
+                    '<td class="text-center" style="width: 175px;">'+value.status_payment+'</td>'+
+                    '<td class="text-center">'+
+                        '<div class="flex_options">'+
+                            '<a href="orders/detail/'+value.id+'"><span>'+
+                                    '<ion-icon name="create-outline"></ion-icon>'+
+                                '</span></a>'+
+                            '<a class="delete_main" data-id="'+value.id+'" data-type="orders"><span>'+
+                                    '<ion-icon name="trash-outline"></ion-icon>'+
+                                '</span></a>'+
+                        '</div>'+
+                    '</td>'+
+                '</tr>';
+            });
+            $('.alert_ajax').removeClass('act');
+            $('.load_search').html(res);
+            $('#select_status_order').prop('disabled', true);
+            $('#select_status_payments').prop('disabled', true);
+        } else {
+            $('.alert_ajax').addClass('act');
+            $('.load_search').html('<tr></tr>');
+        }
+    });
+});
+
+$(document).on('click','.btn_reload_alert',function() {
+    location.reload();
 });

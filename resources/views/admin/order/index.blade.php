@@ -4,22 +4,48 @@ use App\Http\Controllers\OrderController;
 @extends('admin.index')
 @section('body')
     <div class="box_btn_search">
-        <div class="flex_btn_search">
-            <div class="btn_delete_all">Xóa tất cả</div>
-            <form action="{{ route('searchorder') }}" method="GET" enctype="multipart/form-data">
-                @csrf
-                <div class="input_search">
-                    <input type="text" name="name_search" id="name_search" placeholder="Nhập sản phẩm cần tìm"
-                        class="form-control">
-                    <button type="submit" class="">
-                        <ion-icon name="search-outline"></ion-icon>
-                    </button>
+        <div class="flex_filter">
+            <div class="box_select">
+                <label for="select_status_order">Trạng thái đơn hàng</label>
+                <select class="form-select" aria-label="Default select example" name="select_status_order" id="select_status_order">
+                    <option value="0">Chọn trạng thái</option>
+                    <option value="Chờ xác nhận">Chờ xác nhận</option>
+                    <option value="Đã xác nhận">Đã xác nhận</option>
+                    <option value="Chờ vận chuyển">Chờ vận chuyển</option>
+                    <option value="Đã vận chuyển">Đã vận chuyển</option>
+                    <option value="Đã giao">Đã giao</option>
+                    <option value="Đã hủy">Đã hủy</option>
+                </select>   
+            </div>
+            <div class="box_select">
+                <label for="select_status_order">Trạng thái thanh toán</label>
+                <select class="form-select" aria-label="Default select example" name="select_status_payments" id="select_status_payments">
+                    <option value="0">Chọn trạng thái</option>
+                    <option value="Đã thanh toán">Đã thanh toán</option>
+                    <option value="Chưa thanh toán">Chưa thanh toán</option>
+                </select>
+            </div>
+            <div class="box_range">
+                <label for="select_status_order">Giá trị đơn hàng</label>
+                <div class="btn_change_range">
+                    <input type="range" class="form-range range_test" min="1" max="5" id="customRange2">
+                    <span class="range_number range_number_1">1</span>
+                    <span class="range_number range_number_2">2</span>
+                    <span class="range_number range_number_3">3</span>
+                    <span class="range_number range_number_4">4</span>
+                    <span class="range_number range_number_5">5</span>
+                    <span class="hidden_range active_hidden"></span>
                 </div>
-                @error('name_search')
-                    <span class="message_red">{{ $message }}</span>
-                @enderror
-            </form>
+            </div>
+            <div class="note_filter">
+                <p><span>Bật 1:</span> nhỏ hơn 10tr</p>
+                <p><span>Bật 2:</span> 1tr - 10tr</p>
+                <p><span>Bật 3:</span> 10tr - 50tr</p>
+                <p><span>Bật 4:</span> 50tr - 100tr</p>
+                <p><span>Bật 5:</span> 100tr - 200tr</p>
+            </div>
         </div>
+        <div class="alert_ajax"><span>Không có đơn hàng bạn đang cần tìm</span><span class="btn_reload_alert"><ion-icon name="close-outline"></ion-icon></span></div>
     </div>
     <div class="box_table_list_product">
         <table class="table table_list_product align-middle">
@@ -31,8 +57,8 @@ use App\Http\Controllers\OrderController;
                     <th>Tên khách hàng</th>
                     <th>Tổng tiền</th>
                     <th style="width: 230px;">Hình thức thanh toán</th>
-                    <th style="width: 100px;" class="text-center">Trạng thái đơn hàng</th>
-                    <th style="width: 100px;" class="text-center">Thanh toán</th>
+                    <th style="width: 175px;" class="text-center">Trạng thái đơn hàng</th>
+                    <th style="width: 175px;" class="text-center">Thanh toán</th>
                     <th style="width: 100px;" class="text-center">Thao tác</th>
                 </tr>
             </thead>
@@ -56,8 +82,7 @@ use App\Http\Controllers\OrderController;
                                 <a href="{{ route('loadorder', ['id' => $v['id']]) }}"><span>
                                         <ion-icon name="create-outline"></ion-icon>
                                     </span></a>
-                                <a class="delete_main" href="{{ route('deleteorder', ['id' => $v['id']]) }}"
-                                    data-id="{{ $v['id'] }}" data-type="orders"><span>
+                                <a class="delete_main" data-id="{{ $v['id'] }}" data-type="orders"><span>
                                         <ion-icon name="trash-outline"></ion-icon>
                                     </span></a>
                             </div>
