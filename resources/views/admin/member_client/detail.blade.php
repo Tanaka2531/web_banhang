@@ -40,7 +40,7 @@
                             <div class="item_box_list d-none">
                                 <label for="supplier">Loại tài khoản</label>
                                 <select class="form-select" name="cate_member" aria-label="Default select example">
-                                    <option selected value="1">Chọn loại sản phẩm</option>
+                                    <option selected value="2">Chọn loại tài khoản</option>
                                 </select>
                             </div>
                             <div class="box_input">

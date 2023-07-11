@@ -405,16 +405,16 @@ a {text-decoration: none !important;color: #000;}
 .range_number.act {bottom: 12px;color: #fff;}
 .active_hidden {position: absolute;width: 17px;height: 17px;background: #fff;border-radius: 50%;z-index: 1;}
 .active_hidden::before {position: absolute;content: '';width: 17px;height: 8px;background: #dee2e6;top: 4.5px;}
-.flex_filter {display: flex;justify-content: start;padding-top: 20px;position: relative;}
-.box_select {width: 30%;margin-right: 15px;}
+.flex_filter {display: flex;justify-content: start;padding-top: 20px;position: relative;align-items: end;}
+.box_select {width: 28%;margin-right: 15px;}
 .box_range {width: 300px;}
 .note_filter p {margin: 0;font-size: 12px;}
-.note_filter {position: absolute;bottom: 0;right: 10px;padding: 5px;border: 1px solid #ced4da;border-radius: 5px;}
+.note_filter {padding: 5px;border: 1px solid #ced4da;border-radius: 5px;margin-left: 15px;}
 .note_filter p span {font-weight: 500;}
 .btn_reload_alert {font-size: 24px;line-height: 24px;cursor: pointer;}
 .panel-body {padding: 10px;box-shadow: 0 0 10px -4px #aaa;border-radius: 10px;}
 .bottom_dashboard {margin-top: 20px;}
-
+.btn-choose-file {visibility: hidden;display: none !important;}
 
 
 

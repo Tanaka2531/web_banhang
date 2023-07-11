@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Hash;
 class MemberController extends Controller
 {
     public function index() {
-       $member_admins = Member::where('role','!=', 0)->get();  
+       $member_admins = Member::where([
+            ['role','==', '1'],
+            ['id_cate_member', '==', '1']
+       ])->get();  
        $pageName = 'Quản lý tài khoản admin';
        return view('admin.member_admins.index_member', compact('member_admins','pageName'));
     }
@@ -106,7 +109,11 @@ class MemberController extends Controller
                 $add->photo = $imageName;
             }    
             $add->status = $data->status_member;
-            $add->role = 1;
+            if($add->role != 0) {
+                $add->role = 1;
+            } else {
+                $add->role = 0; 
+            }
         } else {
             $data->validate(
                 [
@@ -140,7 +147,11 @@ class MemberController extends Controller
                 $add->photo = $imageName;
             }    
             $add->status = $data->status_member;
-            $add->role = 1;
+            if($add->role != 0) {
+                $add->role = 1;
+            } else {
+                $add->role = 0; 
+            }
         } 
         $add->save();
         return redirect()->route('member_admins')->with('noti','cập nhật tài khoản thành công !!!');

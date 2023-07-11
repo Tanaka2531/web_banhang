@@ -97,7 +97,6 @@ Route::prefix('/admin')->group(function () {
         Route::controller(OrderController::class)->group(function () {
             Route::prefix('/orders')->group(function () {
                 Route::get('/', 'index')->name('orders');
-                // Route::get('load_views', 'loadViews')->name('loadviews');
                 Route::get('detail/{id}', 'loadOrder')->name('loadorder');
                 Route::post('detail/{id}', 'updateOrder')->name('updateOrder');
                 Route::get('delete/{id}', 'deleteOrder')->name('deleteorder');
@@ -161,16 +160,16 @@ Route::prefix('/admin')->group(function () {
             });
         });
 
-        // Route::controller(MemberClientController::class)->group(function () {
-        //     Route::prefix('/member_admins')->group(function () {
-        //         Route::get('/', 'index')->name('member_admins');
-        //         Route::get('add', 'loadAddMember_admins')->name('loadaddmember_admins');
-        //         Route::post('add', 'handleAddMember_admins')->name('handleaddmember_admins');
-        //         Route::get('update/{id}', 'loadUpdateMember_admins')->name('loadupdatemember_admins');
-        //         Route::post('update/{id}', 'handleUpdateMember_admins')->name('handleupdatemember_admins');
-        //         Route::get('delete/{id}', 'deleteMember_admins')->name('deletemember_admins');
-        //     });
-        // });
+        Route::controller(MemberClientController::class)->group(function () {
+            Route::prefix('/member_client')->group(function () {
+                Route::get('/', 'index')->name('member_client');
+                Route::get('add', 'loadAddMember_client')->name('loadaddmember_client');
+                Route::post('add', 'handleAddMember_client')->name('handleaddmember_client');
+                Route::get('update/{id}', 'loadUpdateMember_client')->name('loadupdatemember_client');
+                Route::post('update/{id}', 'handleUpdateMember_client')->name('handleupdatemember_client');
+                Route::get('delete/{id}', 'deleteMember_client')->name('deletemember_client');
+            });
+        });
 
         Route::controller(CategoryMemberController::class)->group(function () {
             Route::prefix('/cate_members')->group(function () {

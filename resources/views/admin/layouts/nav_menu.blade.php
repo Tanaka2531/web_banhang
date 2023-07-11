@@ -55,7 +55,7 @@
                     <a href="{{ route('cate_members') }}">Danh mục Tài Khoản</a>
                 </li>
                 <li>
-                    <a href="">Tài khoản Thành viên</a>
+                    <a href="{{ route('member_client') }}">Tài khoản Thành viên</a>
                 </li>   
             </ul>
         </li>   

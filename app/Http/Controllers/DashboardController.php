@@ -86,7 +86,7 @@ class DashboardController extends Controller
             $sum12 += $v['total_price'];
         }
         $data_m_total = [$sum1,$sum2,$sum3,$sum4,$sum5,$sum6,$sum7,$sum8,$sum9,$sum10,$sum11,$sum12];
-        $data_month_chart = json_encode($data_m_total);
+        $data_month_chart = json_encode($data_m_total);  
 
         return view('admin.dashboard.index', compact('pageName','count_pro','count_order','total_order','data_month_chart'));
     }
