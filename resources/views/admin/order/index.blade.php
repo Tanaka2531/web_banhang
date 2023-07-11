@@ -38,11 +38,11 @@ use App\Http\Controllers\OrderController;
                 </div>
             </div>
             <div class="note_filter">
-                <p><span>Bật 1:</span> nhỏ hơn 10tr</p>
-                <p><span>Bật 2:</span> 1tr - 10tr</p>
-                <p><span>Bật 3:</span> 10tr - 50tr</p>
-                <p><span>Bật 4:</span> 50tr - 100tr</p>
-                <p><span>Bật 5:</span> 100tr - 200tr</p>
+                <p><span>Bật 1:</span> nhỏ hơn 1tr</p>
+                <p><span>Bật 2:</span> nhỏ hơn 10tr</p>
+                <p><span>Bật 3:</span> nhỏ hơn 50tr</p>
+                <p><span>Bật 4:</span> nhỏ hơn 100tr</p>
+                <p><span>Bật 5:</span> nhỏ hơn 200tr</p>
             </div>
         </div>
         <div class="alert_ajax"><span>Không có đơn hàng bạn đang cần tìm</span><span class="btn_reload_alert"><ion-icon name="close-outline"></ion-icon></span></div>
