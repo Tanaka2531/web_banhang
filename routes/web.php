@@ -32,6 +32,11 @@ Route::prefix('/')->group(function () {
         Route::get('/', 'index')->name('clientIndex');
         Route::get('danh-muc/{name_list}/{id_list}', 'categoryListPage')->name('categoriesList');
         Route::get('danh-muc/{name_list}/{id_list}/{name_cat}/{id_cat}', 'categoryCatPage')->name('categoriesCat');
+        Route::get('search_index', 'searchIndex')->name('search_index');
+        Route::get('ajax_search_cate', 'searchCateAjax')->name('ajax_search_cate');
+        Route::get('ajax_search_cate_two', 'searchCateTwoAjax')->name('ajax_search_cate_two');
+        Route::get('ajax_search_brand', 'searchBrand')->name('ajax_search_brand');
+        Route::get('ajax_search_price', 'searchPrice')->name('ajax_search_price');
     });
 
     Route::controller(ProductDetailController::class)->group(function () {
