@@ -50,7 +50,11 @@ class IndexController extends Controller
             $products = false;
         }
 
-        return view('client.product.index', compact('pageName', 'products'));
+        $cate = Category::get()->sortBy('id');
+        $cate_two = Categories_level_two::get()->sortBy('id');
+        $brand = Brand::get()->sortBy('id');
+        $cap_2 = 1;
+        return view('client.product.index', compact('pageName', 'products', 'cate', 'brand', 'cap_2','cate_two'));
     }
 
     public function categoryCatPage($name_list, $id_list, $name_cat, $id_cat)
@@ -67,8 +71,9 @@ class IndexController extends Controller
         } else {
             $products = false;
         }
+        $cap_2 = 2;
 
-        return view('client.product.index', compact('pageName', 'products'));
+        return view('client.product.index', compact('pageName', 'products','cap_2'));
     }
 
     public static function logo()
@@ -155,4 +160,78 @@ class IndexController extends Controller
             return false;
         }
     }
+
+    public function searchIndex(Request $data) {
+        $pageName = 'Tìm kiếm sản phẩm';
+        $search = Product::where('name', 'LIKE', '%' . $data->key_search_index . '%')->get();
+        return view('client.product.search', compact('search', 'pageName'));
+    }
+
+    public function searchCateAjax(Request $data) {
+        if($data['id_cate'] == 0) {
+            $products = Product::get()->sortBy('id');
+        } else {
+            $products = Product::where('id_cate', $data['id_cate'])->get();
+        }
+        $html = view('client.product.return', compact('products'))->render();
+        return $html;
+    }
+
+    public function searchCateTwoAjax(Request $data) {
+        if($data['id_cate'] == 0) {
+            $products = Product::get()->sortBy('id');
+        } else {
+            $products = Product::where('id_cate_two', $data['id_cate'])->get();
+        }
+        $html = view('client.product.return', compact('products'))->render();
+        return $html;
+    }
+
+    public function searchBrand(Request $data) {
+        if($data['id_brand'] == 0) {
+            $products = Product::get()->sortBy('id');
+        } else {
+            $products = Product::where('id_brand', $data['id_brand'])->get();
+        }
+        $html = view('client.product.return', compact('products'))->render();
+        return $html;
+    }
+
+    public function searchPrice(Request $data) {
+        if($data['id_price'] == 0) {
+            $products = Product::get()->sortBy('id');
+        } else if($data['id_price'] == 1) {
+            $products = Product::where([
+                ['price_from','>=', '0'],
+                ['price_from','<=','1000000']
+            ])->get();
+        } else if($data['id_price'] == 2) {
+            $products = Product::where([
+                ['price_from','>=','1000000'],
+                ['price_from','<=','10000000']
+            ])->get();
+        } else if($data['id_price'] == 3) {
+            $products = Product::where([
+                ['price_from','>=','10000000'],
+                ['price_from','<=','15000000']
+            ])->get();
+        } else if($data['id_price'] == 4) {
+            $products = Product::where([
+                ['price_from','>=','15000000'],
+                ['price_from','<=','20000000']
+            ])->get();
+        } else if($data['id_price'] == 5) {
+            $products = Product::where([
+                ['price_from','>=','20000000'],
+                ['price_from','<=','25000000']
+            ])->get();
+        } else if($data['id_price'] == 6) {
+            $products = Product::where([
+                ['price_from','>=','25000000']
+            ])->get();
+        }
+        $html = view('client.product.return', compact('products'))->render();
+        return $html;
+    }
+
 }

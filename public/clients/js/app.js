@@ -334,7 +334,93 @@ function DeleteCartDetail() {
         DeleteCart(url, idPrd);
     })
 }
+function Ajax_cate_search() {
+    $(document).on('change','#cate_search_index',function() {
+        var id_cate  = $(this).val();
+        var page  = $(this).data('page');
+        
+        $.ajax({
+            type: 'GET',
+            url: "../../../ajax_search_cate",
+            data: {
+                id_cate: id_cate,
+                page:page
+            },
+            success: function (data) {
+                if(data != '') {
+                    $('.product__list').html(data);
+                } else {
+                    alert('Không có sản phẩm cần tìm');
+                }
+                
+            },
+        });
+    });
 
+    $(document).on('change','#cate_two_search_index',function() {
+        var id_cate  = $(this).val();
+        var page  = $(this).data('page');
+        
+        $.ajax({
+            type: 'GET',
+            url: "../../../ajax_search_cate_two",
+            data: {
+                id_cate: id_cate,
+                page:page
+            },
+            success: function (data) {
+                if(data != '') {
+                    $('.product__list').html(data);
+                } else {
+                    alert('Không có sản phẩm cần tìm');
+                }
+                
+            },
+        });
+    });
+
+    $(document).on('change','#brand_search_index',function() {
+        var id_brand  = $(this).val();
+        var page  = $(this).data('page');
+        
+        $.ajax({
+            type: 'GET',
+            url: "../../../ajax_search_brand",
+            data: {
+                id_brand: id_brand,
+                page:page
+            },
+            success: function (data) {
+                if(data != '') {
+                    $('.product__list').html(data);
+                } else {
+                    alert('Không có sản phẩm cần tìm');
+                }
+                
+            },
+        });
+    });
+
+    $(document).on('change','#price_search_index',function() {
+        var id_price  = $(this).val();
+        
+        $.ajax({
+            type: 'GET',
+            url: "../../../ajax_search_price",
+            data: {
+                id_price: id_price,
+            },
+            success: function (data) {
+                if(data != '') {
+                    $('.product__list').html(data);
+                } else {
+                    alert('Không có sản phẩm cần tìm');
+                }
+                
+            },
+        });
+    });
+}
 $(function() {
     MenuScroll();
     SlideShow();
@@ -347,4 +433,5 @@ $(function() {
     UpdateQuantity();
     DeleteCartDetail();
     ChangeQuantity();
+    Ajax_cate_search();
 });

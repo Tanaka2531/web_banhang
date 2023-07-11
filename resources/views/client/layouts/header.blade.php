@@ -17,12 +17,13 @@ use App\Http\Controllers\Clients\IndexController;
                 </a>
             </div>
             <div class="header__block--middle">
-                <div class="search__block">
-                    <input type="text" class="search__input" placeholder="Bạn cần tìm gì?">
-                    <div class="search__icon">
-                        <ion-icon name="search-outline"></ion-icon>
+                <form action="{{ route('search_index') }}" method="GET" enctype="multipart/form-data">
+                    @csrf
+                    <div class="search__block">
+                        <input type="text" class="search__input" name="key_search_index" placeholder="Bạn cần tìm gì?">
+                        <input type="submit" class="btn_search_index" value="Tìm kiếm">
                     </div>
-                </div>
+                </form>
             </div>
             <div class="header__block--right d-flex justify-content-between align-items-center">
                 <div class="header__info">

@@ -110,7 +110,14 @@
     width: 530px;
     border: 2px solid #000;
     border-radius: 999px;
-    padding: 3px 10px;
+    padding: 3px 4px 3px 10px;
+}
+
+.btn_search_index {
+    padding: 0 10px;
+    border-radius: 30px;
+    color: #fff;
+    background: #000;
 }
 
 .search__block .search__input {
@@ -1022,4 +1029,36 @@
 
 .alert-close:hover {
     transform: rotateZ(45deg);
+}
+
+.flex_product {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left_product {
+    width: 280px;
+}
+
+.right_product {
+    width: calc(100% - 300px);
+}
+
+.right_product .product__item {
+    width: calc(25% - 20px) !important;
+}
+
+.left_product label {
+    font-family: 'Montserrat-Bold';
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.box_select {
+    padding-bottom: 20px;
+}
+
+.box_select select {
+    border: none;
+    box-shadow: 2px 2px 4px -1px #ccc;
 }

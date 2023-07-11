@@ -91,7 +91,9 @@ class MemberController extends Controller
             $add->fullname = $data->name_member;
             $add->id_cate_member = $data->cate_member;
             $add->username = $data->username;
-            $add->password = Hash::make($data->password);
+            if($data->password != NULL) {
+                $add->password = Hash::make($data->password);
+            }
             $add->address = $data->address;
             $add->phone = $data->phone;
             $add->email = $data->email;
