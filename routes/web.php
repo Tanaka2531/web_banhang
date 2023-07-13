@@ -49,7 +49,6 @@ Route::prefix('/')->group(function () {
         Route::get('add-to-cart/{id}', 'addToCart')->name('add.to.cart');
         Route::patch('update-cart', 'update')->name('update.cart');
         Route::delete('remove-from-cart', 'remove')->name('remove.from.cart');
-
         Route::post('thanh-toan/{code}', 'payment')->name('payment');
     });
 
@@ -83,9 +82,6 @@ Route::prefix('/admin')->group(function () {
         Route::get('ajax_loadstatusbrand', [AjaxController::class, 'ajax_loadStatusBrand'])->name('ajax_loadstatusbrand');
         Route::get('ajax_loadstatuscateone', [AjaxController::class, 'ajax_loadStatusCateOne'])->name('ajax_loadstatuscateone');
         Route::get('ajax_loadstatuscatemember', [AjaxController::class, 'ajax_loadStatusCateMember'])->name('ajax_loadstatuscatemember');
-        Route::get('ajax_searchorder', [AjaxController::class, 'ajax_SearchOrder'])->name('ajax_searchorder');
-        Route::get('ajax_searchorder_2', [AjaxController::class, 'ajax_SearchOrder_2'])->name('ajax_searchorder_2');
-        Route::get('ajax_searchorder_price', [AjaxController::class, 'ajax_SearchOrder_Price'])->name('ajax_searchorder_price');
 
         Route::controller(ProductController::class)->group(function () {
             Route::prefix('/products')->group(function () {
