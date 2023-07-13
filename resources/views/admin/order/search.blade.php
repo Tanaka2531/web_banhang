@@ -49,7 +49,7 @@ use App\Http\Controllers\OrderController;
                 <p><span>Bật 5:</span> nhỏ hơn 200tr</p>
             </div>
         </div>
-        <div class="alert_ajax"><span>Không có đơn hàng bạn đang cần tìm</span><span class="btn_reload_alert"><ion-icon name="close-outline"></ion-icon></span></div>
+        <div class="alert_ajax act"><span>{{ $name_search }}</span><span class="btn_reload_alert"><ion-icon name="close-outline"></ion-icon></span></div>
     </div>
     <div class="box_table_list_product">
         <table class="table table_list_product align-middle">
@@ -67,7 +67,7 @@ use App\Http\Controllers\OrderController;
                 </tr>
             </thead>
             <tbody class="load_search">
-                @foreach ($orders as $k => $v)
+                @foreach ($search as $k => $v)
                     <tr>
                         <td class="text-center">
                             <input class="sty_checkbox form-check-input" type="checkbox">

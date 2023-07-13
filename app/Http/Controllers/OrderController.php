@@ -85,4 +85,101 @@ class OrderController extends Controller
             return false;
         }
     }
+
+    public static function searchOrder(Request $data)
+    {
+        $pageName = 'Tìm kiếm đơn hàng';
+        $price_info = '';
+        if($data->price_search == 1) {
+            $price_info = 'nhỏ hơn 1 triệu.';
+        } else if($data->price_search == 2) {
+            $price_info = 'nhỏ hơn 10 triệu.';
+        } else if($data->price_search == 3) {
+            $price_info = 'nhỏ hơn 50 triệu.';
+        } else if($data->price_search == 4) {
+            $price_info = 'nhỏ hơn 100 triệu.';
+        } else if($data->price_search == 5) {
+            $price_info = 'nhỏ hơn 200 triệu.';
+        }
+       
+        if($data->select_status_order == NULL) {
+            $status_info = 'Không';
+        } else {
+            $status_info = $data->select_status_order;
+        }
+
+        if($data->select_status_payments == NULL) {
+            $status_info_pay = 'Không';
+        } else {
+            $status_info_pay = $data->select_status_payments;
+        }
+
+        $name_search = 'Trạng thái đơn hàng: ' . $status_info .', Trạng thài thanh toán: '. $status_info_pay.', Giá trị: '.$price_info;
+        if($data->select_status_order != NULL && $data->select_status_payments == NULL && $data->price_search == 3) {
+            $search = Order::where('status_order', $data->select_status_order)->get();
+        } else if($data->select_status_order == NULL && $data->select_status_payments != NULL && $data->price_search == 3) {
+            $search = Order::where('status_payment', $data->select_status_payments)->get();  
+        } else if($data->select_status_order == NULL && $data->select_status_payments == NULL && $data->price_search == 3) {
+            $search = Order::where([
+                ['total_price','>=','1000000'],
+                ['total_price','<=','50000000']
+            ])->get();  
+        } else if($data->select_status_order != NULL && $data->select_status_payments != NULL && $data->price_search == 3) {
+            $search = Order::where([
+                ['status_order', $data->select_status_order],
+                ['status_payment', $data->select_status_payments],
+                ['total_price','>=','1000000'],
+                ['total_price','<=','50000000']
+            ])->get();
+        } else if($data->select_status_order == NULL && $data->select_status_payments != NULL && $data->price_search == 3) {
+            $search = Order::where([
+                ['status_payment', $data->select_status_payments],
+                ['total_price','>=','1000000'],
+                ['total_price','<=','50000000']
+            ])->get();
+        } else if($data->select_status_order != NULL && $data->select_status_payments == NULL && $data->price_search == 3) {
+            $search = Order::where([
+                ['status_order', $data->select_status_order],
+                ['total_price','>=','1000000'],
+                ['total_price','<=','50000000']
+            ])->get();
+        } else if($data->select_status_order != NULL && $data->select_status_payments != NULL && $data->price_search != NULL && $data->price_search != 3 ) {
+            if($data['price_search'] == 1) {
+                $search = Order::where([
+                    ['status_order', $data->select_status_order],
+                    ['status_payment', $data->select_status_payments],
+                    ['total_price','<=','1000000']
+                ])->get();
+            } else if($data['price_search'] == 2) {
+                $search = Order::where([
+                    ['status_order', $data->select_status_order],
+                    ['status_payment', $data->select_status_payments],
+                    ['total_price','>=','1000000'],
+                    ['total_price','<=','10000000']
+                ])->get();
+            } else if($data['price_search'] == 3) {
+                $search = Order::where([
+                    ['status_order', $data->select_status_order],
+                    ['status_payment', $data->select_status_payments],
+                    ['total_price','>=','1000000'],
+                    ['total_price','<=','50000000']
+                ])->get();
+            } else if($data['price_search'] == 4) {
+                $search = Order::where([
+                    ['status_order', $data->select_status_order],
+                    ['status_payment', $data->select_status_payments],
+                    ['total_price','>=','1000000'],
+                    ['total_price','<=','100000000']
+                ])->get();
+            } else if($data['price_search'] == 5) {
+                $search = Order::where([
+                    ['status_order', $data->select_status_order],
+                    ['status_payment', $data->select_status_payments],
+                    ['total_price','>=','1000000'],
+                    ['total_price','<=','200000000']
+                ])->get();
+            } 
+        }
+        return view('admin.order.search', compact('search','pageName','name_search'));
+    }
 }
