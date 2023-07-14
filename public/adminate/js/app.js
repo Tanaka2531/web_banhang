@@ -227,6 +227,24 @@ $(document).on('change', '#status_blog_ajax', function() {
     });
 });
 
+$(document).on('change', '#status_member', function() {
+    var id_status = $(this).val();
+    var id_member = $(this).data('id');
+
+    $.ajax({
+        type: 'GET',
+        url: "ajax_loadstatusmember",
+        data: {
+            id_status: id_status,
+            id_member: id_member
+        },
+    }).done(function(respose) {
+        if (respose != null) {
+            Swal.fire('Cập nhật trạng thái thành công !', '', 'success')
+        }
+    });
+});
+
 $(document).on('click', '.btn_dlt_gallery', function() {
     var id_photo = $(this).data('id');
 

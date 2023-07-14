@@ -68,11 +68,6 @@
                                     </span>
                                 </a>
                                 <a class="delete_main" data-id="{{ $v['id'] }}" data-type="categories"><span><ion-icon name="trash-outline"></ion-icon></span></a>
-                                <a href="">
-                                    <span>
-                                        <ion-icon name="eye-outline"></ion-icon>
-                                    </span>
-                                </a>
                             </div>
                         </td>
                     <tr>

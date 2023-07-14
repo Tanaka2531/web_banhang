@@ -30,7 +30,7 @@
                                     <span>{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="box_input">
+                            <div class="box_input {{ ($update != NULL) ? 'd-none':''; }}">
                                 <label for="title">Mật khẩu</label>
                                 <input type="text" class="form-control" name="password" id="password" placeholder="Mật khẩu" value="">
                                 @error('password')

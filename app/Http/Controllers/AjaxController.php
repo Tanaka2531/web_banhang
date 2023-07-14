@@ -10,6 +10,7 @@ use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\category_member;
+use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -95,6 +96,14 @@ class AjaxController extends Controller
         return $product;
     }
 
+    public function ajax_loadStatusMember(Request $data) {
+        $product = Member::find($data['id_member']);
+        $product->status = $data['id_status'];
+        $product->save();
+        return $product;
+    }
+
+    
     public function ajax_SearchOrder(Request $data) {
         $order = Order::where('status_order',$data['id_status_order'])
         ->join('blogs','orders.payments','=','blogs.id')

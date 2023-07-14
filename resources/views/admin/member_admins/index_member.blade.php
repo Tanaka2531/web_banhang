@@ -41,14 +41,14 @@
                         </td>
                         <td>{{ $v['fullname'] }}</td>
                         <td class="text-center txt_green">{{ ($v['role'] == 1)? 'admin':'' }}</td>
-                        <td class="text-center">
-                            <select class="form-select" aria-label="Default select example" name="status_ajax_member" id="status_ajax_member">            
+                        <td class="text-center" style="width: 200px;">
+                            <select class="form-select" aria-label="Default select example" name="status_member" id="status_member" data-id="{{ $v['id'] }}">            
                                 @if($v['status'] == 1)
-                                    <option value="3">Chọn trạng thái</option>
+                                    <option value="0">Chọn trạng thái</option>
                                     <option selected value="1">Hoạt động</option>
                                     <option value="2">Không hoạt động</option>
                                 @elseif($v['status'] == 2)
-                                    <option value="3">Chọn trạng thái</option>
+                                    <option value="0">Chọn trạng thái</option>
                                     <option value="1">Hoạt động</option>
                                     <option selected value="2">Không hoạt động</option>
                                 @else
@@ -62,7 +62,6 @@
                             <div class="flex_options">
                                 <a href="{{ route('loadupdatemember_admins',['id' => $v['id']]) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
                                 <a class="delete_main" data-id="{{ $v['id'] }}" data-type="member_admins"><span><ion-icon name="trash-outline"></ion-icon></span></a>
-                                <a href=""><span><ion-icon name="eye-outline"></ion-icon></span></a>
                             </div>
                         </td>
                     </tr>    

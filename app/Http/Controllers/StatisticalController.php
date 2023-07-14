@@ -12,12 +12,12 @@ use App\Models\category_member;
 class StatisticalController extends Controller
 {
     public function index() {
-        $pageName = 'Quản lý Thống kê';
+        $pageName = 'Quản lý xuất file';
         return view('admin.statistical.index', compact('pageName'));
     }
 
     public function loadStatistical($type) {
-        $pageName = 'Quản lý Thống kê';
+        $pageName = 'Quản lý xuất file';
         if($type == 'products') {
             $filename = rand(111111, 999999);
             return Excel::download(new ProductExport, 'products_'.$filename.'.xlsx');
@@ -27,7 +27,7 @@ class StatisticalController extends Controller
     }
 
     public function loadStatisticalCate($type) {
-        $pageName = 'Quản lý Thống kê';
+        $pageName = 'Quản lý xuất file';
         if($type == 'products') {
             $type_page = $type;
             $categoty = Category::get()->sortBy('id');

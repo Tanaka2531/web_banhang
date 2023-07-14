@@ -1,7 +1,7 @@
 @extends('admin.index')
 @section('body')
     <div class="box_form">
-        <form action="{{ ($update != NULL) ? route('handleupdatemember_admins',['id' => $update['id']]) : route('handleaddmember_admins') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('handleupdatemember_client',['id' => $update['id']]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="box_btn_main">
                 @if($update != NULL)
@@ -30,18 +30,24 @@
                                     <span>{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="box_input">
+                            <div class="box_input {{ ($update != NULL)?'d-none':''; }}">
                                 <label for="title">Mật khẩu</label>
                                 <input type="text" class="form-control" name="password" id="password" placeholder="Mật khẩu" value="">
                                 @error('password')
                                     <span>{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="item_box_list d-none">
+                            <div class="item_box_list">
                                 <label for="supplier">Loại tài khoản</label>
                                 <select class="form-select" name="cate_member" aria-label="Default select example">
-                                    <option selected value="2">Chọn loại tài khoản</option>
+                                    <option selected value="">Chọn loại tài khoản</option>
+                                    @foreach($cate_mem as $k => $v)
+                                        <option {{ ($v['id'] == $cate_mem_up['id']) ? 'selected':''; }} value="<?= $v['id'] ?>"><?= $v['name_role'] ?></option>
+                                    @endforeach
                                 </select>
+                                @error('cate_member')
+                                    <span class="message_red">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="box_input">
                                 <label for="title">Địa chỉ</label>

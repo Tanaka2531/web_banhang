@@ -14,8 +14,8 @@ class MemberController extends Controller
 {
     public function index() {
        $member_admins = Member::where([
-            ['role','==', '1'],
-            ['id_cate_member', '==', '1']
+            ['role', '1'],
+            ['id_cate_member', '1']
        ])->get();  
        $pageName = 'Quản lý tài khoản admin';
        return view('admin.member_admins.index_member', compact('member_admins','pageName'));
@@ -66,7 +66,7 @@ class MemberController extends Controller
     public function loadUpdateMember_admins($id)
     {
         $pageName = 'Chỉnh sửa tài khoản admin';
-        $cate_mem = category_member::where('status', '0')->get();
+        $cate_mem = category_member::where('status_role', '0')->get();
         $update = Member::find($id);
         
         if ($update == null) {
@@ -163,7 +163,12 @@ class MemberController extends Controller
     {
         $dlt = Member::find($id);
         if ($dlt == null || $dlt->deleted_at != NULL) {
-            return view('member_admins');
+            $member_admins = Member::where([
+                ['role', '1'],
+                ['id_cate_member', '1']
+           ])->get();  
+           $pageName = 'Quản lý tài khoản admin';
+           return view('admin.member_admins.index_member', compact('member_admins','pageName'));
         } else {
             if($dlt['photo'] != NULL) {
                 $removeFile = public_path('upload/member_admins/'.$dlt['photo']);
@@ -172,8 +177,6 @@ class MemberController extends Controller
                 }
             }
             $dlt->delete();
-            $dlt_tras = Member::withTrashed()->where('id', $id);
-            $dlt_tras->forceDelete();
             return redirect()->route('member_admins');
         }
     }
