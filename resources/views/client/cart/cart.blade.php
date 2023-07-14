@@ -53,7 +53,8 @@
                                                         <ion-icon name="remove-outline"></ion-icon>
                                                     </span>
                                                     <input type="number" value="{{ $details['quantity'] }}"
-                                                        class="hidden-spin" readonly />
+                                                        class="hidden-spin" data-max="{{ $details['inventory'] }}"
+                                                        readonly />
                                                     <span
                                                         class="cart__item-quantity-plus --plus cart__item-quantity-button">
                                                         <ion-icon name="add-outline"></ion-icon>
@@ -77,7 +78,9 @@
                             @csrf
                             <div class="cart__info-item">
                                 <label for="payment_method" class="cart__info-item-label">Hình thức thanh toán</label>
-                                <select name="payment_method" id="payment_method" class="cart__info-selection" required>
+                                <select name="payment_method" id="payment_method" class="cart__info-selection"
+                                    oninvalid="this.setCustomValidity('Vui lòng chọn hình thức thanh toán')"
+                                    oninput="setCustomValidity('')" title="Vui lòng chọn hình thức thanh toán" required>
                                     <option value="">Chọn hình thức thanh toán</option>
                                     @foreach ($payments as $payment)
                                         <option value="{{ $payment->id }}">{{ $payment->name }}</option>

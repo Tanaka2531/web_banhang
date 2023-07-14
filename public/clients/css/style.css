@@ -383,6 +383,16 @@
 
 /* Product */
 
+.product .page-link {
+    color: var(--color-black);
+    box-shadow: none !important;
+}
+
+.product .page-item.active .page-link {
+    border-color: var(--color-red);
+    background: var(--color-red);
+}
+
 .product__list.flex-list {
     --columns: 5;
     --space-horizontal: 10px;
@@ -855,7 +865,7 @@
 }
 
 .news__item-inner {
-    display: flex;
+    display: flex !important;
     gap: 0.25rem 0.75rem;
 }
 

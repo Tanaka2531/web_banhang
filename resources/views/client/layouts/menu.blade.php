@@ -28,7 +28,7 @@ use App\Http\Controllers\Clients\IndexController;
                     @endforeach
                 @endif
                 <li>
-                    <a href="" title="Tin tức">
+                    <a href="{{ route('newsListPage') }}" title="Tin tức">
                         <span>Tin tức</span>
                     </a>
                 </li>

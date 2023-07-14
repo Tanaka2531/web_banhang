@@ -1,5 +1,5 @@
 <div class="news__item">
-    <a class="news__item-inner" href="">
+    <a class="news__item-inner" href="{{ route('newsDetailPage',$item->id) }}">
         <div class="news__photo">
             <figure class="news__photo-inner hvr-scale-img">
                 <img src="{{ asset('upload/blogs/' . $item->photo) }}" alt="{{ $item->name }}">

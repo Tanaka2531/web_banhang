@@ -55,7 +55,7 @@ use App\Http\Controllers\Clients\IndexController;
                         </div>
                         <div class="header__info-content">
                             @if (Auth::guard('client')->user())
-                            <a>Xin chào {{ Auth::guard('client')->user()->fullname }}</a>
+                            <a href="{{ route('clientInfo') }}">Xin chào {{ Auth::guard('client')->user()->fullname }}</a>
                             <a class="header__account-logout --color-red d-block" href="{{ route('handleClientLogout') }}" title="Đăng xuất">Đăng xuất</a>
                             @else
                             <a class="header__account-sign-in --color-red d-block" href="{{ route('clientLogin') }}" title="Đăng nhập">Đăng nhập</a>

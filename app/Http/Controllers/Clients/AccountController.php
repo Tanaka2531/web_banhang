@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Clients;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Clients\AccountRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Member;
 use App\Models\category_member;
@@ -27,7 +28,7 @@ class AccountController extends Controller
             return redirect()
                 ->back()
                 ->withInput()
-                ->with('status', 'Email hoặc Password không chính xác');
+                ->with('status', 'Tên đăng nhập hoặc Mật khẩu không chính xác');
         }
     }
 
@@ -36,7 +37,7 @@ class AccountController extends Controller
         return view('client.account.register');
     }
 
-    public function handleRegister(Request $request)
+    public function handleRegister(AccountRequest $request)
     {
         $account = new Member();
         $account->id_cate_member = 2;
@@ -49,25 +50,49 @@ class AccountController extends Controller
         $account->role = 2;
         $account->save();
 
-        return route('clientIndex');
+        return redirect()->route('clientLogin');
     }
 
     public function handleLogout(Request $request): RedirectResponse
     {
-        // if (Auth::guard('client')->check()) {
-        // dd(Auth::guard('client')->name);
-        // dd(Auth::id());
-        // dd(Auth::guard('client'));
-        // $request
-        //     ->session()->invalidate();
-        // $request
-        //     ->session()->regenerateToken();
-        Auth::logout();
+        if (Auth::guard('client')->check()) {
+            Auth::guard('client')->logout();
+            return redirect()->route('clientIndex');
+        }
+
+        $this->guard()->logout();
         $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        // Auth::guard('client')->logout();
-        // return redirect()->route('clientIndex');
-        // }
-        return redirect('/');
+
+        return $this->loggedOut($request) ?: redirect('/');
+    }
+
+    public function clientInfo()
+    {
+        $pageName = 'Thông tin cá nhân';
+        $id = Auth::guard('client')->id();
+        $clientInfo = Member::where('id', $id)->first();
+        $nowDate = date('Y-m-d');
+        return view('client.account.info', compact('pageName', 'clientInfo', 'nowDate'));
+    }
+
+    public function handleUpdate(Request $request)
+    {
+        $id = Auth::guard('client')->id();
+
+        $account = Member::find($id);
+        $account->fullname = $request->fullname;
+        if (!$request->username)
+            $account->username = $account->username;
+        if ($request->password)
+            $account->password = Hash::make($request->password);
+        else
+            $account->password = $account->password;
+        $account->phone = $request->phone;
+        $account->email = $request->email;
+        $account->address = $request->address;
+        $account->birthday = $request->birthday;
+        $account->save();
+
+        return redirect()->route('clientInfo')->with(session()->flash('success', 'Đã cập nhật thông tin thành công!'));
     }
 }

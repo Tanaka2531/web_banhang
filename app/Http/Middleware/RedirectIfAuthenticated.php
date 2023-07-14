@@ -26,6 +26,6 @@ class RedirectIfAuthenticated
                 return redirect()->route('clientIndex');
             }
         } else
-            return redirect('/');
+            return redirect()->route('notification');
     }
 }

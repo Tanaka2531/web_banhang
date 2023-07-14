@@ -62,6 +62,10 @@ ion-icon {
     overflow: hidden;
 }
 
+.ckeditor p {
+    margin-bottom: 1rem;
+}
+
 
 /* Flex Item */
 

@@ -16,6 +16,7 @@ use App\Models\Size;
 use App\Models\Categories_level_two;
 use App\Models\Size_Color_Photo;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 
 class IndexController extends Controller
 {
@@ -41,8 +42,7 @@ class IndexController extends Controller
         $pageName = $name_list;
         $products = Product::where('id_cate', $id_list)
             ->where('status', '1')
-            ->get()
-            ->sortBy('id');
+            ->paginate(20);
 
         if (count($products)) {
             $products = $products;
@@ -54,7 +54,7 @@ class IndexController extends Controller
         $cate_two = Categories_level_two::get()->sortBy('id');
         $brand = Brand::get()->sortBy('id');
         $cap_2 = 1;
-        return view('client.product.index', compact('pageName', 'products', 'cate', 'brand', 'cap_2','cate_two'));
+        return view('client.product.index', compact('pageName', 'products', 'cate', 'brand', 'cap_2', 'cate_two'));
     }
 
     public function categoryCatPage($name_list, $id_list, $name_cat, $id_cat)
@@ -63,8 +63,7 @@ class IndexController extends Controller
         $products = Product::where('id_cate', $id_list)
             ->where('id_cate_two', $id_cat)
             ->where('status', '1')
-            ->get()
-            ->sortBy('id');
+            ->paginate(20);
 
         if (count($products)) {
             $products = $products;
@@ -73,7 +72,7 @@ class IndexController extends Controller
         }
         $cap_2 = 2;
 
-        return view('client.product.index', compact('pageName', 'products','cap_2'));
+        return view('client.product.index', compact('pageName', 'products', 'cap_2'));
     }
 
     public static function logo()
@@ -161,14 +160,22 @@ class IndexController extends Controller
         }
     }
 
-    public function searchIndex(Request $data) {
+    public function searchIndex(Request $data)
+    {
         $pageName = 'Tìm kiếm sản phẩm';
         $search = Product::where('name', 'LIKE', '%' . $data->key_search_index . '%')->get();
-        return view('client.product.search', compact('search', 'pageName'));
+
+        if (count($search)) {
+            return view('client.product.search', compact('search', 'pageName'));
+        } else {
+            $search = false;
+            return view('client.product.search', compact('search', 'pageName'));
+        }
     }
 
-    public function searchCateAjax(Request $data) {
-        if($data['id_cate'] == 0) {
+    public function searchCateAjax(Request $data)
+    {
+        if ($data['id_cate'] == 0) {
             $products = Product::get()->sortBy('id');
         } else {
             $products = Product::where('id_cate', $data['id_cate'])->get();
@@ -177,8 +184,9 @@ class IndexController extends Controller
         return $html;
     }
 
-    public function searchCateTwoAjax(Request $data) {
-        if($data['id_cate'] == 0) {
+    public function searchCateTwoAjax(Request $data)
+    {
+        if ($data['id_cate'] == 0) {
             $products = Product::get()->sortBy('id');
         } else {
             $products = Product::where('id_cate_two', $data['id_cate'])->get();
@@ -187,8 +195,9 @@ class IndexController extends Controller
         return $html;
     }
 
-    public function searchBrand(Request $data) {
-        if($data['id_brand'] == 0) {
+    public function searchBrand(Request $data)
+    {
+        if ($data['id_brand'] == 0) {
             $products = Product::get()->sortBy('id');
         } else {
             $products = Product::where('id_brand', $data['id_brand'])->get();
@@ -197,41 +206,41 @@ class IndexController extends Controller
         return $html;
     }
 
-    public function searchPrice(Request $data) {
-        if($data['id_price'] == 0) {
+    public function searchPrice(Request $data)
+    {
+        if ($data['id_price'] == 0) {
             $products = Product::get()->sortBy('id');
-        } else if($data['id_price'] == 1) {
+        } else if ($data['id_price'] == 1) {
             $products = Product::where([
-                ['price_from','>=', '0'],
-                ['price_from','<=','1000000']
+                ['price_from', '>=', '0'],
+                ['price_from', '<=', '1000000']
             ])->get();
-        } else if($data['id_price'] == 2) {
+        } else if ($data['id_price'] == 2) {
             $products = Product::where([
-                ['price_from','>=','1000000'],
-                ['price_from','<=','10000000']
+                ['price_from', '>=', '1000000'],
+                ['price_from', '<=', '10000000']
             ])->get();
-        } else if($data['id_price'] == 3) {
+        } else if ($data['id_price'] == 3) {
             $products = Product::where([
-                ['price_from','>=','10000000'],
-                ['price_from','<=','15000000']
+                ['price_from', '>=', '10000000'],
+                ['price_from', '<=', '15000000']
             ])->get();
-        } else if($data['id_price'] == 4) {
+        } else if ($data['id_price'] == 4) {
             $products = Product::where([
-                ['price_from','>=','15000000'],
-                ['price_from','<=','20000000']
+                ['price_from', '>=', '15000000'],
+                ['price_from', '<=', '20000000']
             ])->get();
-        } else if($data['id_price'] == 5) {
+        } else if ($data['id_price'] == 5) {
             $products = Product::where([
-                ['price_from','>=','20000000'],
-                ['price_from','<=','25000000']
+                ['price_from', '>=', '20000000'],
+                ['price_from', '<=', '25000000']
             ])->get();
-        } else if($data['id_price'] == 6) {
+        } else if ($data['id_price'] == 6) {
             $products = Product::where([
-                ['price_from','>=','25000000']
+                ['price_from', '>=', '25000000']
             ])->get();
         }
         $html = view('client.product.return', compact('products'))->render();
         return $html;
     }
-
 }
