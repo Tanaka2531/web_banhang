@@ -29,7 +29,7 @@
                         </td>
                         <td class="text-center">{{ ($k + 1) }}</td>
                         <td class="text-center">
-                            <a href="{{ route('loadupdatemember_admins',['id' => $v['id']]) }}">
+                            <a href="{{ route('loadupdatemember_client',['id' => $v['id']]) }}">
                                 @if($v['photo'] != NULL) 
                                     <img class="img_main" src="{{ asset('upload/member_admins/'.$v['photo']) }}" width="100" height="100" alt="">
                                 @else
@@ -40,7 +40,7 @@
                         <td>{{ $v['fullname'] }}</td>
                         <td class="text-center txt_green">{{ ($v['role'] == 1)? 'admin':'thành viên' }}</td>
                         <td class="text-center" style="width: 200px;">
-                            <select class="form-select" aria-label="Default select example" name="status_member">            
+                            <select class="form-select" aria-label="Default select example" name="status_member" id="status_member" data-id="{{ $v['id'] }}">            
                                 @if($v['status'] == 1)
                                     <option value="0">Chọn trạng thái</option>
                                     <option selected value="1">Hoạt động</option>
@@ -58,8 +58,8 @@
                         </td>
                         <td class="text-center">
                             <div class="flex_options">
-                                <a href="{{ route('loadupdatemember_admins',['id' => $v['id']]) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
-                                <a class="delete_main" data-id="{{ $v['id'] }}" data-type="member_admins"><span><ion-icon name="trash-outline"></ion-icon></span></a>
+                                <a href="{{ route('loadupdatemember_client',['id' => $v['id']]) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
+                                <a class="delete_main" data-id="{{ $v['id'] }}" data-type="member_client"><span><ion-icon name="trash-outline"></ion-icon></span></a>
                             </div>
                         </td>
                     </tr>    

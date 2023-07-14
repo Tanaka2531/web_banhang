@@ -40,7 +40,6 @@
                             <div class="flex_options">
                                 <a href="{{ route('loadupdatphoto',['id' => $v['id'],'type' => $type_man, 'cate' => 'man']) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
                                 <a class="delete_main" data-id="{{ $v['id'] }}" data-type_man="{{ $type_man }}" data-cate="man" data-type="photo"><span><ion-icon name="trash-outline"></ion-icon></span></a>
-                                <a href=""><span><ion-icon name="eye-outline"></ion-icon></span></a>
                             </div>
                         </td>
                     </tr>    

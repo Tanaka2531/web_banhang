@@ -36,7 +36,7 @@
                             <div class="flex_options">
                                 <a href="{{ route('loadupdatesizes',['id' => $v['id']]) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
                                 <a href="{{ route('deletesizes',['id' => $v['id']]) }}"><span><ion-icon name="trash-outline"></ion-icon></span></a>
-                                <a href=""><span><ion-icon name="eye-outline"></ion-icon></span></a>
+                            
                             </div>
                         </td>
                     </tr>

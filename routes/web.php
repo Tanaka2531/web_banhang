@@ -70,6 +70,8 @@ Route::prefix('/admin')->group(function () {
     Route::group(['middleware' => ['checkauth:admin']], function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/admin/logout', [LoginController::class, 'handleLoout'])->name('handlelogout');
+        Route::get('/change_passwork_admin', [LoginController::class,'change_Passwork_Admin'])->name('change_passwork_admin');
+        Route::post('/change_passwork_admin', [LoginController::class,'handle_Change_Passwork_Admin'])->name('handle_change_passwork_admin');
 
         Route::get('ajax_loadcate', [AjaxController::class, 'ajax_loadCate'])->name('ajax_loadcate');
         Route::get('ajax_loadproduct', [AjaxController::class, 'ajax_loadProduct'])->name('ajax_loadproduct');
@@ -82,6 +84,7 @@ Route::prefix('/admin')->group(function () {
         Route::get('ajax_loadstatusbrand', [AjaxController::class, 'ajax_loadStatusBrand'])->name('ajax_loadstatusbrand');
         Route::get('ajax_loadstatuscateone', [AjaxController::class, 'ajax_loadStatusCateOne'])->name('ajax_loadstatuscateone');
         Route::get('ajax_loadstatuscatemember', [AjaxController::class, 'ajax_loadStatusCateMember'])->name('ajax_loadstatuscatemember');
+        Route::get('ajax_loadstatusmember', [AjaxController::class, 'ajax_loadStatusMember'])->name('ajax_loadstatusmember');
 
         Route::controller(ProductController::class)->group(function () {
             Route::prefix('/products')->group(function () {
@@ -164,8 +167,6 @@ Route::prefix('/admin')->group(function () {
         Route::controller(MemberClientController::class)->group(function () {
             Route::prefix('/member_client')->group(function () {
                 Route::get('/', 'index')->name('member_client');
-                Route::get('add', 'loadAddMember_client')->name('loadaddmember_client');
-                Route::post('add', 'handleAddMember_client')->name('handleaddmember_client');
                 Route::get('update/{id}', 'loadUpdateMember_client')->name('loadupdatemember_client');
                 Route::post('update/{id}', 'handleUpdateMember_client')->name('handleupdatemember_client');
                 Route::get('delete/{id}', 'deleteMember_client')->name('deletemember_client');

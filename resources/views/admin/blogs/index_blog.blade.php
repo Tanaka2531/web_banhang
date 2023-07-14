@@ -66,7 +66,6 @@
                         <div class="flex_options">
                             <a href="{{ route('loadupdateblogs',['id' => $v['id'],'type' => $type_page]) }}"><span><ion-icon name="create-outline"></ion-icon></span></a>
                             <a class="delete_main" data-id="{{ $v['id'] }}" data-type="blogs" data-type_blogs="{{ $type_page }}"><span><ion-icon name="trash-outline"></ion-icon></span></a>
-                            <a class="alert_123"><span><ion-icon name="eye-outline"></ion-icon></span></a>
                         </div>
                     </td>
                 </tr>
