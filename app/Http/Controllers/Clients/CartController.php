@@ -18,11 +18,12 @@ class CartController extends Controller
 {
     public function cart()
     {
+        $pageName = "Giỏ hàng";
         $code = Str::random(8);
         $payments = Blog::where('type', 'payments')
             ->where('status', '1')
             ->get();
-        return view('client.cart.cart', compact('code', 'payments'));
+        return view('client.cart.cart', compact('pageName', 'code', 'payments'));
     }
 
     public function addToCart(Request $request)
@@ -101,8 +102,6 @@ class CartController extends Controller
         $orderInfo->status_payment = 'Chưa thanh toán';
         $orderInfo->save();
 
-        // dd(session('cart'));
-
         foreach (session('cart') as $id => $details) {
             $orderDetail = new Order_Detail;
             // $product = Product::find($details['id_product']);
@@ -126,6 +125,21 @@ class CartController extends Controller
 
         session()->forget('cart');
 
-        return redirect('/');
+        return redirect()->route('orderInfo', $orderInfo->id);
+    }
+
+    public function orderInfo($id)
+    {
+        $pageName = "Thông tin đơn hàng của bạn";
+        $orderInfo = Order::where('id', $id)
+            ->first();
+        $orderDetail = Order_Detail::where('id_order', $id)
+            ->get();
+        $payment = Blog::where('type', 'payments')
+            ->where('id', $orderInfo->payments)
+            ->first();
+
+
+        return view('client.cart.index', compact('pageName', 'orderInfo', 'orderDetail', 'payment'));
     }
 }

@@ -23,23 +23,28 @@ use App\Http\Controllers\OrderController;
                                     </div>
                                     <div class="item_info">
                                         <div class="title_info">Tên khách hàng</div>
-                                        <input type="text" class="form-control" name="name" id="name" value="{{  $orderInfo->name }}">
+                                        <input type="text" class="form-control" name="name" id="name"
+                                            value="{{ $orderInfo->name }}">
                                     </div>
                                     <div class="item_info">
                                         <div class="title_info">Số điện thoại</div>
-                                        <input type="number" class="form-control" name="phone" id="phone" value="{{ $orderInfo->phone }}">
+                                        <input type="number" class="form-control" name="phone" id="phone"
+                                            value="{{ $orderInfo->phone }}">
                                     </div>
                                     <div class="item_info">
                                         <div class="title_info">Email</div>
-                                        <input type="email" class="form-control" name="email" id="email" value="{{  $orderInfo->email }}">
+                                        <input type="email" class="form-control" name="email" id="email"
+                                            value="{{ $orderInfo->email }}">
                                     </div>
                                     <div class="item_info">
                                         <div class="title_info">Địa chỉ giao hàng</div>
-                                        <input type="text" class="form-control" name="address" id="address" value="{{  $orderInfo->address }}">
+                                        <input type="text" class="form-control" name="address" id="address"
+                                            value="{{ $orderInfo->address }}">
                                     </div>
                                     <div class="item_info">
                                         <div class="title_info">Ghi chú</div>
-                                        <input type="text" class="form-control" name="note" id="note" value="{{  $orderInfo->note }}">
+                                        <input type="text" class="form-control" name="note" id="note"
+                                            value="{{ $orderInfo->note }}">
                                     </div>
                                     <div class="item_info">
                                         <div class="title_info">Hình thức thanh toán</div>
@@ -49,40 +54,49 @@ use App\Http\Controllers\OrderController;
                                     </div>
                                     <div class="item_info">
                                         <div class="title_info">Trạng thái đơn hàng</div>
-                                        <select class="form-select" aria-label="Default select example" name="status_order">
-                                            <option value="0">Chọn trạng thái</option>
-                                            <option value="Chờ xác nhận"
-                                                {{ $orderInfo->status_order == 'Chờ xác nhận' ? 'selected' : null }}>
-                                                Chờ xác nhận</option>
-                                            <option value="Đã xác nhận"
-                                                {{ $orderInfo->status_order == 'Đã xác nhận' ? 'selected' : null }}>
-                                                Đã xác nhận</option>
-                                            <option value="Chờ vận chuyển"
-                                                {{ $orderInfo->status_order == 'Chờ vận chuyển' ? 'selected' : null }}>
-                                                Chờ vận chuyển</option>
-                                            <option value="Đã vận chuyển"
-                                                {{ $orderInfo->status_order == 'Đã vận chuyển' ? 'selected' : null }}>
-                                                Đã vận chuyển</option>
-                                            <option value="Đã giao"
-                                                {{ $orderInfo->status_order == 'Đã giao' ? 'selected' : null }}>
-                                                Đã giao</option>
-                                            <option value="Đã hủy"
-                                                {{ $orderInfo->status_order == 'Đã hủy' ? 'selected' : null }}>
-                                                Đã hủy</option>
-                                        </select>
+                                        @if ($orderInfo->status_order != 'Đã hủy')
+                                            <select class="form-select" aria-label="Default select example"
+                                                name="status_order">
+                                                <option value="0">Chọn trạng thái</option>
+                                                <option value="Chờ xác nhận"
+                                                    {{ $orderInfo->status_order == 'Chờ xác nhận' ? 'selected' : null }}>
+                                                    Chờ xác nhận</option>
+                                                <option value="Đã xác nhận"
+                                                    {{ $orderInfo->status_order == 'Đã xác nhận' ? 'selected' : null }}>
+                                                    Đã xác nhận</option>
+                                                <option value="Chờ vận chuyển"
+                                                    {{ $orderInfo->status_order == 'Chờ vận chuyển' ? 'selected' : null }}>
+                                                    Chờ vận chuyển</option>
+                                                <option value="Đã vận chuyển"
+                                                    {{ $orderInfo->status_order == 'Đã vận chuyển' ? 'selected' : null }}>
+                                                    Đã vận chuyển</option>
+                                                <option value="Đã giao"
+                                                    {{ $orderInfo->status_order == 'Đã giao' ? 'selected' : null }}>
+                                                    Đã giao</option>
+                                                <option value="Đã hủy"
+                                                    {{ $orderInfo->status_order == 'Đã hủy' ? 'selected' : null }}>
+                                                    Đã hủy</option>
+                                            </select>
+                                        @else
+                                            <div class="content_info">{{ $orderInfo->status_order }}</div>
+                                        @endif
                                     </div>
                                     <div class="item_info">
                                         <div class="title_info">Trạng thái thanh toán</div>
-                                        <select class="form-select" aria-label="Default select example"
-                                            name="status_payment">
-                                            <option value="0">Chọn trạng thái</option>
-                                            <option value="Chưa thanh toán"
-                                                {{ $orderInfo->status_payment == 'Chưa thanh toán' ? 'selected' : null }}>
-                                                Chưa thanh toán</option>
-                                            <option value="Đã thanh toán"
-                                                {{ $orderInfo->status_payment == 'Đã thanh toán' ? 'selected' : null }}>
-                                                Đã thanh toán</option>
-                                        </select>
+                                        @if ($orderInfo->status_payment != 'Đã thanh toán' && $orderInfo->status_order != 'Đã hủy')
+                                            <select class="form-select" aria-label="Default select example"
+                                                name="status_payment">
+                                                <option value="0">Chọn trạng thái</option>
+                                                <option value="Chưa thanh toán"
+                                                    {{ $orderInfo->status_payment == 'Chưa thanh toán' ? 'selected' : null }}>
+                                                    Chưa thanh toán</option>
+                                                <option value="Đã thanh toán"
+                                                    {{ $orderInfo->status_payment == 'Đã thanh toán' ? 'selected' : null }}>
+                                                    Đã thanh toán</option>
+                                            </select>
+                                        @else
+                                            <div class="content_info">{{ $orderInfo->status_payment }}</div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

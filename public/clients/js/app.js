@@ -146,7 +146,7 @@ function AlertBoxHandMade(title = '', bgClr = '#ec2d3f') {
  */
 Number.prototype.format = function(currency, n, x) {
     var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
-    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,') + currency;
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&.') + currency;
 };
 
 function findProductPrice() {
@@ -287,9 +287,16 @@ function UpdateQuantity() {
             urlDelete = $(this).parents('.cart__item').find('.remove-from-cart').data('url'),
             idPrd = $(this).parents('.cart__item').data('id'),
             quantity = parseInt($(this).parents('.cart__item-quantity').find('input').val()),
+            quantityMax = parseInt($(this).parents('.cart__item-quantity').find('input').data('max')),
             action;
 
-        if ($(this).hasClass('--plus')) quantity += 1;
+        if ($(this).hasClass('--plus'))
+            if (quantity < quantityMax) {
+                quantity += 1;
+            } else {
+                AlertBoxHandMade('Đã tối đa số lượng sản phẩm!');
+                return false;
+            }
         else quantity -= 1;
 
         if (quantity >= 1) action = 'update';
@@ -334,93 +341,125 @@ function DeleteCartDetail() {
         DeleteCart(url, idPrd);
     })
 }
+
 function Ajax_cate_search() {
-    $(document).on('change','#cate_search_index',function() {
-        var id_cate  = $(this).val();
-        var page  = $(this).data('page');
-        
+    $(document).on('change', '#cate_search_index', function() {
+        var id_cate = $(this).val();
+        var page = $(this).data('page');
+
         $.ajax({
             type: 'GET',
             url: "../../../ajax_search_cate",
             data: {
                 id_cate: id_cate,
-                page:page
+                page: page
             },
-            success: function (data) {
-                if(data != '') {
+            success: function(data) {
+                if (data != '') {
                     $('.product__list').html(data);
                 } else {
                     alert('Không có sản phẩm cần tìm');
                 }
-                
+
             },
         });
     });
 
-    $(document).on('change','#cate_two_search_index',function() {
-        var id_cate  = $(this).val();
-        var page  = $(this).data('page');
-        
+    $(document).on('change', '#cate_two_search_index', function() {
+        var id_cate = $(this).val();
+        var page = $(this).data('page');
+
         $.ajax({
             type: 'GET',
             url: "../../../ajax_search_cate_two",
             data: {
                 id_cate: id_cate,
-                page:page
+                page: page
             },
-            success: function (data) {
-                if(data != '') {
+            success: function(data) {
+                if (data != '') {
                     $('.product__list').html(data);
                 } else {
                     alert('Không có sản phẩm cần tìm');
                 }
-                
+
             },
         });
     });
 
-    $(document).on('change','#brand_search_index',function() {
-        var id_brand  = $(this).val();
-        var page  = $(this).data('page');
-        
+    $(document).on('change', '#brand_search_index', function() {
+        var id_brand = $(this).val();
+        var page = $(this).data('page');
+
         $.ajax({
             type: 'GET',
             url: "../../../ajax_search_brand",
             data: {
                 id_brand: id_brand,
-                page:page
+                page: page
             },
-            success: function (data) {
-                if(data != '') {
+            success: function(data) {
+                if (data != '') {
                     $('.product__list').html(data);
                 } else {
                     alert('Không có sản phẩm cần tìm');
                 }
-                
+
             },
         });
     });
 
-    $(document).on('change','#price_search_index',function() {
-        var id_price  = $(this).val();
-        
+    $(document).on('change', '#price_search_index', function() {
+        var id_price = $(this).val();
+
         $.ajax({
             type: 'GET',
             url: "../../../ajax_search_price",
             data: {
                 id_price: id_price,
             },
-            success: function (data) {
-                if(data != '') {
+            success: function(data) {
+                if (data != '') {
                     $('.product__list').html(data);
                 } else {
                     alert('Không có sản phẩm cần tìm');
                 }
-                
+
             },
         });
     });
 }
+
+function CheckRegisterPassword() {
+    if (isExist($('.account'))) {
+        $('#register-button').click(function(event) {
+            var currentPass = $('#password').val(),
+                confirmPass = $('#comfirm-password').val(),
+                phone = $('#phone').val(),
+                _return = true;
+
+            $('.account-validate').empty();
+
+            if (isValidPhone(phone) === false && phone != '' && phone.length <= 11) {
+                $('#phone')
+                    .parents('.account__input-item')
+                    .find('.account-validate').text('Số điện thoại không đúng định dạng!');
+                _return = false;
+            }
+            if (currentPass !== confirmPass) {
+                $('#comfirm-password')
+                    .parents('.account__input-item')
+                    .find('.account-validate')
+                    .text('Mật khẩu xác nhận không chính xác!');
+                _return = false;
+            }
+            return _return;
+        })
+    }
+}
+
+const isValidPhone = phone => /(([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b/g.test(phone)
+
 $(function() {
     MenuScroll();
     SlideShow();
@@ -433,5 +472,6 @@ $(function() {
     UpdateQuantity();
     DeleteCartDetail();
     ChangeQuantity();
+    CheckRegisterPassword();
     Ajax_cate_search();
 });

@@ -6,7 +6,7 @@
         </div>
         <section class="product">
             <div class="wrap-content">
-                @if ($search != NULL)
+                @if ($search != false)
                     <div class="product__list flex-list">
                         @foreach ($search as $product)
                             @include('client.layouts.components.ProductItem')

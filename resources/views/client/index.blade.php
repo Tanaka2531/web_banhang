@@ -22,6 +22,7 @@
         </div>
     </div>
     @include('client.layouts.js')
+    @yield('script')
 </body>
 
 </html>

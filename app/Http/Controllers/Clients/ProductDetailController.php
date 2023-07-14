@@ -21,6 +21,7 @@ class ProductDetailController extends Controller
      */
     public function index($id)
     {
+        $pageName = 'Chi tiết sản phẩm';
         $clrProduct = Color_Product::where('id_product', $id)->get('id_color');
         $sizeProduct = Size_Product::where('id_product', $id)->get('id_size');
 
@@ -59,7 +60,7 @@ class ProductDetailController extends Controller
             $productDetail = false;
         }
 
-        return view('client.product.detail', compact('productDetail', 'clrName', 'sizeName', 'productPhotoChild', 'productBrand', 'productsRelated', 'criterias'));
+        return view('client.product.detail', compact('pageName', 'productDetail', 'clrName', 'sizeName', 'productPhotoChild', 'productBrand', 'productsRelated', 'criterias'));
     }
 
     public function loadPrice(Request $data)

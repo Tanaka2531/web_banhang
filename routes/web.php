@@ -18,16 +18,20 @@ use App\Http\Controllers\CategoriesLevelTwoController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StatisticalController;
+use App\Http\Controllers\SendMailController;
 
 // Clients
 use App\Http\Controllers\Clients\IndexController;
 use App\Http\Controllers\Clients\ProductDetailController;
 use App\Http\Controllers\Clients\CartController;
 use App\Http\Controllers\Clients\AccountController;
+use App\Http\Controllers\Clients\NewsController;
 
 Auth::routes();
 
 Route::prefix('/')->group(function () {
+    Route::get('mail-send', [SendMailController::class, 'index']);
+
     Route::controller(IndexController::class)->group(function () {
         Route::get('/', 'index')->name('clientIndex');
         Route::get('danh-muc/{name_list}/{id_list}', 'categoryListPage')->name('categoriesList');
@@ -44,12 +48,24 @@ Route::prefix('/')->group(function () {
         Route::get('load_price', 'loadPrice')->name('ajaxLoadPrice');
     });
 
+    Route::controller(NewsController::class)->group(function () {
+        Route::get('tin-tuc', 'index')->name('newsListPage');
+        Route::get('tin-tuc/{id}', 'detail')->name('newsDetailPage');
+    });
+
     Route::controller(CartController::class)->group(function () {
-        Route::get('gio-hang', 'cart')->name('cart');
+        Route::get('thong-bao', function () {
+            return view('client.cart.notification', ['pageName' => 'Thông báo']);
+        })->name('notification');
         Route::get('add-to-cart/{id}', 'addToCart')->name('add.to.cart');
         Route::patch('update-cart', 'update')->name('update.cart');
         Route::delete('remove-from-cart', 'remove')->name('remove.from.cart');
-        Route::post('thanh-toan/{code}', 'payment')->name('payment');
+
+        Route::group(['middleware' => ['guest']], function () {
+            Route::get('gio-hang', 'cart')->name('cart');
+            Route::post('thanh-toan/{code}', 'payment')->name('payment');
+            Route::get('thong-tin-don-hang/{id}', 'orderInfo')->name('orderInfo');
+        });
     });
 
     Route::controller(AccountController::class)->group(function () {
@@ -58,6 +74,9 @@ Route::prefix('/')->group(function () {
         Route::get('dang-ky', 'register')->name('clientRegister');
         Route::post('dang-ky', 'handleRegister')->name('handleClientRegister');
         Route::get('dang-xuat', 'handleLogout')->name('handleClientLogout');
+
+        Route::get('thong-tin-ca-nhan', 'clientInfo')->name('clientInfo');
+        Route::post('cap-nhat-thong-tin', 'handleUpdate')->name('handleClientUpdate');
     });
 });
 
@@ -70,8 +89,8 @@ Route::prefix('/admin')->group(function () {
     Route::group(['middleware' => ['checkauth:admin']], function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/admin/logout', [LoginController::class, 'handleLoout'])->name('handlelogout');
-        Route::get('/change_passwork_admin', [LoginController::class,'change_Passwork_Admin'])->name('change_passwork_admin');
-        Route::post('/change_passwork_admin', [LoginController::class,'handle_Change_Passwork_Admin'])->name('handle_change_passwork_admin');
+        Route::get('/change_passwork_admin', [LoginController::class, 'change_Passwork_Admin'])->name('change_passwork_admin');
+        Route::post('/change_passwork_admin', [LoginController::class, 'handle_Change_Passwork_Admin'])->name('handle_change_passwork_admin');
 
         Route::get('ajax_loadcate', [AjaxController::class, 'ajax_loadCate'])->name('ajax_loadcate');
         Route::get('ajax_loadproduct', [AjaxController::class, 'ajax_loadProduct'])->name('ajax_loadproduct');

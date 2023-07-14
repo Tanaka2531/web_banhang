@@ -6,19 +6,15 @@
                 <ion-icon name="arrow-back-outline"></ion-icon>
             </a>
             <div class="account__inner">
-                @if (session('status'))
-                    <ul>
-                        <li class="text-danger"> {{ session('status') }}</li>
-                    </ul>
-                @endif
                 <div class="account__title general__title">
                     <h2>Đăng nhập</h2>
                 </div>
                 <form class="account__form" method="post" action="">
                     <div class="account__input-list">
                         <div class="account__input-item">
-                            <input class="account__input" id="username" name="username" type="text" value=""
-                                placeholder="username" oninvalid="this.setCustomValidity('Vui lòng điền vào trường này')"
+                            <input class="account__input" id="username" name="username" type="text"
+                                value="{{ old('username') }}" placeholder="username"
+                                oninvalid="this.setCustomValidity('Vui lòng điền vào trường này')"
                                 oninput="setCustomValidity('')" required>
                             <label class="account__label" for="username">Tên đăng nhập</label>
                         </div>
@@ -33,7 +29,11 @@
                                     <ion-icon name="eye-off-outline"></ion-icon>
                                 </i>
                             </div>
-                        </div>
+                        </div>                        
+                    </div>
+                    @if (session('status'))
+                            <span class="account-validate">{{ session('status') }}</span>
+                        @endif
                         <div class="account__button-item">
                             @csrf
                             <button type="submit" name="login" value="login" class="account__button">Đăng nhập</button>
@@ -44,7 +44,6 @@
                                 tại đây
                             </a>
                         </div>
-                    </div>
                 </form>
             </div>
         </section>

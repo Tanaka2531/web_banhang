@@ -21,28 +21,33 @@ class LoginController extends Controller
 
     public function handleLoout(Request $data): RedirectResponse
     {
-        Auth::logout();
+        if (Auth::guard('user')->check()) {
+            Auth::guard('user')->logout();
+            return redirect()->route('handlelogin');
+        }
+
+        $this->guard()->logout();
         $data->session()->invalidate();
-        $data->session()->regenerateToken();
-        return redirect()->route('handlelogin');
+
+        return $this->loggedOut($data) ?: redirect('/');
     }
 
-    public function change_Passwork_Admin() {
+    public function change_Passwork_Admin()
+    {
         $pageName = 'Đổi mật khẩu';
-        return view('admin.member_admins.change_pass',compact('pageName'));
+        return view('admin.member_admins.change_pass', compact('pageName'));
     }
 
-    public function handle_Change_Passwork_Admin(Request $data) {
-        
+    public function handle_Change_Passwork_Admin(Request $data)
+    {
+
         $update = Member::find(Auth::guard('user')->user()->id);
-        if($data->password_new == $data->comfirm_password) {
+        if ($data->password_new == $data->comfirm_password) {
             $update->password = Hash::make($data->password_new);
             $update->save();
-            return redirect()->route('dashboard')->with('noti','Đổi mật khẩu thành công !!!');
+            return redirect()->route('dashboard')->with('noti', 'Đổi mật khẩu thành công !!!');
         } else {
-            return redirect()->route('dashboard')->with('noti','Đổi mật khẩu thất bại !!!');
+            return redirect()->route('dashboard')->with('noti', 'Đổi mật khẩu thất bại !!!');
         }
-        
     }
-
 }
